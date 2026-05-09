@@ -13,8 +13,10 @@
   --cyan:#00e5ff;--pink:#ff006e;--purple:#8b5cf6;--green:#00e676;--orange:#ff9100;--yellow:#ffd600;
   --text:#e8e8f4;--text2:#7878a0;--text3:#4a4a68;
   --radius:10px;--item-size:100px;--pool-h:240px;
+  --tooltip-bg:rgba(14,14,28,.97);--tooltip-text:#e8e8f4;
+  --pool-fixed-bg:rgba(8,8,18,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.7),0 -1px 0 rgba(0,229,255,.18);
 }
-[data-theme="light"]{--bg:#f0f0f8;--bg2:#e4e4f4;--bg3:#d8d8ec;--bg4:#ccccdf;--panel:rgba(0,0,0,.04);--border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--text:#1a1a2e;--text2:#5a5a7a;--text3:#9a9ab8}
+[data-theme="light"]{--bg:#f0f0f8;--bg2:#e4e4f4;--bg3:#d8d8ec;--bg4:#ccccdf;--panel:rgba(0,0,0,.04);--border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--text:#1a1a2e;--text2:#5a5a7a;--text3:#9a9ab8;--tooltip-bg:rgba(255,255,255,.97);--tooltip-text:#1a1a2e;--pool-fixed-bg:rgba(228,228,244,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.12),0 -1px 0 rgba(0,100,220,.2)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
@@ -133,7 +135,7 @@ body.show-scores .item-score{display:block}
 .add-tier-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 24px);margin:4px 12px 8px;padding:9px;background:transparent;border:2px dashed rgba(255,255,255,.07);border-radius:var(--radius);color:var(--text3);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .17s}
 .add-tier-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.04)}
 #pool-container{border-top:1px solid var(--border);background:var(--bg2)}
-#pool-container.is-fixed{position:fixed;bottom:0;left:0;right:0;z-index:200;height:var(--pool-h);background:rgba(8,8,18,.98);backdrop-filter:blur(20px);box-shadow:0 -4px 32px rgba(0,0,0,.7),0 -1px 0 rgba(0,229,255,.18)}
+#pool-container.is-fixed{position:fixed;bottom:0;left:0;right:0;z-index:200;height:var(--pool-h);background:var(--pool-fixed-bg);backdrop-filter:blur(20px);box-shadow:var(--pool-fixed-shadow)}
 body.pool-fixed{padding-bottom:var(--pool-h)}
 .pool-header{display:flex;align-items:center;gap:5px;padding:5px 12px;border-bottom:1px solid var(--border);flex-wrap:wrap}
 .pool-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan)}
@@ -219,9 +221,10 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
 .kbd{display:inline-block;background:var(--bg4);border:1px solid var(--border2);border-radius:3px;padding:1px 5px;font-size:9px;font-family:monospace;color:var(--text2)}
 .htips-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:11px}
 .htip{background:var(--bg2);border-radius:6px;padding:6px 10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-#hov-tip{position:fixed;background:rgba(14,14,28,.97);border:1px solid var(--border2);border-radius:8px;padding:7px 10px;font-size:10px;color:var(--text);min-width:90px;max-width:200px;z-index:4000;word-break:break-word;text-align:center;pointer-events:none;box-shadow:0 5px 18px rgba(0,0,0,.55);display:none;white-space:pre-wrap;line-height:1.4}
+#hov-tip{position:fixed;background:var(--tooltip-bg);border:1px solid var(--border2);border-radius:8px;padding:7px 10px;font-size:10px;color:var(--tooltip-text);min-width:90px;max-width:200px;z-index:4000;word-break:break-word;text-align:center;pointer-events:none;box-shadow:0 5px 18px rgba(0,0,0,.55);display:none;white-space:pre-wrap;line-height:1.4}
 #img-preview{position:fixed;z-index:3999;pointer-events:none;display:none;border-radius:8px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.8);border:1px solid var(--border2)}
 #img-preview img{width:160px;display:block}
+body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
 @media(max-width:640px){
   .tier-row{flex-direction:column}
   .tier-label-area{width:100%;min-width:unset;flex-direction:row;padding:5px 8px;border-radius:calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;min-height:auto;gap:6px;justify-content:flex-start}
@@ -304,7 +307,7 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
   <label class="toggle-wrap"><span class="tlabel">Scores</span><label class="toggle"><input type="checkbox" id="t-scores" onchange="toggleScores(this.checked)"><span class="tslider"></span></label></label>
   <label class="toggle-wrap"><span class="tlabel">Pool ⊥</span><label class="toggle"><input type="checkbox" id="t-fixed" onchange="toggleFixedPool(this.checked)"><span class="tslider"></span></label></label>
   <label class="toggle-wrap"><span class="tlabel">Stats</span><label class="toggle"><input type="checkbox" id="t-stats" onchange="toggleStats(this.checked)"><span class="tslider"></span></label></label>
-  <label class="toggle-wrap"><span class="tlabel">Preview</span><label class="toggle"><input type="checkbox" id="t-preview" onchange="S.cfg.preview=this.checked"><span class="tslider"></span></label></label>
+  <label class="toggle-wrap"><span class="tlabel">Preview</span><label class="toggle"><input type="checkbox" id="t-preview" onchange="togglePreview(this.checked)"><span class="tslider"></span></label></label>
   <label class="toggle-wrap"><span class="tlabel">G-Search</span><label class="toggle"><input type="checkbox" id="t-gsearch" onchange="toggleGlobalSearch(this.checked)"><span class="tslider"></span></label></label>
   <div class="grp" style="margin-left:auto">
     <button class="btn btn-sm" onclick="randomHighlight()" title="Destaque aleatório">🎯</button>
@@ -351,10 +354,12 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
     <div class="pool-header">
       <span class="pool-title">Pool</span>
       <span class="pool-badge" id="pool-count">0</span>
+      <input type="search" class="srch" id="pool-srch" placeholder="🔍 Buscar..." oninput="syncPoolSearch(this.value)" style="width:100px;margin-left:6px">
       <div class="pool-ctrls">
         <button class="btn btn-sm" id="btn-listview" onclick="toggleListView()">▤</button>
         <button class="btn btn-sm" onclick="shufflePool()">🎲</button>
         <button class="btn btn-sm" onclick="openModal('assign-modal')">✦ Auto</button>
+        <button class="btn btn-sm" onclick="openCleanPoolModal()" title="Remover sequências/continuações da pool">🧹 Seqs</button>
         <button class="btn btn-sm btn-danger" onclick="deleteAllPool()">🗑</button>
       </div>
     </div>
@@ -479,7 +484,7 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-ranks" onchange="toggleRanks(this.checked);document.getElementById('t-ranks').checked=this.checked"><span class="tslider"></span></label><span class="tlabel">Ranks</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-scores" onchange="toggleScores(this.checked);document.getElementById('t-scores').checked=this.checked"><span class="tslider"></span></label><span class="tlabel">Scores</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-fixed" onchange="toggleFixedPool(this.checked);document.getElementById('t-fixed').checked=this.checked"><span class="tslider"></span></label><span class="tlabel">Pool fixo</span></label>
-      <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-preview" onchange="S.cfg.preview=this.checked;document.getElementById('t-preview').checked=this.checked"><span class="tslider"></span></label><span class="tlabel">Preview hover</span></label>
+      <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-preview" onchange="togglePreview(this.checked)"><span class="tslider"></span></label><span class="tlabel">Preview hover</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-compact" onchange="toggleCompact(this.checked)"><span class="tslider"></span></label><span class="tlabel">Compacto</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-hidempty" onchange="toggleHideEmpty(this.checked)"><span class="tslider"></span></label><span class="tlabel">Ocultar vazias</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-autosave" checked onchange="S.cfg.autosave=this.checked"><span class="tslider"></span></label><span class="tlabel">Auto-save</span></label>
@@ -529,6 +534,17 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
     <div class="htip" style="grid-column:span 2">Score 0-100: 🔵≥85 goat · 🟢≥75 bom · 🟡≥65 ok · 🟠≥40 fraco · 🔴 ruim</div>
   </div>
   <div class="mact"><button class="btn btn-primary" onclick="closeModal('help-modal')">Entendido!</button></div>
+</div></div>
+
+<div class="modal-ov" id="clean-pool-modal"><div class="modal" style="max-width:440px">
+  <h3>🧹 Remover Sequências do Pool</h3>
+  <p style="font-size:11px;color:var(--text2);margin-bottom:14px">Selecione quais padrões usar para detectar e remover continuações/sequências da pool. Só remove itens da <b>pool</b>, não das tiers.</p>
+  <div id="clean-options" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px"></div>
+  <div id="clean-preview" style="font-size:11px;padding:8px 10px;background:var(--bg2);border-radius:7px;border:1px solid var(--border);min-height:36px;line-height:1.6;color:var(--text2)">Selecione pelo menos um filtro.</div>
+  <div class="mact" style="margin-top:12px">
+    <button class="btn" onclick="closeModal('clean-pool-modal')">Cancelar</button>
+    <button class="btn btn-danger" id="clean-execute-btn" onclick="executeCleanPool()" disabled>🗑 Remover</button>
+  </div>
 </div></div>
 
 <div id="load-ov"><div class="spinner"></div><div class="load-txt" id="load-txt">CARREGANDO...</div><div class="load-sub" id="load-sub"></div></div>
@@ -704,7 +720,7 @@ function renderPool(){
   if(!items.length){c.innerHTML=`<div class="pool-empty">${S.pool.length?'Sem resultados para "'+esc(_poolFilter)+'"':'Pool vazio ✦ — Importe via AniList, arquivo ou URL'}</div>`;return}
   items.forEach(item=>c.appendChild(mkItemEl(item,'pool',0)));
 }
-function filterPool(){renderPool()}
+function filterPool(){\n  const val=document.getElementById('srch').value;\n  const ps=document.getElementById('pool-srch');if(ps&&ps.value!==val)ps.value=val;\n  renderPool();\n}
 function render(){renderTiers();renderPool()}
 
 // ── STATS ──────────────────────────────────────────────
@@ -789,8 +805,16 @@ function autoScroll(){
   const Z=80,sp=14,H=window.innerHeight,pc=document.getElementById('pool-container');
   if(S.cfg.fixedPool&&pc.classList.contains('is-fixed')){
     const pr=pc.getBoundingClientRect(),pi=document.getElementById('pool-items');
-    if(mouseY>=pr.top-20){if(mouseY>pr.bottom-30)pi.scrollTop+=sp;else pi.scrollTop-=sp}
-    else{if(mouseY<Z)window.scrollBy(0,-sp);else if(mouseY>pr.top-Z)window.scrollBy(0,sp)}
+    if(drag.src!=='pool'&&mouseY>=pr.top){
+      // arrastando pra DENTRO da pool fixa: scroll interno da pool
+      const relY=mouseY-pr.top;
+      if(relY>pr.height-40)pi.scrollTop+=sp;
+      else if(relY<40)pi.scrollTop-=sp;
+    }else{
+      // arrastando DA pool: só scrolla a página pra alcançar tiers (nunca a pool)
+      if(mouseY<Z)window.scrollBy(0,-sp);
+      else if(mouseY>pr.top-Z&&mouseY<pr.top)window.scrollBy(0,sp);
+    }
   }else{if(mouseY<Z)window.scrollBy(0,-sp);else if(mouseY>H-Z)window.scrollBy(0,sp)}
   scrollRaf=requestAnimationFrame(autoScroll);
 }
@@ -926,7 +950,60 @@ function openSort(e,tid){
 }
 
 // ── POOL ───────────────────────────────────────────────
-function applyPoolSort(){S.cfg.poolSort=document.getElementById('pool-sort').value;renderPool()}
+function togglePreview(v){S.cfg.preview=v;document.body.classList.toggle('preview-hide-labels',!!v);['t-preview','s-preview'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=!!v})}
+
+// ── POOL SEARCH SYNC ──────────────────────────────────
+function syncPoolSearch(val){
+  document.getElementById('srch').value=val;
+  renderPool();
+}
+
+// ── CLEAN POOL (sequências) ────────────────────────────
+const CLEAN_PATTERNS=[
+  {id:'cp-season',label:'Season — <i>Season 2, 2nd Season, 3ª Season...</i>',regex:/\bseason\s*\d+\b|\b\d+(?:st|nd|rd|th|°|ª|º)\s*season\b/i},
+  {id:'cp-cour',label:'Cour — <i>2nd Cour, Cour 2, Part 2 Cour...</i>',regex:/\bcour\s*\d*\b|\b\d+(?:st|nd|rd|th)\s*cour\b/i},
+  {id:'cp-part',label:'Part — <i>Part 2, Part II, Part 3...</i>',regex:/\bpart\s*(?:[2-9]|1\d|ii+|iv|v[i]*|ix|x)\b/i},
+  {id:'cp-numend',label:'Número no final — <i>Título 2, Título 3, IV, III...</i>',regex:/[\s\-:]+(?:[2-9]|1\d|ii+|iv|v[i]*|ix|x)\s*$/i},
+];
+function openCleanPoolModal(){
+  if(!S.pool.length){toast('Pool vazio!','warn');return}
+  const div=document.getElementById('clean-options');div.innerHTML='';
+  CLEAN_PATTERNS.forEach(p=>{
+    const wrap=document.createElement('label');
+    wrap.style.cssText='display:flex;align-items:flex-start;gap:9px;cursor:pointer;padding:7px 10px;background:var(--bg2);border-radius:7px;border:1px solid var(--border);transition:border-color .13s';
+    wrap.onmouseenter=()=>wrap.style.borderColor='var(--cyan)';
+    wrap.onmouseleave=()=>wrap.style.borderColor='var(--border)';
+    wrap.innerHTML=`<input type=\"checkbox\" id=\"${p.id}\" style=\"cursor:pointer;margin-top:2px;accent-color:var(--cyan)\" onchange=\"updateCleanPreview()\"><span style=\"font-size:11px;line-height:1.5\">${p.label}</span>`;
+    div.appendChild(wrap);
+  });
+  updateCleanPreview();
+  openModal('clean-pool-modal');
+}
+function getCleanMatches(){
+  const active=CLEAN_PATTERNS.filter(p=>document.getElementById(p.id)?.checked);
+  if(!active.length)return[];
+  return S.pool.filter(item=>active.some(p=>p.regex.test(item.lbl||'')));
+}
+function updateCleanPreview(){
+  const matches=getCleanMatches();
+  const prev=document.getElementById('clean-preview');
+  const btn=document.getElementById('clean-execute-btn');
+  if(!matches.length){
+    prev.innerHTML='Nenhum anime corresponde aos filtros selecionados.';
+    btn.disabled=true;
+  }else{
+    const names=matches.slice(0,12).map(x=>`<span style=\"color:var(--pink)\">${esc(x.lbl||'?')}</span>`).join(', ');
+    prev.innerHTML=`<b style=\"color:var(--pink)\">${matches.length} anime(s)</b> serão removidos:<br><span style=\"color:var(--text2)\">${names}${matches.length>12?` <i>+${matches.length-12} mais</i>`:''}</span>`;
+    btn.disabled=false;
+  }
+}
+function executeCleanPool(){
+  const matches=getCleanMatches();if(!matches.length)return;
+  const ids=new Set(matches.map(x=>x.id));
+  S.pool=S.pool.filter(x=>!ids.has(x.id));
+  snap();render();closeModal('clean-pool-modal');
+  toast(`🧹 ${matches.length} removido(s)!`,'ok');
+}
 function shufflePool(){for(let i=S.pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[S.pool[i],S.pool[j]]=[S.pool[j],S.pool[i]]}S.cfg.poolSort='manual';document.getElementById('pool-sort').value='manual';snap();renderPool();toast('Pool embaralhado! 🎲')}
 function deleteAllPool(){if(!S.pool.length)return;if(!confirm(`Deletar ${S.pool.length} itens do pool?`))return;S.pool=[];snap();render();toast('Pool zerado')}
 function toggleListView(){S.cfg.listView=!S.cfg.listView;document.getElementById('btn-listview').textContent=S.cfg.listView?'▦':'▤';renderPool()}
@@ -1132,8 +1209,8 @@ function syncUI(){
   toggleFixedPool(!!c.fixedPool);toggleStats(!!c.stats);toggleCompact(!!c.compact);toggleHideEmpty(!!c.hideEmpty);
   toggleGlobalSearch(!!c.globalSearch);
   const lv=document.getElementById('btn-listview');if(lv)lv.textContent=c.listView?'▦':'▤';
-  ['preview','autosave'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.checked=c[k]!==false});
-  const tp=document.getElementById('t-preview');if(tp)tp.checked=!!c.preview;
+  ['autosave'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.checked=c[k]!==false});
+  togglePreview(!!c.preview);
   const ps=document.getElementById('pool-sort');if(ps)ps.value=c.poolSort||'manual';
   setTheme(c.theme||'dark');
   const titleEl=document.getElementById('tl-title');if(titleEl)titleEl.textContent=S.title||'Minha Tier List';
@@ -1187,6 +1264,18 @@ document.addEventListener('keydown',e=>{
   }
 });
 document.addEventListener('wheel',e=>{
+  if(drag&&!drag._tierRow){
+    // scroll com mouse enquanto arrasta: scrolla pool ou página dependendo de onde o mouse está
+    e.preventDefault();
+    const pc=document.getElementById('pool-container'),pi=document.getElementById('pool-items');
+    const pr=pc?pc.getBoundingClientRect():null;
+    if(pr&&e.clientY>=pr.top&&S.cfg.fixedPool){
+      pi.scrollTop+=e.deltaY;
+    }else{
+      window.scrollBy(0,e.deltaY);
+    }
+    return;
+  }
   if(!e.ctrlKey)return;e.preventDefault();
   const nv=Math.max(50,Math.min(180,S.cfg.size+(e.deltaY>0?-5:5)));
   updateSize(nv);document.getElementById('size-r').value=nv;
