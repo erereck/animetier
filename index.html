@@ -685,7 +685,7 @@ function mkItemEl(item,src,rank){
   el.className='tier-item'+(item.note?' has-note':'')+(selectedIds.has(item.id)?' multi-selected':'');
   el.dataset.id=item.id;el.dataset.src=src;el.draggable=true;
   const sc=item.score!=null?`<div class="item-score ${scoreClass(item.score)}">${item.score}</div>`:'';
-  el.innerHTML=`<img crossorigin="anonymous" src="${esc(item.img)}" alt="${esc(item.lbl||'')}" loading="lazy" onerror="this.style.background='var(--bg4)'">
+  el.innerHTML=`<img src="${esc(item.img)}" alt="${esc(item.lbl||'')}" loading="lazy" onerror="this.style.background='var(--bg4)'">
     <div class="item-rank">#${rank}</div>
     <div class="item-label">${esc(item.lbl||'')}</div>
     <div class="item-note-dot"></div>${sc}`;
@@ -1154,11 +1154,15 @@ async function reloadImagesFromAniList(){
       const isBroken=!item.img||item.img==='[localfile]'||item.img.trim()==='';
       if(mode==='broken'&&!isBroken){skipped++;return}
       const key=(item.lbl||'').toLowerCase().trim();
-      if(byTitle.has(key)){item.img=byTitle.get(key);updated++}
-      else{
+      // Strip any previous cache-bust param before comparing
+      const cleanImg=item.img?item.img.split('?')[0]:null;
+      if(byTitle.has(key)){
+        const freshUrl=byTitle.get(key)+'?v='+Date.now();
+        item.img=freshUrl;updated++;
+      } else{
         // fuzzy: check if title starts with same words
         for(const[t,img] of byTitle){
-          if(key.length>4&&(t.startsWith(key)||key.startsWith(t))){item.img=img;updated++;break}
+          if(key.length>4&&(t.startsWith(key)||key.startsWith(t))){item.img=img+'?v='+Date.now();updated++;break}
         }
       }
     });
