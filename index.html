@@ -13,8 +13,10 @@
   --cyan:#00e5ff;--pink:#ff006e;--purple:#8b5cf6;--green:#00e676;--orange:#ff9100;--yellow:#ffd600;
   --text:#e8e8f4;--text2:#7878a0;--text3:#4a4a68;
   --radius:10px;--item-size:100px;--pool-h:240px;
+  --tooltip-bg:rgba(14,14,28,.97);--tooltip-text:#e8e8f4;
+  --pool-fixed-bg:rgba(8,8,18,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.7),0 -1px 0 rgba(0,229,255,.18);
 }
-[data-theme="light"]{--bg:#f0f0f8;--bg2:#e4e4f4;--bg3:#d8d8ec;--bg4:#ccccdf;--panel:rgba(0,0,0,.04);--border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--text:#1a1a2e;--text2:#5a5a7a;--text3:#9a9ab8}
+[data-theme="light"]{--bg:#f0f0f8;--bg2:#e4e4f4;--bg3:#d8d8ec;--bg4:#ccccdf;--panel:rgba(0,0,0,.04);--border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--text:#1a1a2e;--text2:#5a5a7a;--text3:#9a9ab8;--tooltip-bg:rgba(255,255,255,.97);--tooltip-text:#1a1a2e;--pool-fixed-bg:rgba(228,228,244,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.12),0 -1px 0 rgba(0,100,220,.2)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
@@ -133,7 +135,7 @@ body.show-scores .item-score{display:block}
 .add-tier-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 24px);margin:4px 12px 8px;padding:9px;background:transparent;border:2px dashed rgba(255,255,255,.07);border-radius:var(--radius);color:var(--text3);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .17s}
 .add-tier-btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.04)}
 #pool-container{border-top:1px solid var(--border);background:var(--bg2)}
-#pool-container.is-fixed{position:fixed;bottom:0;left:0;right:0;z-index:200;height:var(--pool-h);background:rgba(8,8,18,.98);backdrop-filter:blur(20px);box-shadow:0 -4px 32px rgba(0,0,0,.7),0 -1px 0 rgba(0,229,255,.18)}
+#pool-container.is-fixed{position:fixed;bottom:0;left:0;right:0;z-index:200;height:var(--pool-h);background:var(--pool-fixed-bg);backdrop-filter:blur(20px);box-shadow:var(--pool-fixed-shadow)}
 body.pool-fixed{padding-bottom:var(--pool-h)}
 .pool-header{display:flex;align-items:center;gap:5px;padding:5px 12px;border-bottom:1px solid var(--border);flex-wrap:wrap}
 .pool-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan)}
@@ -219,9 +221,13 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
 .kbd{display:inline-block;background:var(--bg4);border:1px solid var(--border2);border-radius:3px;padding:1px 5px;font-size:9px;font-family:monospace;color:var(--text2)}
 .htips-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:11px}
 .htip{background:var(--bg2);border-radius:6px;padding:6px 10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-#hov-tip{position:fixed;background:rgba(14,14,28,.97);border:1px solid var(--border2);border-radius:8px;padding:7px 10px;font-size:10px;color:var(--text);min-width:90px;max-width:200px;z-index:4000;word-break:break-word;text-align:center;pointer-events:none;box-shadow:0 5px 18px rgba(0,0,0,.55);display:none;white-space:pre-wrap;line-height:1.4}
+#hov-tip{position:fixed;background:var(--tooltip-bg);border:1px solid var(--border2);border-radius:8px;padding:7px 10px;font-size:10px;color:var(--tooltip-text);min-width:90px;max-width:200px;z-index:4000;word-break:break-word;text-align:center;pointer-events:none;box-shadow:0 5px 18px rgba(0,0,0,.55);display:none;white-space:pre-wrap;line-height:1.4}
 #img-preview{position:fixed;z-index:3999;pointer-events:none;display:none;border-radius:8px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.8);border:1px solid var(--border2)}
 #img-preview img{width:160px;display:block}
+body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
+[data-theme="light"] #hov-tip{background:rgba(255,255,255,.97)!important;color:#1a1a2e!important;border-color:rgba(0,0,0,.2)!important;box-shadow:0 4px 14px rgba(0,0,0,.12)!important}
+[data-theme="light"] #pool-container.is-fixed{background:rgba(228,228,244,.99)!important;border-top:1px solid rgba(0,0,0,.12)!important}
+[data-theme="light"] #pool-container.is-fixed .pool-header{background:transparent!important}
 @media(max-width:640px){
   .tier-row{flex-direction:column}
   .tier-label-area{width:100%;min-width:unset;flex-direction:row;padding:5px 8px;border-radius:calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;min-height:auto;gap:6px;justify-content:flex-start}
@@ -253,6 +259,7 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
     <input class="itext" id="anilist-year" type="number" placeholder="Ano" style="width:60px" title="Vazio = todos os anos">
     <button class="btn btn-sm" onclick="openModal('al-filter-modal')" title="Filtros">⚙</button>
     <button class="btn btn-primary btn-sm" onclick="importAniList()">🌐 AniList</button>
+    <button class="btn btn-sm" onclick="openModal('reload-img-modal')" title="Recarregar imagens por usuário AniList">🔄 Imgs</button>
   </div>
   <div class="hsep"></div>
   <div class="grp">
@@ -304,7 +311,7 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
   <label class="toggle-wrap"><span class="tlabel">Scores</span><label class="toggle"><input type="checkbox" id="t-scores" onchange="toggleScores(this.checked)"><span class="tslider"></span></label></label>
   <label class="toggle-wrap"><span class="tlabel">Pool ⊥</span><label class="toggle"><input type="checkbox" id="t-fixed" onchange="toggleFixedPool(this.checked)"><span class="tslider"></span></label></label>
   <label class="toggle-wrap"><span class="tlabel">Stats</span><label class="toggle"><input type="checkbox" id="t-stats" onchange="toggleStats(this.checked)"><span class="tslider"></span></label></label>
-  <label class="toggle-wrap"><span class="tlabel">Preview</span><label class="toggle"><input type="checkbox" id="t-preview" onchange="S.cfg.preview=this.checked"><span class="tslider"></span></label></label>
+  <label class="toggle-wrap"><span class="tlabel">Preview</span><label class="toggle"><input type="checkbox" id="t-preview" onchange="togglePreview(this.checked)"><span class="tslider"></span></label></label>
   <label class="toggle-wrap"><span class="tlabel">G-Search</span><label class="toggle"><input type="checkbox" id="t-gsearch" onchange="toggleGlobalSearch(this.checked)"><span class="tslider"></span></label></label>
   <div class="grp" style="margin-left:auto">
     <button class="btn btn-sm" onclick="randomHighlight()" title="Destaque aleatório">🎯</button>
@@ -351,10 +358,12 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
     <div class="pool-header">
       <span class="pool-title">Pool</span>
       <span class="pool-badge" id="pool-count">0</span>
+      <input type="search" class="srch" id="pool-srch" placeholder="🔍 Buscar..." oninput="syncPoolSearch(this.value)" style="width:100px;margin-left:6px">
       <div class="pool-ctrls">
         <button class="btn btn-sm" id="btn-listview" onclick="toggleListView()">▤</button>
         <button class="btn btn-sm" onclick="shufflePool()">🎲</button>
         <button class="btn btn-sm" onclick="openModal('assign-modal')">✦ Auto</button>
+        <button class="btn btn-sm" onclick="openCleanPoolModal()" title="Remover sequências/continuações da pool">🧹 Seqs</button>
         <button class="btn btn-sm btn-danger" onclick="deleteAllPool()">🗑</button>
       </div>
     </div>
@@ -479,7 +488,7 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-ranks" onchange="toggleRanks(this.checked);document.getElementById('t-ranks').checked=this.checked"><span class="tslider"></span></label><span class="tlabel">Ranks</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-scores" onchange="toggleScores(this.checked);document.getElementById('t-scores').checked=this.checked"><span class="tslider"></span></label><span class="tlabel">Scores</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-fixed" onchange="toggleFixedPool(this.checked);document.getElementById('t-fixed').checked=this.checked"><span class="tslider"></span></label><span class="tlabel">Pool fixo</span></label>
-      <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-preview" onchange="S.cfg.preview=this.checked;document.getElementById('t-preview').checked=this.checked"><span class="tslider"></span></label><span class="tlabel">Preview hover</span></label>
+      <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-preview" onchange="togglePreview(this.checked)"><span class="tslider"></span></label><span class="tlabel">Preview hover</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-compact" onchange="toggleCompact(this.checked)"><span class="tslider"></span></label><span class="tlabel">Compacto</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-hidempty" onchange="toggleHideEmpty(this.checked)"><span class="tslider"></span></label><span class="tlabel">Ocultar vazias</span></label>
       <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="s-autosave" checked onchange="S.cfg.autosave=this.checked"><span class="tslider"></span></label><span class="tlabel">Auto-save</span></label>
@@ -529,6 +538,31 @@ label.mlabel{display:block;font-size:10px;font-weight:800;color:var(--text2);tex
     <div class="htip" style="grid-column:span 2">Score 0-100: 🔵≥85 goat · 🟢≥75 bom · 🟡≥65 ok · 🟠≥40 fraco · 🔴 ruim</div>
   </div>
   <div class="mact"><button class="btn btn-primary" onclick="closeModal('help-modal')">Entendido!</button></div>
+</div></div>
+
+<div class="modal-ov" id="clean-pool-modal"><div class="modal" style="max-width:440px">
+  <h3>🧹 Remover Sequências do Pool</h3>
+  <p style="font-size:11px;color:var(--text2);margin-bottom:14px">Selecione quais padrões usar para detectar e remover continuações/sequências da pool. Só remove itens da <b>pool</b>, não das tiers.</p>
+  <div id="clean-options" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px"></div>
+  <div id="clean-preview" style="font-size:11px;padding:8px 10px;background:var(--bg2);border-radius:7px;border:1px solid var(--border);min-height:36px;line-height:1.6;color:var(--text2)">Selecione pelo menos um filtro.</div>
+  <div class="mact" style="margin-top:12px">
+    <button class="btn" onclick="closeModal('clean-pool-modal')">Cancelar</button>
+    <button class="btn btn-danger" id="clean-execute-btn" onclick="executeCleanPool()" disabled>🗑 Remover</button>
+  </div>
+</div></div>
+
+<div class="modal-ov" id="reload-img-modal"><div class="modal" style="max-width:420px">
+  <h3>🔄 Recarregar Imagens via AniList</h3>
+  <p style="font-size:11px;color:var(--text2);margin-bottom:12px">Busca as capas de todos os itens do pool e das tiers com base nos títulos, usando a lista de um usuário do AniList. Útil quando as imagens sumam ao carregar da memória.</p>
+  <label class="mlabel">Usuário AniList</label>
+  <input class="minput" id="reload-user" placeholder="Ex: seunome" onkeydown="if(event.key==='Enter')reloadImagesFromAniList()">
+  <label class="mlabel">Modo</label>
+  <select class="minput" id="reload-mode" style="margin-bottom:12px">
+    <option value="broken">Só imagens quebradas / ausentes</option>
+    <option value="all">Todas as imagens (forçar refresh)</option>
+  </select>
+  <div id="reload-preview" style="font-size:11px;padding:8px 10px;background:var(--bg2);border-radius:7px;border:1px solid var(--border);color:var(--text2);min-height:30px;margin-bottom:10px;display:none"></div>
+  <div class="mact"><button class="btn" onclick="closeModal('reload-img-modal')">Cancelar</button><button class="btn btn-primary" onclick="reloadImagesFromAniList()">🔄 Recarregar</button></div>
 </div></div>
 
 <div id="load-ov"><div class="spinner"></div><div class="load-txt" id="load-txt">CARREGANDO...</div><div class="load-sub" id="load-sub"></div></div>
@@ -651,7 +685,7 @@ function mkItemEl(item,src,rank){
   el.className='tier-item'+(item.note?' has-note':'')+(selectedIds.has(item.id)?' multi-selected':'');
   el.dataset.id=item.id;el.dataset.src=src;el.draggable=true;
   const sc=item.score!=null?`<div class="item-score ${scoreClass(item.score)}">${item.score}</div>`:'';
-  el.innerHTML=`<img src="${esc(item.img)}" alt="${esc(item.lbl||'')}" loading="lazy" onerror="this.style.background='#1a1a32'">
+  el.innerHTML=`<img crossorigin="anonymous" src="${esc(item.img)}" alt="${esc(item.lbl||'')}" loading="lazy" onerror="this.style.background='var(--bg4)'">
     <div class="item-rank">#${rank}</div>
     <div class="item-label">${esc(item.lbl||'')}</div>
     <div class="item-note-dot"></div>${sc}`;
@@ -670,10 +704,11 @@ function mkItemEl(item,src,rank){
 // ── HOVER TOOLTIP ──────────────────────────────────────
 function showHovTip(e,item){
   const tip=document.getElementById('hov-tip'),prev=document.getElementById('img-preview'),pimg=document.getElementById('img-preview-img');
-  let txt=item.lbl?item.lbl+'\n':'';
+  let txt='';
+  if(!S.cfg.preview&&item.lbl)txt=item.lbl+'\n';
   if(item.score!=null)txt+=`Score: ${item.score}/100\n`;
   if(item.note)txt+=item.note;
-  if(txt.trim()){tip.textContent=txt.trim();tip.style.display='block'}
+  if(txt.trim()){tip.textContent=txt.trim();tip.style.display='block'}else{tip.style.display='none'}
   if(S.cfg.preview&&item.img&&!item.img.startsWith('[localfile]')){pimg.src=item.img;prev.style.display='block'}
   moveHovTip(e);
 }
@@ -704,7 +739,8 @@ function renderPool(){
   if(!items.length){c.innerHTML=`<div class="pool-empty">${S.pool.length?'Sem resultados para "'+esc(_poolFilter)+'"':'Pool vazio ✦ — Importe via AniList, arquivo ou URL'}</div>`;return}
   items.forEach(item=>c.appendChild(mkItemEl(item,'pool',0)));
 }
-function filterPool(){renderPool()}
+function applyPoolSort(){S.cfg.poolSort=document.getElementById('pool-sort').value;renderPool()}
+function filterPool(){const val=document.getElementById('srch').value;const ps=document.getElementById('pool-srch');if(ps&&ps.value!==val)ps.value=val;renderPool()}
 function render(){renderTiers();renderPool()}
 
 // ── STATS ──────────────────────────────────────────────
@@ -789,8 +825,16 @@ function autoScroll(){
   const Z=80,sp=14,H=window.innerHeight,pc=document.getElementById('pool-container');
   if(S.cfg.fixedPool&&pc.classList.contains('is-fixed')){
     const pr=pc.getBoundingClientRect(),pi=document.getElementById('pool-items');
-    if(mouseY>=pr.top-20){if(mouseY>pr.bottom-30)pi.scrollTop+=sp;else pi.scrollTop-=sp}
-    else{if(mouseY<Z)window.scrollBy(0,-sp);else if(mouseY>pr.top-Z)window.scrollBy(0,sp)}
+    if(drag.src!=='pool'&&mouseY>=pr.top){
+      // arrastando pra DENTRO da pool fixa: scroll interno da pool
+      const relY=mouseY-pr.top;
+      if(relY>pr.height-40)pi.scrollTop+=sp;
+      else if(relY<40)pi.scrollTop-=sp;
+    }else{
+      // arrastando DA pool: só scrolla a página pra alcançar tiers (nunca a pool)
+      if(mouseY<Z)window.scrollBy(0,-sp);
+      else if(mouseY>pr.top-Z&&mouseY<pr.top)window.scrollBy(0,sp);
+    }
   }else{if(mouseY<Z)window.scrollBy(0,-sp);else if(mouseY>H-Z)window.scrollBy(0,sp)}
   scrollRaf=requestAnimationFrame(autoScroll);
 }
@@ -926,7 +970,60 @@ function openSort(e,tid){
 }
 
 // ── POOL ───────────────────────────────────────────────
-function applyPoolSort(){S.cfg.poolSort=document.getElementById('pool-sort').value;renderPool()}
+function togglePreview(v){S.cfg.preview=v;document.body.classList.toggle('preview-hide-labels',!!v);['t-preview','s-preview'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=!!v})}
+
+// ── POOL SEARCH SYNC ──────────────────────────────────
+function syncPoolSearch(val){
+  document.getElementById('srch').value=val;
+  renderPool();
+}
+
+// ── CLEAN POOL (sequências) ────────────────────────────
+const CLEAN_PATTERNS=[
+  {id:'cp-season',label:'Season — <i>Season 2, 2nd Season, 3ª Season...</i>',regex:/\bseason\s*\d+\b|\b\d+(?:st|nd|rd|th|°|ª|º)\s*season\b/i},
+  {id:'cp-cour',label:'Cour — <i>2nd Cour, Cour 2, Part 2 Cour...</i>',regex:/\bcour\s*\d*\b|\b\d+(?:st|nd|rd|th)\s*cour\b/i},
+  {id:'cp-part',label:'Part — <i>Part 2, Part II, Part 3...</i>',regex:/\bpart\s*(?:[2-9]|1\d|ii+|iv|v[i]*|ix|x)\b/i},
+  {id:'cp-numend',label:'Número no final — <i>Título 2, Título 3, IV, III...</i>',regex:/[\s\-:]+(?:[2-9]|1\d|ii+|iv|v[i]*|ix|x)\s*$/i},
+];
+function openCleanPoolModal(){
+  if(!S.pool.length){toast('Pool vazio!','warn');return}
+  const div=document.getElementById('clean-options');div.innerHTML='';
+  CLEAN_PATTERNS.forEach(p=>{
+    const wrap=document.createElement('label');
+    wrap.style.cssText='display:flex;align-items:flex-start;gap:9px;cursor:pointer;padding:7px 10px;background:var(--bg2);border-radius:7px;border:1px solid var(--border);transition:border-color .13s';
+    wrap.onmouseenter=()=>wrap.style.borderColor='var(--cyan)';
+    wrap.onmouseleave=()=>wrap.style.borderColor='var(--border)';
+    wrap.innerHTML=`<input type=\"checkbox\" id=\"${p.id}\" style=\"cursor:pointer;margin-top:2px;accent-color:var(--cyan)\" onchange=\"updateCleanPreview()\"><span style=\"font-size:11px;line-height:1.5\">${p.label}</span>`;
+    div.appendChild(wrap);
+  });
+  updateCleanPreview();
+  openModal('clean-pool-modal');
+}
+function getCleanMatches(){
+  const active=CLEAN_PATTERNS.filter(p=>document.getElementById(p.id)?.checked);
+  if(!active.length)return[];
+  return S.pool.filter(item=>active.some(p=>p.regex.test(item.lbl||'')));
+}
+function updateCleanPreview(){
+  const matches=getCleanMatches();
+  const prev=document.getElementById('clean-preview');
+  const btn=document.getElementById('clean-execute-btn');
+  if(!matches.length){
+    prev.innerHTML='Nenhum anime corresponde aos filtros selecionados.';
+    btn.disabled=true;
+  }else{
+    const names=matches.slice(0,12).map(x=>`<span style=\"color:var(--pink)\">${esc(x.lbl||'?')}</span>`).join(', ');
+    prev.innerHTML=`<b style=\"color:var(--pink)\">${matches.length} anime(s)</b> serão removidos:<br><span style=\"color:var(--text2)\">${names}${matches.length>12?` <i>+${matches.length-12} mais</i>`:''}</span>`;
+    btn.disabled=false;
+  }
+}
+function executeCleanPool(){
+  const matches=getCleanMatches();if(!matches.length)return;
+  const ids=new Set(matches.map(x=>x.id));
+  S.pool=S.pool.filter(x=>!ids.has(x.id));
+  snap();render();closeModal('clean-pool-modal');
+  toast(`🧹 ${matches.length} removido(s)!`,'ok');
+}
 function shufflePool(){for(let i=S.pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[S.pool[i],S.pool[j]]=[S.pool[j],S.pool[i]]}S.cfg.poolSort='manual';document.getElementById('pool-sort').value='manual';snap();renderPool();toast('Pool embaralhado! 🎲')}
 function deleteAllPool(){if(!S.pool.length)return;if(!confirm(`Deletar ${S.pool.length} itens do pool?`))return;S.pool=[];snap();render();toast('Pool zerado')}
 function toggleListView(){S.cfg.listView=!S.cfg.listView;document.getElementById('btn-listview').textContent=S.cfg.listView?'▦':'▤';renderPool()}
@@ -1029,6 +1126,48 @@ async function importAniList(){
   }catch(err){hideLoad();toast('Erro: '+err.message,'err')}
 }
 
+// ── RELOAD IMAGES ──────────────────────────────────────
+async function reloadImagesFromAniList(){
+  const user=document.getElementById('reload-user').value.trim();
+  if(!user){toast('⚠ Digite o usuário!','warn');return}
+  const mode=document.getElementById('reload-mode').value;
+  showLoad('Buscando imagens...','Conectando ao AniList...');
+  try{
+    const q=`query($u:String){MediaListCollection(userName:$u,type:ANIME){lists{entries{media{id title{romaji english native}coverImage{large}}}}}}`;
+    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q,variables:{u:user}})});
+    const d=await r.json();
+    if(d.errors){hideLoad();toast('Erro: '+d.errors[0].message,'err');return}
+    if(!d.data?.MediaListCollection){hideLoad();toast('Usuário não encontrado','err');return}
+    // Build lookup: normalized title → image URL
+    const byTitle=new Map();
+    d.data.MediaListCollection.lists.flatMap(l=>l.entries).forEach(e=>{
+      const img=e.media.coverImage?.large;if(!img)return;
+      [e.media.title.romaji,e.media.title.english,e.media.title.native].forEach(t=>{
+        if(t)byTitle.set(t.toLowerCase().trim(),img);
+      });
+    });
+    const allItems=[...S.pool,...S.tiers.flatMap(t=>t.items)];
+    let updated=0,skipped=0;
+    allItems.forEach(item=>{
+      if(!item.lbl){skipped++;return}
+      // In 'broken' mode, only update items missing or with [localfile] img
+      const isBroken=!item.img||item.img==='[localfile]'||item.img.trim()==='';
+      if(mode==='broken'&&!isBroken){skipped++;return}
+      const key=(item.lbl||'').toLowerCase().trim();
+      if(byTitle.has(key)){item.img=byTitle.get(key);updated++}
+      else{
+        // fuzzy: check if title starts with same words
+        for(const[t,img] of byTitle){
+          if(key.length>4&&(t.startsWith(key)||key.startsWith(t))){item.img=img;updated++;break}
+        }
+      }
+    });
+    hideLoad();closeModal('reload-img-modal');
+    if(updated>0){snap();render();toast(`✦ ${updated} imagem(ns) recarregada(s)!${skipped?` (${skipped} sem match)`:''}`,'ok')}
+    else toast(`Nenhuma imagem atualizada. Verifique os nomes dos itens. (${byTitle.size} animes na lista)`,'warn');
+  }catch(err){hideLoad();toast('Erro: '+err.message,'err')}
+}
+
 // ── IMPORT ─────────────────────────────────────────────
 function handleFiles(files){
   if(!files.length)return;showLoad(`Carregando ${files.length} imagem(ns)...`);
@@ -1051,24 +1190,49 @@ async function pasteFromClipboard(){
 }
 
 // ── EXPORT ─────────────────────────────────────────────
+async function imgToDataURL(src){
+  if(!src||src.startsWith('data:')||src.startsWith('[localfile]'))return src;
+  try{
+    const r=await fetch(src,{mode:'cors',cache:'force-cache'});
+    const blob=await r.blob();
+    return await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(blob)});
+  }catch(e){
+    try{
+      return await new Promise((res,rej)=>{const im=new Image();im.crossOrigin='anonymous';im.onload=()=>{const cv=document.createElement('canvas');cv.width=im.width;cv.height=im.height;cv.getContext('2d').drawImage(im,0,0);try{res(cv.toDataURL())}catch{rej(e)}};im.onerror=rej;im.src=src});
+    }catch{return null}
+  }
+}
 async function exportPNG(){
-  showLoad('Gerando PNG...');
+  showLoad('Gerando PNG...','Convertendo imagens...');
   try{
     const was=S.tiers.filter(t=>t.collapsed);was.forEach(t=>{t.collapsed=false});renderTiers();
-    await new Promise(r=>setTimeout(r,380));
+    await new Promise(r=>setTimeout(r,420));
     const el=document.getElementById('tiers-container');
-    const bg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#07070f';
-    const wrap=document.createElement('div');wrap.style.cssText=`background:${bg};padding:8px 12px`;
+    const cs=getComputedStyle(document.documentElement);
+    const bg=cs.getPropertyValue('--bg').trim()||'#07070f';
+    const textCol=cs.getPropertyValue('--text').trim()||'#e8e8f4';
+    const wrap=document.createElement('div');
+    wrap.style.cssText=`background:${bg};padding:8px 12px;color:${textCol};font-family:'Nunito',sans-serif`;
     const titleClone=document.getElementById('tl-title-bar').cloneNode(true);
-    wrap.appendChild(titleClone);wrap.appendChild(el.cloneNode(true));
+    const tierClone=el.cloneNode(true);
+    wrap.appendChild(titleClone);wrap.appendChild(tierClone);
     Object.assign(wrap.style,{position:'absolute',top:'-9999px',left:'0',width:el.offsetWidth+'px'});
     document.body.appendChild(wrap);
-    const canvas=await html2canvas(wrap,{backgroundColor:bg,scale:2,useCORS:true,allowTaint:true,logging:false,imageTimeout:10000});
+    // Convert all external images to data URLs so html2canvas can render them
+    const imgs=[...wrap.querySelectorAll('img')];
+    await Promise.all(imgs.map(async img=>{
+      if(!img.src)return;
+      const dataUrl=await imgToDataURL(img.src);
+      if(dataUrl)img.src=dataUrl;
+      else{img.style.background='#1a1a32';img.removeAttribute('src')}
+    }));
+    await new Promise(r=>setTimeout(r,120));
+    const canvas=await html2canvas(wrap,{backgroundColor:bg,scale:2,useCORS:false,allowTaint:false,logging:false,imageTimeout:20000});
     document.body.removeChild(wrap);
     was.forEach(t=>{t.collapsed=true});renderTiers();
     const a=document.createElement('a');a.download=(S.title||'tierlist')+'.png';a.href=canvas.toDataURL('image/png');a.click();
     hideLoad();toast('✦ PNG exportado!','ok');
-  }catch(err){hideLoad();toast('Erro: '+err.message,'err')}
+  }catch(err){hideLoad();toast('Erro ao exportar: '+err.message,'err');console.error(err)}
 }
 function exportJSON(){const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});const a=document.createElement('a');a.download=(S.title||'animetier')+'.json';a.href=URL.createObjectURL(b);a.click();toast('JSON exportado!')}
 function importJSON(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{S=JSON.parse(e.target.result);snap();render();syncUI();toast('✦ JSON importado!','ok')}catch{toast('JSON inválido','err')}};r.readAsText(f);inp.value=''}
@@ -1082,7 +1246,7 @@ function namedSave(){
   const id='sv'+Date.now(),data=slimJSON();
   try{localStorage.setItem('anitier-'+id,data)}catch{toast('Storage cheio!','err');return}
   const parsed=JSON.parse(data);
-  getSaveIndex();const idx=getSaveIndex();
+  const idx=getSaveIndex();
   idx.unshift({id,name,date:new Date().toLocaleString('pt-BR'),tierCount:parsed.tiers.length,itemCount:parsed.pool.length+parsed.tiers.reduce((s,t)=>s+t.items.length,0),title:parsed.title||''});
   setSaveIndex(idx);document.getElementById('save-name-inp').value='';renderSavesList();toast(`Salvo como "${name}"!`,'ok');
 }
@@ -1117,7 +1281,7 @@ function toggleLabels(v){S.cfg.labels=v;document.body.classList.toggle('show-lab
 function toggleRanks(v){S.cfg.ranks=v;document.body.classList.toggle('show-ranks',v);['t-ranks','s-ranks'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=v})}
 function toggleScores(v){S.cfg.scores=v;document.body.classList.toggle('show-scores',v);['t-scores','s-scores'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=v})}
 function toggleFixedPool(v){S.cfg.fixedPool=v;document.getElementById('pool-container').classList.toggle('is-fixed',v);document.body.classList.toggle('pool-fixed',v);['t-fixed','s-fixed'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=v})}
-function toggleStats(v){S.cfg.stats=v;document.getElementById('stats-bar').classList.toggle('vis',v);['t-stats','s-stats'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=v});if(v)updateStats()}
+function toggleStats(v){S.cfg.stats=v;document.getElementById('stats-bar').classList.toggle('vis',v);['t-stats'].forEach(id=>{const el=document.getElementById(id);if(el)el.checked=v});if(v)updateStats()}
 function toggleCompact(v){S.cfg.compact=v;const el=document.getElementById('s-compact');if(el)el.checked=v;updateSize(S.cfg.size)}
 function toggleHideEmpty(v){S.cfg.hideEmpty=v;const el=document.getElementById('s-hidempty');if(el)el.checked=v;renderTiers()}
 function toggleFullscreen(){const v=!document.body.classList.contains('fullscreen');document.body.classList.toggle('fullscreen',v);if(v)toast('⛶ Fullscreen — Esc para sair')}
@@ -1132,8 +1296,8 @@ function syncUI(){
   toggleFixedPool(!!c.fixedPool);toggleStats(!!c.stats);toggleCompact(!!c.compact);toggleHideEmpty(!!c.hideEmpty);
   toggleGlobalSearch(!!c.globalSearch);
   const lv=document.getElementById('btn-listview');if(lv)lv.textContent=c.listView?'▦':'▤';
-  ['preview','autosave'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.checked=c[k]!==false});
-  const tp=document.getElementById('t-preview');if(tp)tp.checked=!!c.preview;
+  ['autosave'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.checked=c[k]!==false});
+  togglePreview(!!c.preview);
   const ps=document.getElementById('pool-sort');if(ps)ps.value=c.poolSort||'manual';
   setTheme(c.theme||'dark');
   const titleEl=document.getElementById('tl-title');if(titleEl)titleEl.textContent=S.title||'Minha Tier List';
@@ -1187,6 +1351,18 @@ document.addEventListener('keydown',e=>{
   }
 });
 document.addEventListener('wheel',e=>{
+  if(drag&&!drag._tierRow){
+    // scroll com mouse enquanto arrasta: scrolla pool ou página dependendo de onde o mouse está
+    e.preventDefault();
+    const pc=document.getElementById('pool-container'),pi=document.getElementById('pool-items');
+    const pr=pc?pc.getBoundingClientRect():null;
+    if(pr&&e.clientY>=pr.top&&S.cfg.fixedPool){
+      pi.scrollTop+=e.deltaY;
+    }else{
+      window.scrollBy(0,e.deltaY);
+    }
+    return;
+  }
   if(!e.ctrlKey)return;e.preventDefault();
   const nv=Math.max(50,Math.min(180,S.cfg.size+(e.deltaY>0?-5:5)));
   updateSize(nv);document.getElementById('size-r').value=nv;
