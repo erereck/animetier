@@ -338,11 +338,6 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
 .sdash-page{display:none}
 .sdash-page.active{display:contents}
 .sdash-enrich-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);border-radius:8px;margin-bottom:10px;grid-column:1/-1}
-/* ── ENRICH NOTIFICATION BANNER ── */
-#enrich-banner{display:none;align-items:center;gap:8px;padding:6px 12px;background:linear-gradient(90deg,rgba(139,92,246,.12),rgba(0,229,255,.08));border-bottom:1px solid rgba(139,92,246,.3);font-size:11px;flex-wrap:wrap}
-#enrich-banner.vis{display:flex}
-.enrich-banner-txt{flex:1;color:var(--text2)}
-.enrich-banner-txt b{color:var(--purple)}
 @media(max-width:640px){
   .tier-row{flex-direction:column}
   .tier-label-area{width:100%;min-width:unset;flex-direction:row;padding:5px 8px;border-radius:calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;min-height:auto;gap:6px;justify-content:flex-start}
@@ -404,13 +399,6 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
     <button class="btn btn-sm" onclick="openModal('help-modal')">?</button>
   </div>
 </header>
-
-<div id="enrich-banner">
-  <span style="font-size:16px">🌐</span>
-  <span class="enrich-banner-txt"><b id="enrich-banner-count">0</b> animes sem metadados AniList — gêneros, estúdios, temporada e muito mais ficam disponíveis para as estatísticas avançadas</span>
-  <button class="btn btn-sm" style="border-color:var(--purple);color:var(--purple)" onclick="openStatsDashboard();switchSDash(document.querySelector('[onclick*=sdash-anilist]'),\'sdash-anilist\')">📊 Ver Stats</button>
-  <button class="btn btn-sm" onclick="document.getElementById('enrich-banner').classList.remove('vis')">✕</button>
-</div>
 
 <div class="toolbar" id="toolbar">
   <input type="search" class="srch" id="srch" placeholder="🔍 Filtrar pool..." oninput="filterPool()">
@@ -1381,46 +1369,15 @@ function buildStatusChips(){
     wrap.appendChild(chip);
   });
 }
-// Full metadata query helper
-const _AL_FULL_QUERY=`query($u:String){MediaListCollection(userName:$u,type:ANIME){lists{entries{status score(format:POINT_100) progress startedAt{year month}completedAt{year month}media{id title{romaji english native}coverImage{large}startDate{year month}endDate{year}season seasonYear format episodes duration averageScore popularity favourites genres tags(sort:RANK,perPage:12){name rank isGeneralSpoiler}studios(isMain:true){nodes{name}}source countryOfOrigin isAdult nextAiringEpisode{episode}}}}}}`
-
-function _buildItemMeta(e){
-  const m=e.media;
-  return{
-    anilistId:m.id,
-    genres:m.genres||[],
-    tags:(m.tags||[]).filter(t=>!t.isGeneralSpoiler).map(t=>({name:t.name,rank:t.rank})),
-    studio:m.studios?.nodes?.[0]?.name||'',
-    year:m.startDate?.year||null,
-    month:m.startDate?.month||null,
-    endYear:m.endDate?.year||null,
-    season:m.season||null,
-    seasonYear:m.seasonYear||null,
-    format:m.format||null,
-    episodes:m.episodes||null,
-    duration:m.duration||null,
-    alScore:m.averageScore||null,
-    popularity:m.popularity||null,
-    favourites:m.favourites||null,
-    source:m.source||null,
-    country:m.countryOfOrigin||null,
-    isAdult:m.isAdult||false,
-    alStatus:e.status||null,
-    userAlScore:e.score||null,
-    progress:e.progress||null,
-    startedAt:e.startedAt?.year||null,
-    completedAt:e.completedAt?.year||null,
-  };
-}
-
 async function importAniList(){
   const user=document.getElementById('anilist-user').value.trim();
   const yearRaw=document.getElementById('anilist-year').value.trim();
   const year=yearRaw?parseInt(yearRaw):null;
   if(!user){toast('⚠ Digite o usuário!','warn');return}
-  showLoad('Buscando AniList...',year?`Ano: ${year}`:'Todos os anos');
+  showLoad('Buscando AniList...',year?`Ano: ${year}`:`Todos os anos`);
   try{
-    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:_AL_FULL_QUERY,variables:{u:user}})});
+    const q=`query($u:String){MediaListCollection(userName:$u,type:ANIME){lists{entries{status media{id title{romaji english}coverImage{large}startDate{year}}}}}}`;
+    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q,variables:{u:user}})});
     const d=await r.json();
     if(d.errors){hideLoad();toast('Erro: '+d.errors[0].message,'err');return}
     if(!d.data?.MediaListCollection){hideLoad();toast('Usuário não encontrado','err');return}
@@ -1430,80 +1387,9 @@ async function importAniList(){
     if(!entries.length){hideLoad();toast('Nenhum anime com esses filtros!','warn');return}
     const existingImgs=new Set([...S.pool.map(x=>x.img),...S.tiers.flatMap(t=>t.items.map(x=>x.img))]);
     let added=0;
-    entries.forEach(e=>{
-      const img=e.media.coverImage.large;
-      if(img&&!existingImgs.has(img)){
-        S.pool.push({id:uid(),img,lbl:e.media.title.english||e.media.title.romaji||'',..._buildItemMeta(e)});
-        existingImgs.add(img);added++;
-      }
-    });
-    hideLoad();snap();render();
-    checkEnrichBanner();
-    toast(`✦ ${added} animes adicionados com metadados completos!${year?` (${year})`:''}${added<entries.length?' ('+(entries.length-added)+' já existiam)':''}`, 'ok');
+    entries.forEach(e=>{const img=e.media.coverImage.large;if(img&&!existingImgs.has(img)){S.pool.push({id:uid(),img,lbl:e.media.title.english||e.media.title.romaji||''});existingImgs.add(img);added++}});
+    hideLoad();snap();render();toast(`✦ ${added} animes adicionados!${year?` (${year})`:''}${added<entries.length?' ('+(entries.length-added)+' já existiam)':''}`, 'ok');
   }catch(err){hideLoad();toast('Erro: '+err.message,'err')}
-}
-
-// ── ENRICH METADATA ─────────────────────────────────────
-// Adds metadata to existing items without anilistId — never moves or removes anything
-async function enrichAllMetadata(user){
-  if(!user){toast('⚠ Digite o usuário AniList!','warn');return}
-  showLoad('Enriquecendo metadados...','Buscando sua lista AniList...');
-  try{
-    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:_AL_FULL_QUERY,variables:{u:user}})});
-    const d=await r.json();
-    if(d.errors){hideLoad();toast('Erro: '+d.errors[0].message,'err');return}
-    if(!d.data?.MediaListCollection){hideLoad();toast('Usuário não encontrado','err');return}
-    const entries=d.data.MediaListCollection.lists.flatMap(l=>l.entries);
-    // Build lookup maps
-    const byId=new Map(),byImg=new Map(),byTitle=new Map();
-    entries.forEach(e=>{
-      byId.set(e.media.id,e);
-      const img=e.media.coverImage?.large;
-      if(img)byImg.set(img.split('?')[0],e);
-      [e.media.title.romaji,e.media.title.english,e.media.title.native].forEach(t=>{
-        if(t)byTitle.set(t.toLowerCase().trim(),e);
-      });
-    });
-    const allItems=[...S.pool,...S.tiers.flatMap(t=>t.items)];
-    let enriched=0,alreadyHad=0;
-    allItems.forEach(item=>{
-      if(item.anilistId&&byId.has(item.anilistId)){
-        // re-enrich even if already has ID (to update data)
-        Object.assign(item,_buildItemMeta(byId.get(item.anilistId)));
-        alreadyHad++;enriched++;return;
-      }
-      // try img match
-      const cleanImg=(item.img||'').split('?')[0];
-      if(cleanImg&&byImg.has(cleanImg)){
-        Object.assign(item,_buildItemMeta(byImg.get(cleanImg)));
-        enriched++;return;
-      }
-      // try title match
-      const key=(item.lbl||'').toLowerCase().trim();
-      if(key&&byTitle.has(key)){Object.assign(item,_buildItemMeta(byTitle.get(key)));enriched++;return}
-      // fuzzy
-      for(const[t,e] of byTitle){
-        if(key.length>3&&(t.startsWith(key)||key.startsWith(t))){Object.assign(item,_buildItemMeta(e));enriched++;break}
-      }
-    });
-    hideLoad();snap();checkEnrichBanner();
-    const missing=allItems.filter(x=>!x.anilistId).length;
-    toast(`✦ ${enriched} animes enriquecidos!${missing?` · ${missing} sem match`:''}`, 'ok');
-    if(document.getElementById('stats-dashboard').classList.contains('open'))renderStatsDashboard();
-  }catch(err){hideLoad();toast('Erro: '+err.message,'err')}
-}
-
-function checkEnrichBanner(){
-  const allItems=[...S.pool,...S.tiers.flatMap(t=>t.items)];
-  const missing=allItems.filter(x=>!x.anilistId).length;
-  const banner=document.getElementById('enrich-banner');
-  const countEl=document.getElementById('enrich-banner-count');
-  if(missing>0&&allItems.length>0){
-    if(countEl)countEl.textContent=missing;
-    banner.classList.add('vis');
-  }else{
-    banner.classList.remove('vis');
-  }
 }
 
 // ── RELOAD IMAGES ──────────────────────────────────────
@@ -2297,328 +2183,78 @@ function renderStatsDashboard(){
 
   }else if(tab==='sdash-anilist'){
     // AniList enriched data
-    const seasonColors={WINTER:'#00e5ff',SPRING:'#00e676',SUMMER:'#ffd600',FALL:'#ff9100'};
-    const seasonEmoji={WINTER:'❄️',SPRING:'🌸',SUMMER:'☀️',FALL:'🍂'};
-    const sourceLabel={MANGA:'Mangá',ORIGINAL:'Original',LIGHT_NOVEL:'Light Novel',VISUAL_NOVEL:'Visual Novel',VIDEO_GAME:'Jogo',NOVEL:'Romance',OTHER:'Outro',DOUJINSHI:'Doujinshi',ANIME:'Anime',WEB_MANGA:'Web Mangá',BOOK:'Livro',CARD_GAME:'Card Game',MUSIC:'Música'};
-    const countryLabel={'JP':'🇯🇵 Japão','CN':'🇨🇳 China','KR':'🇰🇷 Coreia','TW':'🇹🇼 Taiwan'};
-
-    // Compute season map
-    const seasonMap={};
-    enriched.forEach(x=>{if(x.season)seasonMap[x.season]=(seasonMap[x.season]||0)+1});
-    // Year map (yearly, not decade)
-    const yearlyMap={};
-    enriched.forEach(x=>{if(x.year)yearlyMap[x.year]=(yearlyMap[x.year]||0)+1});
-    const sortedYears=Object.entries(yearlyMap).sort((a,b)=>+a[0]-+b[0]);
-    // Source map
-    const sourceMap={};
-    enriched.forEach(x=>{if(x.source)sourceMap[x.source]=(sourceMap[x.source]||0)+1});
-    // Country map
-    const countryMap={};
-    enriched.forEach(x=>{if(x.country)countryMap[x.country]=(countryMap[x.country]||0)+1});
-    // Tags map
-    const tagsMap={};
-    enriched.forEach(x=>(x.tags||[]).forEach(t=>{tagsMap[t.name]=(tagsMap[t.name]||0)+1}));
-    const topTags=Object.entries(tagsMap).sort((a,b)=>b[1]-a[1]).slice(0,15);
-    // AL Status (user's list status)
-    const alStatusMap={};
-    enriched.forEach(x=>{if(x.alStatus)alStatusMap[x.alStatus]=(alStatusMap[x.alStatus]||0)+1});
-    // Episodes & time
-    const withEp=enriched.filter(x=>x.episodes&&x.progress);
-    const totalEpWatched=withEp.reduce((s,x)=>s+(x.progress||0),0);
-    const totalEpAll=enriched.filter(x=>x.episodes).reduce((s,x)=>s+(x.episodes||0),0);
-    const withDur=enriched.filter(x=>x.duration&&x.progress);
-    const totalMinutes=withDur.reduce((s,x)=>s+(x.duration||0)*(x.progress||0),0);
-    const totalHours=Math.round(totalMinutes/60);
-    const totalDays=(totalMinutes/60/24).toFixed(1);
-    // AniList score vs personal score
-    const bothScores=enriched.filter(x=>x.alScore&&x.score!=null);
-    const avgAlScore=enriched.filter(x=>x.alScore).length?Math.round(enriched.filter(x=>x.alScore).reduce((s,x)=>s+x.alScore,0)/enriched.filter(x=>x.alScore).length):null;
-    const avgDiff=bothScores.length?+(bothScores.reduce((s,x)=>s+(x.score-x.alScore),0)/bothScores.length).toFixed(1):null;
-    // Genre × score (which genres you score highest)
-    const genreScoreMap={};
-    enriched.filter(x=>x.score!=null).forEach(x=>(x.genres||[]).forEach(g=>{if(!genreScoreMap[g])genreScoreMap[g]={sum:0,count:0};genreScoreMap[g].sum+=x.score;genreScoreMap[g].count++}));
-    const genreAvgScore=Object.entries(genreScoreMap).filter(([,v])=>v.count>=2).map(([g,v])=>([g,+(v.sum/v.count).toFixed(1),v.count])).sort((a,b)=>b[1]-a[1]).slice(0,8);
-    // Most popular (by alScore desc)
-    const topAlScored=[...enriched].filter(x=>x.alScore).sort((a,b)=>b.alScore-a.alScore).slice(0,8);
-    // Dropped %
-    const droppedCount=alStatusMap['DROPPED']||0;
-    const completedCount=alStatusMap['COMPLETED']||0;
-    const droppedPct=enriched.length?Math.round(droppedCount/enriched.length*100):0;
-    const completedPct=enriched.length?Math.round(completedCount/enriched.length*100):0;
-    // Hidden gems: your score > AL score by a lot
-    const hiddenGems=[...enriched].filter(x=>x.score!=null&&x.alScore&&(x.score-x.alScore)>=15).sort((a,b)=>(b.score-b.alScore)-(a.score-a.alScore)).slice(0,5);
-    // Overrated (AL score >> your score)
-    const overrated=[...enriched].filter(x=>x.score!=null&&x.alScore&&(x.alScore-x.score)>=15).sort((a,b)=>(b.alScore-b.score)-(a.alScore-a.score)).slice(0,5);
-    // Studio × score
-    const studioScoreMap={};
-    enriched.filter(x=>x.score!=null&&x.studio).forEach(x=>{if(!studioScoreMap[x.studio])studioScoreMap[x.studio]={sum:0,count:0};studioScoreMap[x.studio].sum+=x.score;studioScoreMap[x.studio].count++});
-    const studioAvgScore=Object.entries(studioScoreMap).filter(([,v])=>v.count>=2).map(([s,v])=>([s,+(v.sum/v.count).toFixed(1),v.count])).sort((a,b)=>b[1]-a[1]).slice(0,6);
-    // Series with most episodes watched
-    const bigWatches=[...enriched].filter(x=>x.progress&&x.progress>1).sort((a,b)=>(b.progress||0)-(a.progress||0)).slice(0,5);
-
-    // Enrich bar (always shown at top)
-    html+=`<div class="sdash-enrich-bar sdash-card-wide" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <span style="font-size:13px">🌐</span>
-      <div style="flex:1;min-width:180px">
-        <div style="font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:2px">Enriquecer com AniList</div>
-        <div style="font-size:10px;color:var(--text2)">Adiciona gêneros, estúdios, temporadas, tempo assistido e muito mais a todos os animes já existentes. Não move nem remove nada.</div>
-      </div>
-      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-        <input class="minput" id="enrich-user-inp" placeholder="Usuário AniList" style="margin:0;width:150px;font-size:11px" onkeydown="if(event.key==='Enter')enrichAllMetadata(this.value.trim())">
-        <button class="btn btn-primary btn-sm" onclick="enrichAllMetadata(document.getElementById('enrich-user-inp').value.trim())">✦ Enriquecer Tudo</button>
-        <div style="font-size:10px;color:var(--text2);min-width:80px"><b style="color:${enriched.length?'var(--green)':'var(--orange)'}">${enriched.length}</b> / ${total} com dados</div>
-      </div>
-    </div>`;
-
     if(!enriched.length){
       html+=`<div class="sdash-card sdash-card-wide">
-        <div class="sdash-enriched-note" style="padding:40px">
-          <div style="font-size:48px;margin-bottom:12px">🌐</div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px">Nenhum metadado AniList ainda</div>
-          <div style="font-size:12px;line-height:1.7;color:var(--text2)">Digite seu usuário AniList acima e clique em <b style="color:var(--cyan)">✦ Enriquecer Tudo</b> para puxar gêneros, estúdios, temporadas, tempo assistido e muito mais para todos os seus animes.<br><br>Ou use o botão <b style="color:var(--cyan)">🌐 AniList</b> no cabeçalho para importar com metadados completos, ou <b style="color:var(--cyan)">🔍 AniList</b> no Pool para buscar individualmente.</div>
+        <div class="sdash-card-title"><span>🌐</span> Dados AniList</div>
+        <div class="sdash-enriched-note" style="padding:30px">
+          <div style="font-size:32px;margin-bottom:10px">🌐</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px">Dados AniList não disponíveis</div>
+          <div style="font-size:11px;line-height:1.6">Use o botão <b style="color:var(--cyan)">🔍 AniList</b> no Pool para buscar e adicionar animes via AniList. Os animes adicionados assim incluem metadados de gênero, estúdio e ano, que alimentam as estatísticas desta aba.</div>
         </div>
       </div>`;
     }else{
-      // ── ROW 1: KPIs de cobertura ──
-      html+=`<div class="sdash-card">
-        <div class="sdash-card-title"><span>✦</span> Cobertura AniList</div>
-        <div class="sdash-kpi-grid">
-          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--green)">${enriched.length}</div><div class="sdash-kpi-lbl">Com dados</div></div>
-          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--orange)">${total-enriched.length}</div><div class="sdash-kpi-lbl">Sem dados</div></div>
-          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--cyan)">${enrichedPct}%</div><div class="sdash-kpi-lbl">Cobertura</div></div>
-        </div>
-      </div>`;
-
-      // ── Tempo total ──
-      if(totalHours>0){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>⏱</span> Tempo Assistido</div>
-          <div style="text-align:center;margin-bottom:8px">
-            <div class="sdash-big-num" style="color:var(--cyan)">${totalHours}<span style="font-size:20px;color:var(--text2)">h</span></div>
-            <div class="sdash-big-label">${totalDays} dias de anime</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:4px">
-            <div style="display:flex;justify-content:space-between;font-size:10px;padding:4px 8px;background:var(--bg3);border-radius:5px"><span style="color:var(--text2)">Episódios assistidos</span><b style="color:var(--cyan)">${totalEpWatched.toLocaleString()}</b></div>
-            <div style="display:flex;justify-content:space-between;font-size:10px;padding:4px 8px;background:var(--bg3);border-radius:5px"><span style="color:var(--text2)">Ep disponíveis (total)</span><b style="color:var(--text2)">${totalEpAll.toLocaleString()}</b></div>
-            <div style="display:flex;justify-content:space-between;font-size:10px;padding:4px 8px;background:var(--bg3);border-radius:5px"><span style="color:var(--text2)">Média ep por série</span><b style="color:var(--purple)">${enriched.filter(x=>x.episodes).length?Math.round(totalEpAll/enriched.filter(x=>x.episodes).length):0}</b></div>
-          </div>
-        </div>`;
-      }
-
-      // ── Status na lista ──
-      const statusLabels={COMPLETED:'✅ Completo',CURRENT:'▶ Assistindo',DROPPED:'💀 Dropped',PAUSED:'⏸ Pausado',PLANNING:'📌 Planejo',REPEATING:'🔁 Revendo'};
-      const statusColors={COMPLETED:'var(--green)',CURRENT:'var(--cyan)',DROPPED:'var(--pink)',PAUSED:'var(--orange)',PLANNING:'var(--text2)',REPEATING:'var(--purple)'};
-      const maxAlSt=Math.max(...Object.values(alStatusMap),1);
-      if(Object.keys(alStatusMap).length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>📋</span> Status na Lista AniList</div>
-          ${Object.entries(alStatusMap).sort((a,b)=>b[1]-a[1]).map(([s,c])=>barRow(statusLabels[s]||s,c,maxAlSt,statusColors[s]||'var(--cyan)')).join('')}
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
-            <div class="sdash-kpi" style="flex:1"><div class="sdash-kpi-val" style="color:var(--green)">${completedPct}%</div><div class="sdash-kpi-lbl">Concluídos</div></div>
-            <div class="sdash-kpi" style="flex:1"><div class="sdash-kpi-val" style="color:var(--pink)">${droppedPct}%</div><div class="sdash-kpi-lbl">Dropped</div></div>
-          </div>
-        </div>`;
-      }
-
-      // ── Gêneros favoritos ──
+      // Genre chart
       if(topGenres.length){
         const maxG=topGenres[0][1];
-        const genreColors2=['var(--cyan)','var(--pink)','var(--purple)','var(--green)','var(--orange)','var(--yellow)','#ff71ce','#05ffa1','#00b8d9','#b967ff'];
+        const genreColors=['var(--cyan)','var(--pink)','var(--purple)','var(--green)','var(--orange)','var(--yellow)','#ff71ce','#05ffa1'];
         html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🎭</span> Gêneros Favoritos (por qtd.)</div>
-          ${topGenres.map(([g,c],i)=>barRow(g,c,maxG,genreColors2[i%genreColors2.length])).join('')}
+          <div class="sdash-card-title"><span>🎭</span> Gêneros Favoritos</div>
+          ${topGenres.map(([g,c],i)=>barRow(g,c,maxG,genreColors[i%genreColors.length])).join('')}
         </div>`;
       }
 
-      // ── Gênero × score médio ──
-      if(genreAvgScore.length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🧠</span> Gêneros que Você Mais Gosta (score médio)</div>
-          ${genreAvgScore.map(([g,avg,cnt])=>`<div class="sdash-bar-row"><div class="sdash-bar-label" title="${esc(g)}">${esc(g)} <span style="color:var(--text3);font-size:9px">(${cnt})</span></div><div class="sdash-bar-track"><div class="sdash-bar-fill" style="width:${avg}%;background:${scoreColor(avg)}"></div></div><div class="sdash-bar-val" style="color:${scoreColor(avg)}">${avg}</div></div>`).join('')}
-        </div>`;
-      }
-
-      // ── Estúdios ──
+      // Studio chart
       if(topStudios.length){
         const maxS=topStudios[0][1];
         html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🏢</span> Estúdios Favoritos (por qtd.)</div>
+          <div class="sdash-card-title"><span>🏢</span> Estúdios Favoritos</div>
           ${topStudios.map(([s,c])=>barRow(s,c,maxS,'var(--cyan)')).join('')}
         </div>`;
       }
 
-      // ── Studio × score ──
-      if(studioAvgScore.length){
+      // Decade chart
+      if(topDecades.length){
+        const maxD=Math.max(...topDecades.map(x=>x[1]),1);
         html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🏆</span> Estúdios com Maior Score Médio</div>
-          ${studioAvgScore.map(([s,avg,cnt])=>`<div class="sdash-bar-row"><div class="sdash-bar-label" title="${esc(s)}">${esc(s)} <span style="color:var(--text3);font-size:9px">(${cnt})</span></div><div class="sdash-bar-track"><div class="sdash-bar-fill" style="width:${avg}%;background:${scoreColor(avg)}"></div></div><div class="sdash-bar-val" style="color:${scoreColor(avg)}">${avg}</div></div>`).join('')}
-        </div>`;
-      }
-
-      // ── Temporadas ──
-      if(Object.keys(seasonMap).length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🌸</span> Por Temporada</div>
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px">
-            ${['SPRING','SUMMER','FALL','WINTER'].map(s=>{const c=seasonMap[s]||0;const pct=enriched.length?Math.round(c/enriched.length*100):0;return`<div class="sdash-kpi" style="border-color:${seasonColors[s]}33"><div class="sdash-kpi-val" style="color:${seasonColors[s]}">${seasonEmoji[s]} ${c}</div><div class="sdash-kpi-lbl">${s} (${pct}%)</div></div>`}).join('')}
+          <div class="sdash-card-title"><span>📅</span> Por Década</div>
+          <div class="sdash-hist-row" style="height:100px">
+            ${topDecades.map(([d,c])=>histBar(c,maxD,`${d}s`,`hsl(${(+d-1960)*4+180},80%,60%)`)).join('')}
+          </div>
+          <div class="sdash-hist-labels">
+            ${topDecades.map(([d])=>`<span>${d}s</span>`).join('')}
           </div>
         </div>`;
       }
 
-      // ── Por ano (timeline) ──
-      if(sortedYears.length){
-        const maxY=Math.max(...sortedYears.map(x=>x[1]),1);
-        html+=`<div class="sdash-card sdash-card-wide">
-          <div class="sdash-card-title"><span>📅</span> Timeline por Ano</div>
-          <div style="overflow-x:auto">
-            <div style="display:flex;align-items:flex-end;gap:3px;height:90px;min-width:${sortedYears.length*28}px;padding:0 2px">
-              ${sortedYears.map(([y,c])=>{const h=maxY?Math.round((c/maxY)*100):0;const col=`hsl(${(+y-1970)*3+180},75%,58%)`;return`<div style="flex:1;min-width:22px;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="width:100%;height:${h}%;background:${col};border-radius:3px 3px 0 0;min-height:${c?3:0}px;cursor:default;position:relative" title="${y}: ${c} animes"></div></div>`}).join('')}
-            </div>
-            <div style="display:flex;gap:3px;min-width:${sortedYears.length*28}px;margin-top:3px">
-              ${sortedYears.map(([y])=>`<div style="flex:1;min-width:22px;text-align:center;font-size:8px;color:var(--text3);transform:rotate(-45deg);transform-origin:top center;white-space:nowrap">${y}</div>`).join('')}
-            </div>
-          </div>
-        </div>`;
-      }
-
-      // ── Por fonte ──
-      if(Object.keys(sourceMap).length){
-        const maxSrc=Math.max(...Object.values(sourceMap),1);
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>📚</span> Origem / Fonte</div>
-          ${Object.entries(sourceMap).sort((a,b)=>b[1]-a[1]).map(([s,c])=>barRow(sourceLabel[s]||s,c,maxSrc,'var(--purple)')).join('')}
-        </div>`;
-      }
-
-      // ── Por formato ──
+      // Format breakdown
       if(topFormats.length){
-        const maxFmt=topFormats[0][1];
-        const fmtColors={TV:'var(--cyan)',MOVIE:'var(--pink)',OVA:'var(--purple)',ONA:'var(--green)',SPECIAL:'var(--yellow)',MUSIC:'var(--orange)'};
         html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>📺</span> Formato</div>
-          ${topFormats.map(([f,c])=>barRow(f,c,maxFmt,fmtColors[f]||'var(--text2)')).join('')}
-        </div>`;
-      }
-
-      // ── Por país ──
-      if(Object.keys(countryMap).length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🌍</span> País de Origem</div>
+          <div class="sdash-card-title"><span>📺</span> Formatos</div>
           <div class="sdash-pill-wrap">
-            ${Object.entries(countryMap).sort((a,b)=>b[1]-a[1]).map(([c,n])=>`<div class="sdash-pill">${countryLabel[c]||c}<span class="sdash-pill-count">${n}</span></div>`).join('')}
+            ${topFormats.map(([f,c])=>`<div class="sdash-pill">${esc(f)}<span class="sdash-pill-count">${c}</span></div>`).join('')}
           </div>
         </div>`;
       }
 
-      // ── Score pessoal vs AniList ──
-      if(bothScores.length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>⚖️</span> Seu Score vs AniList</div>
-          <div class="sdash-kpi-grid" style="margin-bottom:10px">
-            <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--cyan)">${avgScore??'—'}</div><div class="sdash-kpi-lbl">Seu avg</div></div>
-            <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--purple)">${avgAlScore??'—'}</div><div class="sdash-kpi-lbl">AL avg</div></div>
-            <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:${avgDiff>=0?'var(--green)':'var(--pink)'}">${avgDiff>=0?'+':''}${avgDiff??'—'}</div><div class="sdash-kpi-lbl">Diferença</div></div>
-          </div>
-          <div style="font-size:10px;color:var(--text2);text-align:center">${bothScores.length} animes com ambos os scores · ${avgDiff>0?'Você é mais generoso que a média':'Você é mais criterioso que a média'}</div>
-        </div>`;
-      }
-
-      // ── Joias escondidas ──
-      if(hiddenGems.length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>💎</span> Joias Escondidas (você ama, mundo ignora)</div>
-          ${hiddenGems.map(x=>`<div class="sdash-top-row">
-            <img class="sdash-top-img" src="${esc(x.img||'')}" alt="" onerror="this.style.background='var(--bg4)'">
-            <div class="sdash-top-info"><div class="sdash-top-name">${esc(x.lbl||'?')}</div><div class="sdash-top-meta">Seu: ${x.score} · AL: ${x.alScore} · <span style="color:var(--green)">+${x.score-x.alScore}</span></div></div>
-          </div>`).join('')}
-        </div>`;
-      }
-
-      // ── Overrated (na sua opinião) ──
-      if(overrated.length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>📉</span> Superestimados (na sua opinião)</div>
-          ${overrated.map(x=>`<div class="sdash-top-row">
-            <img class="sdash-top-img" src="${esc(x.img||'')}" alt="" onerror="this.style.background='var(--bg4)'">
-            <div class="sdash-top-info"><div class="sdash-top-name">${esc(x.lbl||'?')}</div><div class="sdash-top-meta">Seu: ${x.score} · AL: ${x.alScore} · <span style="color:var(--pink)">-${x.alScore-x.score}</span></div></div>
-          </div>`).join('')}
-        </div>`;
-      }
-
-      // ── Top tags ──
-      if(topTags.length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🏷</span> Top Tags</div>
-          <div class="sdash-pill-wrap">
-            ${topTags.map(([t,c])=>`<div class="sdash-pill" style="border-color:rgba(139,92,246,.4)">${esc(t)}<span class="sdash-pill-count">${c}</span></div>`).join('')}
-          </div>
-        </div>`;
-      }
-
-      // ── Todos os gêneros ──
-      html+=`<div class="sdash-card">
-        <div class="sdash-card-title"><span>🎭</span> Todos os Gêneros</div>
+      // All genres pills
+      html+=`<div class="sdash-card sdash-card-wide">
+        <div class="sdash-card-title"><span>🏷</span> Todos os Gêneros</div>
         <div class="sdash-pill-wrap">
           ${Object.entries(genreMap).sort((a,b)=>b[1]-a[1]).map(([g,c])=>`<div class="sdash-pill">${esc(g)}<span class="sdash-pill-count">${c}</span></div>`).join('')}
         </div>
       </div>`;
 
-      // ── Top score AniList (animes mais cotados pela comunidade na SUA lista) ──
-      if(topAlScored.length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🌐</span> Mais Amados pela Comunidade (na sua lista)</div>
-          ${topAlScored.map((x,i)=>`<div class="sdash-top-row">
-            <div class="sdash-top-rank" style="color:${i<3?['#ffd600','#b0b0b0','#cd7f32'][i]:'var(--text3)'}">${i+1}</div>
-            <img class="sdash-top-img" src="${esc(x.img||'')}" alt="" onerror="this.style.background='var(--bg4)'">
-            <div class="sdash-top-info"><div class="sdash-top-name">${esc(x.lbl||'?')}</div><div class="sdash-top-meta">${x.genres?.[0]||''} · ${x.format||''}</div></div>
-            <div class="sdash-top-score" style="color:${scoreColor(x.alScore)}">${x.alScore}</div>
-          </div>`).join('')}
-        </div>`;
-      }
-
-      // ── Maratonas (animes com mais episódios assistidos) ──
-      if(bigWatches.length){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>📺</span> Maratonas (mais eps. assistidos)</div>
-          ${bigWatches.map((x,i)=>`<div class="sdash-top-row">
-            <div class="sdash-top-rank">${i+1}</div>
-            <img class="sdash-top-img" src="${esc(x.img||'')}" alt="" onerror="this.style.background='var(--bg4)'">
-            <div class="sdash-top-info"><div class="sdash-top-name">${esc(x.lbl||'?')}</div><div class="sdash-top-meta">${x.progress} / ${x.episodes||'?'} eps · ${x.duration?Math.round(x.duration*x.progress/60)+'h':'?'}</div></div>
-          </div>`).join('')}
-        </div>`;
-      }
-
-      // ── Adultos na lista ──
-      const adultCount=enriched.filter(x=>x.isAdult).length;
-      if(adultCount>0){
-        html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🔞</span> Conteúdo Adulto</div>
-          <div style="text-align:center">
-            <div class="sdash-big-num" style="color:var(--pink)">${adultCount}</div>
-            <div class="sdash-big-label">${enriched.length?Math.round(adultCount/enriched.length*100):0}% da lista</div>
-          </div>
-        </div>`;
-      }
-
-      // ── Resumo geral enriched ──
-      html+=`<div class="sdash-card sdash-card-wide">
-        <div class="sdash-card-title"><span>📊</span> Resumo Completo</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px">
-          ${[
-            ['Total com dados',enriched.length,'var(--green)'],
-            ['Gêneros únicos',Object.keys(genreMap).length,'var(--cyan)'],
-            ['Estúdios únicos',Object.keys(studioMap).length,'var(--purple)'],
-            ['Tags únicas',Object.keys(tagsMap).length,'var(--orange)'],
-            ['Anos de estreia',Object.keys(yearlyMap).length,'var(--yellow)'],
-            ['% Completos',completedPct+'%','var(--green)'],
-            ['% Dropped',droppedPct+'%','var(--pink)'],
-            totalHours>0?['Total assistido',totalHours+'h','var(--cyan)']:null,
-            avgAlScore?['Score médio AL',avgAlScore,'var(--purple)']:null,
-            avgDiff!==null?['Seu bias',`${avgDiff>=0?'+':''}${avgDiff}`,'var(--text2)']:null,
-          ].filter(Boolean).map(([l,v,c])=>`<div class="sdash-kpi"><div class="sdash-kpi-val" style="color:${c}">${v}</div><div class="sdash-kpi-lbl">${l}</div></div>`).join('')}
+      // Enrichment stats
+      html+=`<div class="sdash-card">
+        <div class="sdash-card-title"><span>✦</span> Cobertura AniList</div>
+        <div style="text-align:center">
+          <div class="sdash-big-num" style="color:var(--green)">${enrichedPct}%</div>
+          <div class="sdash-big-label">${enriched.length} de ${total} com metadados</div>
         </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--text2);text-align:center">Use 🔍 AniList no Pool para adicionar mais animes com metadados completos</div>
       </div>`;
     }
+  }
 
   document.getElementById('sdash-body').innerHTML=html||'<div class="sdash-card sdash-card-wide"><div class="sdash-enriched-note">Carregando...</div></div>';
 }
@@ -2629,7 +2265,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
   try{const saved=await idbGet('anitier');if(saved)S=JSON.parse(saved)}catch(e){console.warn('Load error:',e)}
   setupPoolDrop();buildColorGrid();buildStatusChips();setupStickyToolbar();
   snap();render();syncUI();updateScorePreview(75);updateScoreSelPreview(75);
-  setTimeout(()=>{toast('✦ AnimeTier v5 — ? para atalhos','ok');checkEnrichBanner()},900);
+  setTimeout(()=>toast('✦ AnimeTier v5 — ? para atalhos','ok'),900);
 });
 </script>
 </body>
