@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>✦ AnimeTier</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{
@@ -15,11 +15,17 @@
   --radius:10px;--item-size:100px;--pool-h:240px;
   --tooltip-bg:rgba(14,14,28,.97);--tooltip-text:#e8e8f4;
   --pool-fixed-bg:rgba(8,8,18,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.7),0 -1px 0 rgba(0,229,255,.18);
+  --body-font:'Nunito',sans-serif;
 }
 [data-theme="light"]{--bg:#f0f0f8;--bg2:#e4e4f4;--bg3:#d8d8ec;--bg4:#ccccdf;--panel:rgba(0,0,0,.04);--border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.18);--text:#1a1a2e;--text2:#5a5a7a;--text3:#9a9ab8;--tooltip-bg:rgba(255,255,255,.97);--tooltip-text:#1a1a2e;--pool-fixed-bg:rgba(228,228,244,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.12),0 -1px 0 rgba(0,100,220,.2)}
+[data-theme="cyberpunk"]{--bg:#040810;--bg2:#060c18;--bg3:#0a1020;--bg4:#0e1628;--cyan:#f5e642;--pink:#00f0ff;--purple:#ff2d78;--text:#e8f4e0;--text2:#6a8a60;--text3:#3a5a30;--border:rgba(245,230,66,.1);--border2:rgba(245,230,66,.2);--panel:rgba(245,230,66,.04);--pool-fixed-bg:rgba(4,8,16,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.8),0 -1px 0 rgba(245,230,66,.25)}
+[data-theme="persona"]{--bg:#0a0005;--bg2:#120008;--bg3:#1a0010;--bg4:#220018;--cyan:#ff2233;--pink:#ffcc00;--purple:#cc0022;--text:#fff0f2;--text2:#aa6070;--text3:#664048;--border:rgba(255,34,51,.12);--border2:rgba(255,34,51,.25);--panel:rgba(255,34,51,.05);--tooltip-bg:rgba(10,0,5,.97);--pool-fixed-bg:rgba(10,0,5,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.9),0 -1px 0 rgba(255,34,51,.3)}
+[data-theme="vaporwave"]{--bg:#0d0520;--bg2:#130830;--bg3:#180c3a;--bg4:#1e1044;--cyan:#ff71ce;--pink:#b967ff;--purple:#05ffa1;--yellow:#fffb96;--text:#f4e8ff;--text2:#906090;--text3:#604060;--border:rgba(255,113,206,.1);--border2:rgba(255,113,206,.22);--panel:rgba(255,113,206,.05);--pool-fixed-bg:rgba(13,5,32,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.8),0 -1px 0 rgba(255,113,206,.25)}
+[data-theme="monochrome"]{--bg:#080808;--bg2:#111;--bg3:#181818;--bg4:#222;--cyan:#e0e0e0;--pink:#fff;--purple:#aaa;--yellow:#ccc;--green:#bbb;--orange:#999;--text:#e8e8e8;--text2:#666;--text3:#444;--border:rgba(255,255,255,.09);--border2:rgba(255,255,255,.16);--panel:rgba(255,255,255,.04);--pool-fixed-bg:rgba(8,8,8,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.8),0 -1px 0 rgba(200,200,200,.15)}
+[data-theme="retro"]{--bg:#1a0e05;--bg2:#241508;--bg3:#2e1c0c;--bg4:#382310;--cyan:#ff8c42;--pink:#ff4d6d;--purple:#c77dff;--yellow:#ffd166;--green:#06d6a0;--text:#fff3e0;--text2:#a07050;--text3:#6a4830;--border:rgba(255,140,66,.1);--border2:rgba(255,140,66,.22);--panel:rgba(255,140,66,.04);--pool-fixed-bg:rgba(26,14,5,.98);--pool-fixed-shadow:0 -4px 32px rgba(0,0,0,.8),0 -1px 0 rgba(255,140,66,.25)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+body{font-family:var(--body-font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 12% 12%,rgba(0,229,255,.04) 0%,transparent 50%),radial-gradient(ellipse at 88% 88%,rgba(255,0,110,.04) 0%,transparent 50%);pointer-events:none;z-index:0}
 ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(0,229,255,.28);border-radius:2px}
 body.fullscreen .header,body.fullscreen .toolbar,body.fullscreen #stats-bar,body.fullscreen #sel-bar,body.fullscreen #gsearch-bar{display:none!important}
@@ -129,6 +135,46 @@ body.show-ranks .item-rank{display:block}
 .tier-item:hover .item-score{display:block}
 body.show-scores .item-score{display:block}
 .sc-s{background:#00e5ff}.sc-a{background:#00e676}.sc-b{background:#ffd600}.sc-c{background:#ff9100}.sc-d{background:#ff5252}.sc-none{background:rgba(200,200,200,.35);color:var(--text)}
+/* ── DROP ANIMATION ── */
+@keyframes dropIn{0%{transform:scale(1.18) translateY(-10px);opacity:0}60%{transform:scale(.97) translateY(2px)}100%{transform:scale(1) translateY(0);opacity:1}}
+.tier-item.drop-anim{animation:dropIn .28s cubic-bezier(.34,1.56,.64,1) both}
+/* ── TIER ICON ── */
+.tier-icon-badge{font-size:20px;line-height:1;margin-bottom:1px;cursor:default;user-select:none}
+/* ── BLUR SPOILER ── */
+.tier-item.item-blurred>img{filter:blur(10px) saturate(.4);transition:filter .2s}
+.tier-item.item-blurred:hover>img{filter:none}
+.tier-item.item-blurred::after{content:'👁‍🗨';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;pointer-events:none;opacity:.7}
+.tier-item.item-blurred:hover::after{display:none}
+/* ── ANALYTICS MODAL ── */
+.analytics-tier-row{display:flex;align-items:center;gap:10px;padding:7px 10px;background:var(--bg2);border-radius:7px;border:1px solid var(--border);margin-bottom:5px}
+.analytics-tier-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.analytics-tier-name{font-weight:800;font-size:12px;min-width:50px}
+.analytics-bar-wrap{flex:1;height:6px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.analytics-bar{height:100%;border-radius:3px;transition:width .4s}
+.analytics-num{font-size:11px;font-weight:800;color:var(--cyan);min-width:20px;text-align:right}
+.analytics-score{font-size:10px;color:var(--text2);min-width:44px;text-align:right}
+/* ── HISTORY MODAL ── */
+.hist-entry{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg2);border-radius:7px;border:1px solid var(--border);margin-bottom:4px;cursor:pointer;transition:border-color .14s}
+.hist-entry:hover{border-color:var(--cyan)}
+.hist-entry.current{border-color:var(--cyan);background:rgba(0,229,255,.06)}
+.hist-entry-num{font-size:10px;font-weight:800;color:var(--text3);min-width:22px}
+.hist-entry-info{flex:1;font-size:11px}
+.hist-entry-time{font-size:10px;color:var(--text2)}
+/* ── EXPORT OPTIONS ── */
+.exp-opt-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.exp-opt-label{font-size:11px;font-weight:700;color:var(--text2);min-width:80px}
+.scale-btn{padding:4px 10px;border-radius:5px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:11px;font-weight:700;cursor:pointer;transition:all .13s}
+.scale-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08)}
+/* ── FONT SELECTOR ── */
+.font-opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:12px}
+.font-opt{padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:11px;cursor:pointer;transition:all .13s;text-align:center}
+.font-opt:hover{border-color:var(--cyan)}
+.font-opt.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08)}
+/* ── THEME GRID ── */
+.theme-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:12px}
+.theme-btn{padding:5px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--text);font-size:10px;font-weight:700;cursor:pointer;transition:all .13s;text-align:center;line-height:1.3}
+.theme-btn:hover{border-color:var(--cyan)}
+.theme-btn.active{border-color:var(--cyan);color:var(--cyan)}
 .drop-indicator{width:2px;background:var(--cyan);border-radius:2px;align-self:stretch;box-shadow:0 0 6px var(--cyan);flex-shrink:0;min-height:36px;pointer-events:none}
 #touch-clone{position:fixed;z-index:9999;pointer-events:none;display:none;width:72px;border-radius:6px;overflow:hidden;opacity:.88;transform:scale(1.12);box-shadow:0 12px 36px rgba(0,0,0,.7)}
 #touch-clone img{width:72px;height:108px;object-fit:cover;display:block}
@@ -228,6 +274,70 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
 [data-theme="light"] #hov-tip{background:rgba(255,255,255,.97)!important;color:#1a1a2e!important;border-color:rgba(0,0,0,.2)!important;box-shadow:0 4px 14px rgba(0,0,0,.12)!important}
 [data-theme="light"] #pool-container.is-fixed{background:rgba(228,228,244,.99)!important;border-top:1px solid rgba(0,0,0,.12)!important}
 [data-theme="light"] #pool-container.is-fixed .pool-header{background:transparent!important}
+/* ── ANILIST SEARCH MODAL ── */
+.al-search-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;max-height:420px;overflow-y:auto;padding:2px}
+.al-search-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;transition:all .14s;position:relative}
+.al-search-card:hover{border-color:var(--cyan);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,229,255,.15)}
+.al-search-card.al-added{opacity:.5;cursor:default;pointer-events:none}
+.al-search-card.al-added:hover{transform:none;box-shadow:none;border-color:var(--green)}
+.al-search-card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--bg4)}
+.al-search-card-info{padding:5px 6px}
+.al-search-card-title{font-size:10px;font-weight:700;line-height:1.3;color:var(--text);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.al-search-card-meta{font-size:9px;color:var(--text2);margin-top:2px}
+.al-added-badge{position:absolute;top:4px;right:4px;background:var(--green);color:#000;font-size:9px;font-weight:900;border-radius:10px;padding:2px 5px}
+/* ── STATS DASHBOARD ── */
+#stats-dashboard{position:fixed;inset:0;background:var(--bg);z-index:800;display:none;flex-direction:column;overflow:hidden}
+#stats-dashboard.open{display:flex}
+.sdash-header{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
+.sdash-title{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px}
+.sdash-body{flex:1;overflow-y:auto;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-content:start}
+.sdash-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;position:relative;overflow:hidden}
+.sdash-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.02),transparent);pointer-events:none}
+.sdash-card-wide{grid-column:1/-1}
+.sdash-card-title{font-size:10px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.sdash-card-title span{font-size:14px}
+.sdash-big-num{font-family:'Rajdhani',sans-serif;font-size:48px;font-weight:900;color:var(--cyan);line-height:1}
+.sdash-big-label{font-size:11px;color:var(--text2);margin-top:2px}
+.sdash-kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sdash-kpi{background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--border)}
+.sdash-kpi-val{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;line-height:1}
+.sdash-kpi-lbl{font-size:9px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:1px}
+.sdash-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px}
+.sdash-bar-label{min-width:80px;text-align:right;color:var(--text2);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sdash-bar-track{flex:1;height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;position:relative}
+.sdash-bar-fill{height:100%;border-radius:4px;transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+.sdash-bar-val{min-width:28px;font-weight:800;font-size:10px;text-align:right}
+.sdash-hist-row{display:flex;align-items:flex-end;gap:3px;height:80px;padding:0 2px}
+.sdash-hist-bar{flex:1;border-radius:3px 3px 0 0;min-width:8px;transition:height .4s;position:relative;cursor:default}
+.sdash-hist-bar:hover::after{content:attr(data-tip);position:absolute;top:-24px;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:2px 6px;font-size:9px;white-space:nowrap;color:var(--text);z-index:2}
+.sdash-hist-labels{display:flex;font-size:8px;color:var(--text3);padding:0 2px;margin-top:3px}
+.sdash-hist-labels span{flex:1;text-align:center}
+.sdash-top-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
+.sdash-top-row:last-child{border:none}
+.sdash-top-rank{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:var(--text3);min-width:22px;text-align:center}
+.sdash-top-img{width:30px;height:44px;border-radius:4px;object-fit:cover;background:var(--bg4);flex-shrink:0}
+.sdash-top-info{flex:1;min-width:0}
+.sdash-top-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sdash-top-meta{font-size:9px;color:var(--text2)}
+.sdash-top-score{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:900;flex-shrink:0}
+.sdash-pill-wrap{display:flex;flex-wrap:wrap;gap:5px}
+.sdash-pill{padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;border:1px solid var(--border);background:var(--bg3);display:flex;align-items:center;gap:5px;cursor:default}
+.sdash-pill-count{background:var(--bg4);border-radius:8px;padding:1px 5px;font-size:9px;color:var(--cyan)}
+.sdash-score-ring{display:flex;justify-content:center;margin-bottom:10px}
+.sdash-donut{width:120px;height:120px}
+.sdash-grade-row{display:flex;justify-content:space-around;gap:4px}
+.sdash-grade{text-align:center;background:var(--bg3);border-radius:8px;padding:8px 6px;flex:1;border:1px solid var(--border)}
+.sdash-grade-letter{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:900}
+.sdash-grade-count{font-size:11px;font-weight:700;color:var(--cyan)}
+.sdash-grade-pct{font-size:9px;color:var(--text2)}
+.sdash-enriched-note{font-size:10px;color:var(--text3);text-align:center;padding:14px;background:var(--bg3);border-radius:8px;border:1px dashed var(--border)}
+.sdash-tabs{display:flex;gap:4px;padding:0 16px 0;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}
+.sdash-tab{padding:9px 14px;border:none;background:none;color:var(--text2);font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .14s}
+.sdash-tab.active{color:var(--cyan);border-bottom-color:var(--cyan)}
+.sdash-tab:hover{color:var(--cyan)}
+.sdash-page{display:none}
+.sdash-page.active{display:contents}
+.sdash-enrich-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);border-radius:8px;margin-bottom:10px;grid-column:1/-1}
 @media(max-width:640px){
   .tier-row{flex-direction:column}
   .tier-label-area{width:100%;min-width:unset;flex-direction:row;padding:5px 8px;border-radius:calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;min-height:auto;gap:6px;justify-content:flex-start}
@@ -246,6 +356,7 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
 </style>
 </head>
 <body>
+<div id="tier-glow-ov" style="position:fixed;inset:0;pointer-events:none;z-index:0;transition:background .7s ease;background:transparent"></div>
 <div id="hov-tip"></div>
 <div id="img-preview"><img id="img-preview-img" src="" alt=""></div>
 <div id="touch-clone"><img id="tc-img" src="" alt=""></div>
@@ -269,10 +380,11 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
     <button class="btn btn-sm" onclick="openModal('bulk-modal')">📋 Bulk</button>
     <button class="btn btn-sm" onclick="pasteFromClipboard()" title="Colar do clipboard">⊕</button>
   </div>
-  <div class="hactions">
+    <div class="hactions">
     <div class="save-dot" id="save-dot" title="Auto-save"></div>
     <button class="btn btn-sm" id="btn-undo" onclick="undo()" disabled title="Ctrl+Z">↩</button>
     <button class="btn btn-sm" id="btn-redo" onclick="redo()" disabled title="Ctrl+Y">↪</button>
+    <button class="btn btn-sm" onclick="openHistoryModal()" title="Ver histórico de ações">⏱</button>
     <div class="hsep"></div>
     <button class="btn btn-sm" onclick="openModal('saves-modal')" title="Gerenciar saves">💾 Saves</button>
     <button class="btn btn-sm" onclick="saveLS()" title="Salvar rápido Ctrl+S">⊙</button>
@@ -280,7 +392,8 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
     <button class="btn btn-sm" onclick="exportJSON()">⬇JSON</button>
     <button class="btn btn-sm" onclick="document.getElementById('import-json').click()">⬆JSON</button>
     <input type="file" id="import-json" accept=".json" style="display:none" onchange="importJSON(this)">
-    <button class="btn btn-primary btn-sm" onclick="exportPNG()">📷</button>
+    <button class="btn btn-primary btn-sm" onclick="openExportModal()">📷</button>
+    <button class="btn btn-sm" onclick="openStatsDashboard()" title="📊 Estatísticas Avançadas">📊</button>
     <button class="btn btn-sm" onclick="toggleFullscreen()" title="Fullscreen F11">⛶</button>
     <button class="btn btn-sm" onclick="openModal('settings-modal')">⚙</button>
     <button class="btn btn-sm" onclick="openModal('help-modal')">?</button>
@@ -363,7 +476,9 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
         <button class="btn btn-sm" id="btn-listview" onclick="toggleListView()">▤</button>
         <button class="btn btn-sm" onclick="shufflePool()">🎲</button>
         <button class="btn btn-sm" onclick="openModal('assign-modal')">✦ Auto</button>
+        <button class="btn btn-sm" onclick="autoTierByScore()" title="Distribuir itens do pool por score">⭐ Score</button>
         <button class="btn btn-sm" onclick="openCleanPoolModal()" title="Remover sequências/continuações da pool">🧹 Seqs</button>
+        <button class="btn btn-sm btn-primary" onclick="openAniListSearch()" title="Buscar anime no AniList e adicionar">🔍 AniList</button>
         <button class="btn btn-sm btn-danger" onclick="deleteAllPool()">🗑</button>
       </div>
     </div>
@@ -382,6 +497,7 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
   <div class="ctx-sep"></div>
   <div class="ctx-item" onclick="ctxDupe()">📋 Duplicar</div>
   <div class="ctx-item" onclick="ctxSelectSimilar()">🔍 Sel. similares</div>
+  <div class="ctx-item" id="ctx-blur-btn" onclick="ctxToggleBlur()">🙈 Blur spoiler</div>
   <div class="ctx-sep"></div>
   <div class="ctx-item danger" onclick="ctxDelete()">🗑 Deletar</div>
 </div>
@@ -475,9 +591,23 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
   </div>
   <div class="mtab-pane active" id="stab-visual">
     <label class="mlabel">Tema</label>
-    <div style="display:flex;gap:6px;margin-bottom:12px">
-      <button class="btn" onclick="setTheme('dark')" id="theme-dark" style="flex:1">🌙 Dark</button>
-      <button class="btn" onclick="setTheme('light')" id="theme-light" style="flex:1">☀ Light</button>
+    <div class="theme-grid" id="theme-grid">
+      <button class="theme-btn" onclick="setTheme('dark')" id="theme-dark">🌙 Dark</button>
+      <button class="theme-btn" onclick="setTheme('light')" id="theme-light">☀ Light</button>
+      <button class="theme-btn" onclick="setTheme('cyberpunk')" id="theme-cyberpunk">⚡ Cyber</button>
+      <button class="theme-btn" onclick="setTheme('persona')" id="theme-persona">🔴 Persona</button>
+      <button class="theme-btn" onclick="setTheme('vaporwave')" id="theme-vaporwave">🌸 Vapor</button>
+      <button class="theme-btn" onclick="setTheme('monochrome')" id="theme-monochrome">⬛ Mono</button>
+      <button class="theme-btn" onclick="setTheme('retro')" id="theme-retro" style="grid-column:span 3">🍊 Retro Anime</button>
+    </div>
+    <label class="mlabel">Fonte</label>
+    <div class="font-opt-grid" id="font-opt-grid">
+      <div class="font-opt active" onclick="setFont('')" data-font="" style="font-family:'Nunito'">Nunito</div>
+      <div class="font-opt" onclick="setFont('Rajdhani')" data-font="Rajdhani" style="font-family:'Rajdhani'">Rajdhani</div>
+      <div class="font-opt" onclick="setFont('Orbitron')" data-font="Orbitron">Orbitron</div>
+      <div class="font-opt" onclick="setFont('Space+Grotesk')" data-font="Space+Grotesk">Space Grotesk</div>
+      <div class="font-opt" onclick="setFont('Bebas+Neue')" data-font="Bebas+Neue">Bebas Neue</div>
+      <div class="font-opt" onclick="setFont('Press+Start+2P')" data-font="Press+Start+2P" style="font-size:9px">Press Start 2P</div>
     </div>
     <label class="mlabel">Tamanho dos itens: <span id="s-size-lbl">100px</span></label>
     <input type="range" class="range" style="width:100%;margin-bottom:12px" min="50" max="180" value="100" id="s-size-r" oninput="updateSizeFromSettings(this.value)">
@@ -503,17 +633,26 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
     <div class="color-grid" id="quick-color2-grid"></div>
     <button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="quickAddTier()">＋ Adicionar tier</button>
     <div class="sort-sep"></div>
-    <label class="mlabel" style="margin-top:10px">Presets</label>
+    <label class="mlabel" style="margin-top:10px">Presets — Ranking</label>
     <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('classic')">⭐ S A B C D F</button>
-    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('seasonal')">🌸 Seasonal Ranking</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('seasonal')">🌸 Seasonal</button>
     <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('mood')">💭 Mood</button>
-    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('numbers')">🔢 10 9 8 7 6 5</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('numbers')">🔢 10→5</button>
+    <label class="mlabel" style="margin-top:8px">Presets — Temáticos</label>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('bestgirls')">💗 Best Girls</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('openings')">🎵 Openings</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('endings')">🎶 Endings</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('viloes')">😈 Vilões</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('arcos')">⚔ Arcos</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('filmes')">🎬 Filmes</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('traumas')">💔 Traumas</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('comfort')">🛋 Comfort Anime</button>
   </div>
   <div class="mtab-pane" id="stab-data">
     <button class="btn" style="width:100%;margin-bottom:5px" onclick="openModal('saves-modal')">💾 Gerenciar Saves</button>
     <button class="btn" style="width:100%;margin-bottom:5px" onclick="exportJSON()">⬇ Exportar JSON</button>
     <button class="btn" style="width:100%;margin-bottom:5px" onclick="document.getElementById('import-json').click()">⬆ Importar JSON</button>
-    <button class="btn btn-primary" style="width:100%;margin-bottom:5px" onclick="exportPNG()">📷 Exportar PNG</button>
+    <button class="btn btn-primary" style="width:100%;margin-bottom:5px" onclick="openExportModal()">📷 Exportar PNG</button>
     <button class="btn" style="width:100%;margin-bottom:5px" onclick="copyAsText()">📄 Copiar como texto</button>
     <div class="sort-sep" style="margin:8px 0"></div>
     <button class="btn btn-danger" style="width:100%" onclick="resetAll()">⚠ Resetar tudo</button>
@@ -565,6 +704,86 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
   <div class="mact"><button class="btn" onclick="closeModal('reload-img-modal')">Cancelar</button><button class="btn btn-primary" onclick="reloadImagesFromAniList()">🔄 Recarregar</button></div>
 </div></div>
 
+<!-- ── ANALYTICS MODAL ── -->
+<div class="modal-ov" id="analytics-modal"><div class="modal" style="max-width:480px">
+  <h3>📊 Analytics das Tiers</h3>
+  <div id="analytics-summary" style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px"></div>
+  <div id="analytics-list"></div>
+  <div class="mact"><button class="btn btn-primary" onclick="closeModal('analytics-modal')">Fechar</button></div>
+</div></div>
+
+<!-- ── HISTORY MODAL ── -->
+<div class="modal-ov" id="history-modal"><div class="modal" style="max-width:440px">
+  <h3>⏱ Histórico de Ações</h3>
+  <p style="font-size:11px;color:var(--text2);margin-bottom:12px">Clique em qualquer estado para restaurá-lo. Estado atual destacado em ciano.</p>
+  <div id="history-list" style="max-height:320px;overflow-y:auto;padding-right:3px"></div>
+  <div class="mact"><button class="btn" onclick="closeModal('history-modal')">Fechar</button></div>
+</div></div>
+
+<!-- ── EXPORT OPTIONS MODAL ── -->
+<div class="modal-ov" id="export-modal"><div class="modal" style="max-width:400px">
+  <h3>📷 Exportar PNG</h3>
+  <div class="exp-opt-row">
+    <span class="exp-opt-label">Resolução</span>
+    <div style="display:flex;gap:5px">
+      <button class="scale-btn active" id="scale-1" onclick="setExportScale(1)">1×</button>
+      <button class="scale-btn active" id="scale-2" onclick="setExportScale(2)" style="border-color:var(--cyan);color:var(--cyan)">2×</button>
+      <button class="scale-btn" id="scale-3" onclick="setExportScale(3)">3×</button>
+    </div>
+  </div>
+  <div class="exp-opt-row">
+    <span class="exp-opt-label">Fundo</span>
+    <div style="display:flex;gap:5px;align-items:center">
+      <button class="scale-btn active" id="bg-theme" onclick="setExportBg('theme')">Tema atual</button>
+      <button class="scale-btn" id="bg-black" onclick="setExportBg('black')">⬛ Preto</button>
+      <button class="scale-btn" id="bg-white" onclick="setExportBg('white')">⬜ Branco</button>
+      <input type="color" id="bg-custom-color" value="#07070f" style="width:26px;height:26px;border:1px solid var(--border);border-radius:5px;cursor:pointer;background:none" onchange="setExportBg('custom')">
+    </div>
+  </div>
+  <div class="exp-opt-row">
+    <span class="exp-opt-label">Marca d'água</span>
+    <label class="toggle-wrap"><label class="toggle"><input type="checkbox" id="exp-watermark"><span class="tslider"></span></label><span class="tlabel" style="font-size:10px">AnimeTier.io</span></label>
+  </div>
+  <div class="mact">
+    <button class="btn" onclick="closeModal('export-modal')">Cancelar</button>
+    <button class="btn btn-primary" onclick="doExportPNG()">📷 Exportar!</button>
+  </div>
+</div></div>
+
+<!-- ── ANILIST SEARCH MODAL ── -->
+<div class="modal-ov" id="anilist-search-modal"><div class="modal" style="max-width:600px;width:96vw">
+  <h3>🔍 Buscar Anime no AniList</h3>
+  <div style="display:flex;gap:6px;margin-bottom:12px">
+    <input class="minput" id="al-search-inp" placeholder="Nome do anime..." style="margin:0;flex:1"
+      oninput="onALSearchInput(this.value)"
+      onkeydown="if(event.key==='Enter')onALSearchInput(this.value)">
+    <button class="btn btn-sm" onclick="document.getElementById('al-search-inp').value='';document.getElementById('al-search-results').innerHTML='<div style=\'color:var(--text3);font-size:12px;text-align:center;padding:20px\'>Digite para buscar...</div>'">✕</button>
+  </div>
+  <div id="al-search-results" class="al-search-grid" style="min-height:80px">
+    <div style="color:var(--text3);font-size:12px;text-align:center;padding:20px;grid-column:1/-1">Digite para buscar...</div>
+  </div>
+  <div style="font-size:10px;color:var(--text2);text-align:center;margin-top:8px">Clique em um anime para adicionar ao pool — sem fechar esta janela</div>
+  <div class="mact" style="margin-top:10px"><button class="btn btn-primary" onclick="closeModal('anilist-search-modal')">Fechar</button></div>
+</div></div>
+
+<!-- ── STATS DASHBOARD ── -->
+<div id="stats-dashboard">
+  <div class="sdash-header">
+    <div class="sdash-title">📊 ESTATÍSTICAS AVANÇADAS</div>
+    <div class="sdash-tabs" id="sdash-tabs" style="flex:1;background:transparent;border:none;padding:0 0 0 12px">
+      <button class="sdash-tab active" onclick="switchSDash(this,'sdash-overview')">Visão Geral</button>
+      <button class="sdash-tab" onclick="switchSDash(this,'sdash-scores')">Scores</button>
+      <button class="sdash-tab" onclick="switchSDash(this,'sdash-tiers')">Tiers</button>
+      <button class="sdash-tab" onclick="switchSDash(this,'sdash-content')">Conteúdo</button>
+      <button class="sdash-tab" onclick="switchSDash(this,'sdash-anilist')">AniList+</button>
+    </div>
+    <button class="btn btn-sm btn-danger" onclick="closeStatsDashboard()" style="margin-left:auto;flex-shrink:0">✕ Fechar</button>
+  </div>
+  <div class="sdash-body" id="sdash-body">
+    <!-- rendered by JS -->
+  </div>
+</div>
+
 <div id="load-ov"><div class="spinner"></div><div class="load-txt" id="load-txt">CARREGANDO...</div><div class="load-sub" id="load-sub"></div></div>
 <div id="toast-wrap"></div>
 <script>
@@ -585,12 +804,20 @@ function updateScoreSelPreview(v){const d=document.getElementById('score-sel-dis
 const PALETTE=['#e53935','#e67e22','#f1c40f','#43a047','#1e88e5','#8e24aa','#00acc1','#e91e8c','#6d4c41','#546e7a'];
 let _ci=0;
 function nextColor(){return PALETTE[_ci++%PALETTE.length]}
-function mkTier(name,color,extra={}){return{id:uid(),name,color,color2:null,items:[],sortMode:'manual',collapsed:false,locked:false,...extra}}
+function mkTier(name,color,extra={}){return{id:uid(),name,color,color2:null,icon:'',items:[],sortMode:'manual',collapsed:false,locked:false,...extra}}
 const PRESET_DEFS={
   classic:[['S','#e53935'],['A','#e67e22'],['B','#f1c40f'],['C','#43a047'],['D','#1e88e5'],['F','#8e24aa']],
   seasonal:[['GOAT','#ffd600'],['Top','#e53935'],['Bom','#43a047'],['Ok','#1e88e5'],['Fraco','#8e24aa'],['Dropped','#546e7a']],
   mood:[['❤ Amor','#e91e8c'],['😭 Chorei','#1e88e5'],['😂 Kkkk','#f1c40f'],['😴 Soninho','#8e24aa'],['🤮 Ugh','#e53935']],
   numbers:[['10','#ffd600'],['9','#e53935'],['8','#e67e22'],['7','#43a047'],['6','#1e88e5'],['5','#8e24aa']],
+  bestgirls:[['💗 Casei','#e91e8c'],['❤ Amo','#e53935'],['😊 Curto','#e67e22'],['😐 Ok','#43a047'],['💀 Não','#546e7a']],
+  openings:[['🔥 Banger','#ffd600'],['✅ Boa','#43a047'],['😐 Ok','#1e88e5'],['⏭ Skip','#546e7a']],
+  endings:[['😭 Chora','#1e88e5'],['✅ Boa','#43a047'],['😐 Ok','#f1c40f'],['⏭ Skip','#546e7a']],
+  viloes:[['👑 GOAT','#8e24aa'],['😈 Top','#e53935'],['😤 Ok','#e67e22'],['💤 Genérico','#546e7a']],
+  arcos:[['⚡ Épico','#ffd600'],['✅ Bom','#43a047'],['😐 Ok','#1e88e5'],['😴 Fraco','#8e24aa'],['💀 Ruim','#e53935']],
+  filmes:[['🎬 Imperdível','#00acc1'],['✅ Bom','#43a047'],['😐 Ok','#f1c40f'],['💔 Decepção','#e53935']],
+  traumas:[['💀 Destruiu','#e53935'],['😭 Chorei','#1e88e5'],['😔 Doeu','#8e24aa'],['📌 Só um fato','#546e7a']],
+  comfort:[['🛋 Colchão','#43a047'],['☕ Boa','#1e88e5'],['🌧 Às vezes','#f1c40f'],['😐 Só ok','#546e7a']],
 };
 
 // ── STATE ──────────────────────────────────────────────
@@ -598,13 +825,18 @@ let S={
   title:'Minha Tier List',
   tiers:[mkTier('S','#e53935'),mkTier('A','#e67e22'),mkTier('B','#f1c40f'),mkTier('C','#43a047'),mkTier('D','#1e88e5'),mkTier('F','#8e24aa')],
   pool:[],
-  cfg:{size:100,labels:false,ranks:false,scores:false,fixedPool:false,stats:false,compact:false,hideEmpty:false,listView:false,preview:false,globalSearch:false,poolSort:'manual',theme:'dark',autosave:true,poolH:240,alStatuses:['COMPLETED','CURRENT','DROPPED','PAUSED','PLANNING','REPEATING']}
+  cfg:{size:100,labels:false,ranks:false,scores:false,fixedPool:false,stats:false,compact:false,hideEmpty:false,listView:false,preview:false,globalSearch:false,poolSort:'manual',theme:'dark',font:'',autosave:true,poolH:240,alStatuses:['COMPLETED','CURRENT','DROPPED','PAUSED','PLANNING','REPEATING']}
 };
 _ci=6;
 
 // ── HISTORY ────────────────────────────────────────────
-let hist=[],histIdx=-1;
-function snap(){hist=hist.slice(0,histIdx+1);hist.push(deepClone(S));if(hist.length>80)hist.shift();histIdx=hist.length-1;updUR();if(S.cfg.autosave)scheduleAutosave()}
+let hist=[],histIdx=-1,histTimes=[];
+function snap(){
+  hist=hist.slice(0,histIdx+1);histTimes=histTimes.slice(0,histIdx+1);
+  hist.push(deepClone(S));histTimes.push(Date.now());
+  if(hist.length>80){hist.shift();histTimes.shift()}
+  histIdx=hist.length-1;updUR();if(S.cfg.autosave)scheduleAutosave()
+}
 function updUR(){document.getElementById('btn-undo').disabled=histIdx<=0;document.getElementById('btn-redo').disabled=histIdx>=hist.length-1}
 function undo(){if(histIdx<=0)return;histIdx--;S=deepClone(hist[histIdx]);render();syncUI();updUR();toast('↩ Desfeito')}
 function redo(){if(histIdx>=hist.length-1)return;histIdx++;S=deepClone(hist[histIdx]);render();syncUI();updUR();toast('↪ Refeito')}
@@ -612,9 +844,37 @@ let _asTimer;
 function scheduleAutosave(){
   const dot=document.getElementById('save-dot');if(!dot)return;
   dot.classList.remove('saved');dot.classList.add('saving');
-  clearTimeout(_asTimer);_asTimer=setTimeout(()=>{
-    try{localStorage.setItem('anitier',slimJSON());dot.classList.remove('saving');dot.classList.add('saved')}catch{dot.classList.remove('saving')}
+  clearTimeout(_asTimer);_asTimer=setTimeout(async()=>{
+    try{await idbSet('anitier',slimJSON());dot.classList.remove('saving');dot.classList.add('saved')}catch{dot.classList.remove('saving')}
   },1600)
+}
+
+// ── INDEXEDDB ──────────────────────────────────────────
+let _idb=null;
+function openIDB(){
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open('anitier-db',1);
+    req.onupgradeneeded=e=>e.target.result.createObjectStore('saves',{keyPath:'key'});
+    req.onsuccess=e=>{_idb=e.target.result;res(_idb)};
+    req.onerror=()=>rej(req.error);
+  });
+}
+async function idbSet(key,value){
+  if(!_idb){try{localStorage.setItem(key,value)}catch(e){throw e}return}
+  return new Promise((res,rej)=>{
+    const tx=_idb.transaction('saves','readwrite');
+    tx.objectStore('saves').put({key,value});
+    tx.oncomplete=res;tx.onerror=()=>rej(tx.error);
+  });
+}
+async function idbGet(key){
+  if(!_idb)return localStorage.getItem(key);
+  return new Promise((res,rej)=>{
+    const tx=_idb.transaction('saves','readonly');
+    const req=tx.objectStore('saves').get(key);
+    req.onsuccess=()=>res(req.result?.value??null);
+    req.onerror=()=>rej(req.error);
+  });
 }
 function slimJSON(){
   const slim=deepClone(S);
@@ -624,6 +884,7 @@ function slimJSON(){
 }
 
 // ── RENDER TIERS ───────────────────────────────────────
+let _lastDropId=null;
 function renderTiers(){
   const c=document.getElementById('tiers-container');c.innerHTML='';
   S.tiers.forEach(tier=>{
@@ -636,6 +897,7 @@ function renderTiers(){
     row.dataset.tid=tier.id;
     row.innerHTML=`<div class="tier-label-area" style="${bgStyle}">
       <div class="tier-drag-handle" draggable="true" ondragstart="onTierRowDragStart(event,'${tier.id}')" ondragend="onTierRowDragEnd(event)">≡</div>
+      ${tier.icon?`<div class="tier-icon-badge">${esc(tier.icon)}</div>`:''}
       <div class="tier-name" contenteditable="true" data-ph="Tier" style="color:${tc}" onblur="renameTier('${tier.id}',this.innerText.trim())" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}" spellcheck="false">${esc(tier.name)}</div>
       <div class="tier-meta">
         <div class="tier-count" style="color:${tc}">${tier.items.length}✦</div>
@@ -643,6 +905,7 @@ function renderTiers(){
         <span class="lock-badge" style="color:${tc}">🔒</span>
       </div>
       <div class="tier-ctrls">
+        <button class="tcbtn" title="Ícone" onclick="pickTierIcon('${tier.id}')" style="color:${tc}">🏷</button>
         <button class="tcbtn" title="Ordenar" onclick="openSort(event,'${tier.id}')" style="color:${tc}">⇅</button>
         <button class="tcbtn" title="Cor" onclick="pickColor('${tier.id}')" style="color:${tc}">🎨</button>
         <button class="tcbtn" title="Gradiente" onclick="pickColor2('${tier.id}')" style="color:${tc}">🌈</button>
@@ -664,10 +927,22 @@ function renderTiers(){
     </div>`;
     c.appendChild(row);
     sortedItems(tier).forEach((item,rank)=>row.querySelector('.tier-items').appendChild(mkItemEl(item,tier.id,rank+1)));
+    // dynamic background glow on hover
+    const lbl=row.querySelector('.tier-label-area');
+    lbl.addEventListener('mouseenter',()=>{document.getElementById('tier-glow-ov').style.background=`radial-gradient(ellipse at 15% 35%,${tier.color}20 0%,transparent 55%)`});
+    lbl.addEventListener('mouseleave',()=>{document.getElementById('tier-glow-ov').style.background='transparent'});
     row.addEventListener('dragover',onTierRowDragOver);
     row.addEventListener('dragleave',onTierRowDragLeave);
     row.addEventListener('drop',e=>onTierRowDrop(e,tier.id));
   });
+  // apply drop animation to last dropped item
+  if(_lastDropId){
+    requestAnimationFrame(()=>{
+      const el=document.querySelector(`[data-id="${_lastDropId}"]`);
+      if(el){el.classList.add('drop-anim');setTimeout(()=>el.classList.remove('drop-anim'),320)}
+      _lastDropId=null;
+    });
+  }
   updateStats();applyGlobalSearch();
 }
 function sortedItems(t){
@@ -682,7 +957,7 @@ function sortedItems(t){
 // ── ITEM ELEMENT ───────────────────────────────────────
 function mkItemEl(item,src,rank){
   const el=document.createElement('div');
-  el.className='tier-item'+(item.note?' has-note':'')+(selectedIds.has(item.id)?' multi-selected':'');
+  el.className='tier-item'+(item.note?' has-note':'')+(selectedIds.has(item.id)?' multi-selected':'')+(item.blur?' item-blurred':'');
   el.dataset.id=item.id;el.dataset.src=src;el.draggable=true;
   const sc=item.score!=null?`<div class="item-score ${scoreClass(item.score)}">${item.score}</div>`:'';
   el.innerHTML=`<img src="${esc(item.img)}" alt="${esc(item.lbl||'')}" loading="lazy" onerror="this.style.background='var(--bg4)'">
@@ -805,7 +1080,7 @@ function onTierDrop(e,tid){
   removeItem(id,src);
   if(!tier){S.pool.push(item);drag=null;snap();render();return}
   if(dropBefore){const idx=tier.items.findIndex(i=>i.id===dropBefore);if(idx>=0)tier.items.splice(idx,0,item);else tier.items.push(item)}else tier.items.push(item);
-  drag=null;dropBefore=null;snap();render();
+  drag=null;dropBefore=null;_lastDropId=item.id;snap();render();
 }
 function setupPoolDrop(){
   const pi=document.getElementById('pool-items');
@@ -868,7 +1143,7 @@ function setupTouchDrag(el,itemId,src){
     const tgt=document.elementFromPoint(t.clientX,t.clientY);
     const ia=tgt?.closest('.tier-items'),pi=tgt?.closest('#pool-items');
     const item=findItem(drag.id);
-    if(item&&ia){const tier=S.tiers.find(x=>x.id===ia.dataset.tid);if(tier&&!tier.locked){removeItem(drag.id,drag.src);tier.items.push(item);snap();render()}}
+    if(item&&ia){const tier=S.tiers.find(x=>x.id===ia.dataset.tid);if(tier&&!tier.locked){removeItem(drag.id,drag.src);tier.items.push(item);_lastDropId=item.id;snap();render()}}
     else if(item&&pi&&drag.src!=='pool'){removeItem(drag.id,drag.src);S.pool.push(item);snap();render()}
     drag=null;clearDropUi();if(scrollRaf){cancelAnimationFrame(scrollRaf);scrollRaf=null}
   },{passive:true});
@@ -1064,15 +1339,6 @@ function confirmScoreSelected(){const v=+document.getElementById('score-sel-rang
 
 // ── CTX MENU ───────────────────────────────────────────
 let ctxId=null,ctxSrc=null;
-function openCtx(e,id,src){
-  e.preventDefault();e.stopPropagation();ctxId=id;ctxSrc=src;
-  const item=findItem(id);
-  document.getElementById('ctx-title').textContent=(item?.lbl||'(sem nome)')+(item?.score!=null?` [${item.score}]`:'');
-  document.getElementById('ctx-to-pool-btn').style.display=src==='pool'?'none':'flex';
-  const m=document.getElementById('ctx-menu');
-  m.style.left=Math.min(e.clientX,window.innerWidth-188)+'px';m.style.top=Math.min(e.clientY,window.innerHeight-230)+'px';
-  m.classList.add('open');
-}
 document.addEventListener('click',()=>document.getElementById('ctx-menu').classList.remove('open'));
 document.addEventListener('contextmenu',e=>{if(!e.target.closest('.tier-item'))document.getElementById('ctx-menu').classList.remove('open')});
 function ctxEdit(){const item=findItem(ctxId);if(!item)return;document.getElementById('edit-inp').value=item.lbl||'';openModal('edit-modal');setTimeout(()=>{const i=document.getElementById('edit-inp');i.focus();i.select()},50)}
@@ -1206,38 +1472,6 @@ async function imgToDataURL(src){
     }catch{return null}
   }
 }
-async function exportPNG(){
-  showLoad('Gerando PNG...','Convertendo imagens...');
-  try{
-    const was=S.tiers.filter(t=>t.collapsed);was.forEach(t=>{t.collapsed=false});renderTiers();
-    await new Promise(r=>setTimeout(r,420));
-    const el=document.getElementById('tiers-container');
-    const cs=getComputedStyle(document.documentElement);
-    const bg=cs.getPropertyValue('--bg').trim()||'#07070f';
-    const textCol=cs.getPropertyValue('--text').trim()||'#e8e8f4';
-    const wrap=document.createElement('div');
-    wrap.style.cssText=`background:${bg};padding:8px 12px;color:${textCol};font-family:'Nunito',sans-serif`;
-    const titleClone=document.getElementById('tl-title-bar').cloneNode(true);
-    const tierClone=el.cloneNode(true);
-    wrap.appendChild(titleClone);wrap.appendChild(tierClone);
-    Object.assign(wrap.style,{position:'absolute',top:'-9999px',left:'0',width:el.offsetWidth+'px'});
-    document.body.appendChild(wrap);
-    // Convert all external images to data URLs so html2canvas can render them
-    const imgs=[...wrap.querySelectorAll('img')];
-    await Promise.all(imgs.map(async img=>{
-      if(!img.src)return;
-      const dataUrl=await imgToDataURL(img.src);
-      if(dataUrl)img.src=dataUrl;
-      else{img.style.background='#1a1a32';img.removeAttribute('src')}
-    }));
-    await new Promise(r=>setTimeout(r,120));
-    const canvas=await html2canvas(wrap,{backgroundColor:bg,scale:2,useCORS:false,allowTaint:false,logging:false,imageTimeout:20000});
-    document.body.removeChild(wrap);
-    was.forEach(t=>{t.collapsed=true});renderTiers();
-    const a=document.createElement('a');a.download=(S.title||'tierlist')+'.png';a.href=canvas.toDataURL('image/png');a.click();
-    hideLoad();toast('✦ PNG exportado!','ok');
-  }catch(err){hideLoad();toast('Erro ao exportar: '+err.message,'err');console.error(err)}
-}
 function exportJSON(){const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});const a=document.createElement('a');a.download=(S.title||'animetier')+'.json';a.href=URL.createObjectURL(b);a.click();toast('JSON exportado!')}
 function importJSON(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{S=JSON.parse(e.target.result);snap();render();syncUI();toast('✦ JSON importado!','ok')}catch{toast('JSON inválido','err')}};r.readAsText(f);inp.value=''}
 function copyAsText(){const lines=['=== '+S.title+' ==='];S.tiers.forEach(t=>{if(t.items.length){lines.push('\n['+t.name+']');t.items.forEach((x,i)=>lines.push('  '+(i+1)+'. '+(x.lbl||'?')+(x.score!=null?' ['+x.score+']':'')))}});if(S.pool.length){lines.push('\n[Pool]');S.pool.forEach((x,i)=>lines.push('  '+(i+1)+'. '+(x.lbl||'?')))}navigator.clipboard.writeText(lines.join('\n')).then(()=>toast('Copiado!','ok')).catch(()=>toast('Erro','err'))}
@@ -1267,9 +1501,14 @@ function renderSavesList(){
 }
 
 // ── SAVE/LOAD ──────────────────────────────────────────
-function saveLS(){try{const dot=document.getElementById('save-dot');dot.classList.add('saving');localStorage.setItem('anitier',slimJSON());setTimeout(()=>{dot.classList.remove('saving');dot.classList.add('saved')},280);toast('💾 Salvo!','ok')}catch{toast('Storage cheio?','err')}}
-function loadLS(){try{const d=localStorage.getItem('anitier');if(!d){toast('Nenhum save','warn');return}S=JSON.parse(d);snap();render();syncUI();toast('✦ Carregado!','ok')}catch{toast('Erro ao carregar','err')}}
-function resetAll(){if(!confirm('Resetar TUDO?'))return;localStorage.removeItem('anitier');location.reload()}
+function saveLS(){
+  const dot=document.getElementById('save-dot');dot.classList.add('saving');
+  idbSet('anitier',slimJSON()).then(()=>{dot.classList.remove('saving');dot.classList.add('saved');toast('💾 Salvo!','ok')}).catch(()=>toast('Erro ao salvar','err'))
+}
+function loadLS(){
+  idbGet('anitier').then(d=>{if(!d){toast('Nenhum save','warn');return}S=JSON.parse(d);snap();render();syncUI();toast('✦ Carregado!','ok')}).catch(()=>toast('Erro ao carregar','err'))
+}
+function resetAll(){if(!confirm('Resetar TUDO?'))return;idbSet('anitier','').then(()=>location.reload()).catch(()=>{localStorage.removeItem('anitier');location.reload()})}
 
 // ── TOGGLES / SETTINGS ─────────────────────────────────
 function updateSize(v){
@@ -1289,7 +1528,12 @@ function toggleStats(v){S.cfg.stats=v;document.getElementById('stats-bar').class
 function toggleCompact(v){S.cfg.compact=v;const el=document.getElementById('s-compact');if(el)el.checked=v;updateSize(S.cfg.size)}
 function toggleHideEmpty(v){S.cfg.hideEmpty=v;const el=document.getElementById('s-hidempty');if(el)el.checked=v;renderTiers()}
 function toggleFullscreen(){const v=!document.body.classList.contains('fullscreen');document.body.classList.toggle('fullscreen',v);if(v)toast('⛶ Fullscreen — Esc para sair')}
-function setTheme(t){S.cfg.theme=t;document.documentElement.dataset.theme=t==='light'?'light':'';document.getElementById('theme-dark').style.borderColor=t==='dark'?'var(--cyan)':'';document.getElementById('theme-light').style.borderColor=t==='light'?'var(--cyan)':''}
+function setTheme(t){
+  S.cfg.theme=t;
+  const themes=['dark','light','cyberpunk','persona','vaporwave','monochrome','retro'];
+  document.documentElement.dataset.theme=t==='dark'?'':t;
+  themes.forEach(k=>{const el=document.getElementById('theme-'+k);if(el)el.style.borderColor=t===k?'var(--cyan)':''});
+}
 function syncUI(){
   const c=S.cfg;
   document.documentElement.style.setProperty('--pool-h',(c.poolH||240)+'px');
@@ -1304,6 +1548,8 @@ function syncUI(){
   togglePreview(!!c.preview);
   const ps=document.getElementById('pool-sort');if(ps)ps.value=c.poolSort||'manual';
   setTheme(c.theme||'dark');
+  if(c.font)setFont(c.font);
+  const fontOptEls=document.querySelectorAll('.font-opt');fontOptEls.forEach(el=>{el.classList.toggle('active',el.dataset.font===(c.font||''))});
   const titleEl=document.getElementById('tl-title');if(titleEl)titleEl.textContent=S.title||'Minha Tier List';
 }
 function setupStickyToolbar(){
@@ -1372,12 +1618,654 @@ document.addEventListener('wheel',e=>{
   updateSize(nv);document.getElementById('size-r').value=nv;
 },{passive:false});
 
-// ── INIT ───────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded',()=>{
-  try{const saved=localStorage.getItem('anitier');if(saved)S=JSON.parse(saved)}catch(e){console.warn('Load error:',e)}
+// ── TIER ICON ──────────────────────────────────────────
+function pickTierIcon(tid){
+  const t=S.tiers.find(x=>x.id===tid);if(!t)return;
+  const icon=prompt('Ícone da tier (emoji, ex: 🔥 👑 💀):', t.icon||'');
+  if(icon===null)return;
+  t.icon=icon.trim().slice(0,4);snap();render();
+}
+
+// ── BLUR SPOILER ───────────────────────────────────────
+function ctxToggleBlur(){
+  const item=findItem(ctxId);if(!item)return;
+  item.blur=!item.blur;
+  const btn=document.getElementById('ctx-blur-btn');
+  snap();render();
+  toast(item.blur?'🙈 Spoiler bloqueado':'👁 Spoiler revelado');
+}
+function openCtx(e,id,src){
+  e.preventDefault();e.stopPropagation();ctxId=id;ctxSrc=src;
+  const item=findItem(id);
+  document.getElementById('ctx-title').textContent=(item?.lbl||'(sem nome)')+(item?.score!=null?` [${item.score}]`:'');
+  document.getElementById('ctx-to-pool-btn').style.display=src==='pool'?'none':'flex';
+  const blurBtn=document.getElementById('ctx-blur-btn');
+  if(blurBtn)blurBtn.textContent=item?.blur?'👁 Revelar spoiler':'🙈 Blur spoiler';
+  const m=document.getElementById('ctx-menu');
+  m.style.left=Math.min(e.clientX,window.innerWidth-188)+'px';m.style.top=Math.min(e.clientY,window.innerHeight-280)+'px';
+  m.classList.add('open');
+}
+
+// ── CUSTOM FONT ────────────────────────────────────────
+const _loadedFonts=new Set();
+function setFont(name){
+  S.cfg.font=name;
+  if(name&&!_loadedFonts.has(name)){
+    const link=document.createElement('link');link.rel='stylesheet';
+    link.href=`https://fonts.googleapis.com/css2?family=${name.replace(/ /g,'+')}:wght@400;600;700;800;900&display=swap`;
+    document.head.appendChild(link);_loadedFonts.add(name);
+  }
+  const display=name?name.replace(/\+/g,' '):'Nunito';
+  document.documentElement.style.setProperty('--body-font',name?`'${display}',sans-serif`:"'Nunito',sans-serif");
+  document.querySelectorAll('.font-opt').forEach(el=>el.classList.toggle('active',el.dataset.font===name));
+}
+
+// ── AUTO TIER BY SCORE ─────────────────────────────────
+function autoTierByScore(){
+  const scored=S.pool.filter(x=>x.score!=null);
+  if(!scored.length){toast('Nenhum item com score no pool!','warn');return}
+  const scoreMap={'sc-s':'S','sc-a':'A','sc-b':'B','sc-c':'C','sc-d':'D'};
+  let moved=0;
+  S.pool=S.pool.filter(item=>{
+    if(item.score==null)return true;
+    const tierName=scoreMap[scoreClass(item.score)];
+    const tier=S.tiers.find(t=>t.name===tierName&&!t.locked);
+    if(tier){tier.items.push(item);moved++;return false}
+    return true;
+  });
+  if(moved){snap();render();toast(`✦ ${moved} itens distribuídos por score!`,'ok')}
+  else toast('Nenhuma tier S/A/B/C/D desbloqueada encontrada. Use o preset clássico.','warn')
+}
+
+// ── ANALYTICS MODAL ────────────────────────────────────
+function openAnalyticsModal(){
+  const allInTier=S.tiers.flatMap(t=>t.items);
+  const totalItems=allInTier.length+S.pool.length;
+  const avgAll=allInTier.filter(x=>x.score!=null);
+  const globalAvg=avgAll.length?Math.round(avgAll.reduce((s,x)=>s+x.score,0)/avgAll.length):null;
+  const maxItems=Math.max(...S.tiers.map(t=>t.items.length),1);
+
+  // summary chips
+  const sumEl=document.getElementById('analytics-summary');
+  sumEl.innerHTML=`
+    <div class="stat-chip">Total tiers:<b style="color:var(--cyan)">${S.tiers.length}</b></div>
+    <div class="stat-chip">Em tiers:<b style="color:var(--cyan)">${allInTier.length}</b></div>
+    <div class="stat-chip">No pool:<b style="color:var(--cyan)">${S.pool.length}</b></div>
+    ${globalAvg!==null?`<div class="stat-chip">Score médio:<b style="color:var(--cyan)">${globalAvg}</b></div>`:''}
+    <div class="stat-chip">Tier mais cheia:<b style="color:var(--cyan)">${S.tiers.reduce((a,t)=>t.items.length>a.items.length?t:a,S.tiers[0])?.name||'—'}</b></div>
+  `;
+
+  // per-tier list
+  const listEl=document.getElementById('analytics-list');listEl.innerHTML='';
+  const sorted=[...S.tiers].sort((a,b)=>b.items.length-a.items.length);
+  sorted.forEach(tier=>{
+    const scores=tier.items.filter(x=>x.score!=null);
+    const avg=scores.length?Math.round(scores.reduce((s,x)=>s+x.score,0)/scores.length):null;
+    const pct=Math.round((tier.items.length/maxItems)*100);
+    const row=document.createElement('div');row.className='analytics-tier-row';
+    row.innerHTML=`
+      <div class="analytics-tier-dot" style="background:${tier.color}"></div>
+      <div class="analytics-tier-name" style="color:${tier.color}">${esc(tier.name)}</div>
+      <div class="analytics-bar-wrap"><div class="analytics-bar" style="width:${pct}%;background:${tier.color}60;border:1px solid ${tier.color}88"></div></div>
+      <div class="analytics-num">${tier.items.length}</div>
+      <div class="analytics-score">${avg!==null?`⭐${avg}`:''}</div>
+    `;
+    listEl.appendChild(row);
+  });
+  if(!S.tiers.length)listEl.innerHTML='<div style="color:var(--text3);font-size:12px;padding:10px">Nenhuma tier criada.</div>';
+  openModal('analytics-modal');
+}
+
+// ── HISTORY MODAL ──────────────────────────────────────
+function openHistoryModal(){
+  const listEl=document.getElementById('history-list');listEl.innerHTML='';
+  if(hist.length<=1){listEl.innerHTML='<div style="color:var(--text3);font-size:12px;padding:10px">Histórico vazio. Faça algumas alterações primeiro.</div>';openModal('history-modal');return}
+  // show most recent first
+  for(let i=hist.length-1;i>=0;i--){
+    const state=hist[i];
+    const isCurrentIdx=i===histIdx;
+    const tCount=state.tiers.length;
+    const iCount=state.tiers.reduce((s,t)=>s+t.items.length,0)+state.pool.length;
+    const ts=histTimes[i]?new Date(histTimes[i]).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'}):'';
+    const entry=document.createElement('div');
+    entry.className='hist-entry'+(isCurrentIdx?' current':'');
+    entry.innerHTML=`
+      <div class="hist-entry-num">#${i+1}</div>
+      <div class="hist-entry-info">
+        <div>${tCount} tier${tCount!==1?'s':''} · ${iCount} item${iCount!==1?'s':''} ${isCurrentIdx?'<b style="color:var(--cyan)">← atual</b>':''}</div>
+        <div class="hist-entry-time">${ts}</div>
+      </div>
+      ${!isCurrentIdx?`<button class="btn btn-sm" onclick="restoreHistState(${i})">Restaurar</button>`:''}
+    `;
+    listEl.appendChild(entry);
+  }
+  openModal('history-modal');
+}
+function restoreHistState(idx){
+  if(idx<0||idx>=hist.length)return;
+  histIdx=idx;S=deepClone(hist[idx]);render();syncUI();updUR();
+  closeModal('history-modal');toast(`⏱ Estado #${idx+1} restaurado!`,'ok');
+}
+
+// ── EXPORT OPTIONS ─────────────────────────────────────
+let _exportScale=2,_exportBg='theme';
+function openExportModal(){
+  setExportScale(2);setExportBg('theme');openModal('export-modal');
+}
+function setExportScale(v){
+  _exportScale=v;
+  [1,2,3].forEach(n=>{const el=document.getElementById('scale-'+n);if(el)el.classList.toggle('active',n===v)});
+}
+function setExportBg(v){
+  _exportBg=v;
+  ['theme','black','white'].forEach(k=>{const el=document.getElementById('bg-'+k);if(el)el.classList.toggle('active',k===v)});
+}
+async function doExportPNG(){
+  closeModal('export-modal');
+  showLoad('Gerando PNG...','Convertendo imagens...');
+  try{
+    const was=S.tiers.filter(t=>t.collapsed);was.forEach(t=>{t.collapsed=false});renderTiers();
+    await new Promise(r=>setTimeout(r,420));
+    const el=document.getElementById('tiers-container');
+    const cs=getComputedStyle(document.documentElement);
+    let bg;
+    if(_exportBg==='black')bg='#000000';
+    else if(_exportBg==='white')bg='#ffffff';
+    else if(_exportBg==='custom')bg=document.getElementById('bg-custom-color').value;
+    else bg=cs.getPropertyValue('--bg').trim()||'#07070f';
+    const textCol=cs.getPropertyValue('--text').trim()||'#e8e8f4';
+    const wrap=document.createElement('div');
+    wrap.style.cssText=`background:${bg};padding:8px 12px;color:${textCol};font-family:'Nunito',sans-serif`;
+    const titleClone=document.getElementById('tl-title-bar').cloneNode(true);
+    const tierClone=el.cloneNode(true);
+    wrap.appendChild(titleClone);wrap.appendChild(tierClone);
+    // watermark
+    const wm=document.getElementById('exp-watermark');
+    if(wm?.checked){
+      const wmEl=document.createElement('div');
+      wmEl.style.cssText=`text-align:right;font-size:11px;font-weight:700;opacity:.35;color:${textCol};padding:6px 2px 2px;font-family:'Rajdhani',sans-serif;letter-spacing:1px`;
+      wmEl.textContent='✦ AnimeTier';wrap.appendChild(wmEl);
+    }
+    Object.assign(wrap.style,{position:'absolute',top:'-9999px',left:'0',width:el.offsetWidth+'px'});
+    document.body.appendChild(wrap);
+    const imgs=[...wrap.querySelectorAll('img')];
+    await Promise.all(imgs.map(async img=>{
+      if(!img.src)return;
+      const dataUrl=await imgToDataURL(img.src);
+      if(dataUrl)img.src=dataUrl;else{img.style.background='#1a1a32';img.removeAttribute('src')}
+    }));
+    await new Promise(r=>setTimeout(r,120));
+    const canvas=await html2canvas(wrap,{backgroundColor:bg,scale:_exportScale,useCORS:false,allowTaint:false,logging:false,imageTimeout:20000});
+    document.body.removeChild(wrap);
+    was.forEach(t=>{t.collapsed=true});renderTiers();
+    const a=document.createElement('a');a.download=(S.title||'tierlist')+'.png';a.href=canvas.toDataURL('image/png');a.click();
+    hideLoad();toast(`✦ PNG ${_exportScale}× exportado!`,'ok');
+  }catch(err){hideLoad();toast('Erro ao exportar: '+err.message,'err');console.error(err)}
+}
+
+
+// ── ANILIST SEARCH ─────────────────────────────────────
+let _alSearchTimer=null;
+function openAniListSearch(){
+  document.getElementById('al-search-inp').value='';
+  document.getElementById('al-search-results').innerHTML='<div style="color:var(--text3);font-size:12px;text-align:center;padding:20px;grid-column:1/-1">Digite para buscar...</div>';
+  openModal('anilist-search-modal');
+  setTimeout(()=>document.getElementById('al-search-inp').focus(),150);
+}
+function onALSearchInput(val){
+  clearTimeout(_alSearchTimer);
+  if(!val.trim()){document.getElementById('al-search-results').innerHTML='<div style="color:var(--text3);font-size:12px;text-align:center;padding:20px;grid-column:1/-1">Digite para buscar...</div>';return}
+  document.getElementById('al-search-results').innerHTML='<div style="color:var(--text2);font-size:12px;text-align:center;padding:20px;grid-column:1/-1">⏳ Buscando...</div>';
+  _alSearchTimer=setTimeout(()=>_doALSearch(val.trim()),420);
+}
+async function _doALSearch(query){
+  const q=`query($s:String){Page(perPage:16){media(search:$s,type:ANIME,sort:SEARCH_MATCH){id title{romaji english}coverImage{large}format episodes status startDate{year}genres studios(isMain:true){nodes{name}}}}}`;
+  try{
+    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q,variables:{s:query}})});
+    const d=await r.json();
+    const media=d.data?.Page?.media||[];
+    _renderALResults(media);
+  }catch(err){
+    document.getElementById('al-search-results').innerHTML=`<div style="color:var(--pink);font-size:12px;text-align:center;padding:20px;grid-column:1/-1">Erro: ${esc(err.message)}</div>`;
+  }
+}
+function _renderALResults(media){
+  const container=document.getElementById('al-search-results');
+  if(!media.length){container.innerHTML='<div style="color:var(--text3);font-size:12px;text-align:center;padding:20px;grid-column:1/-1">Nenhum resultado.</div>';return}
+  const existingImgs=new Set([...S.pool.map(x=>x.img),...S.tiers.flatMap(t=>t.items.map(x=>x.img))]);
+  container.innerHTML='';
+  media.forEach(m=>{
+    const img=m.coverImage?.large||'';
+    const title=m.title?.english||m.title?.romaji||'?';
+    const alreadyAdded=img&&existingImgs.has(img);
+    const card=document.createElement('div');
+    card.className='al-search-card'+(alreadyAdded?' al-added':'');
+    card.innerHTML=`<img src="${esc(img)}" alt="${esc(title)}" loading="lazy" onerror="this.style.background='var(--bg4)'">\n<div class="al-search-card-info"><div class="al-search-card-title">${esc(title)}</div><div class="al-search-card-meta">${m.startDate?.year||'?'} · ${m.format||'?'}${m.episodes?' · '+m.episodes+'ep':''}</div></div>${alreadyAdded?'<div class="al-added-badge">✓ Adicionado</div>':''}`;
+    if(!alreadyAdded){
+      card.onclick=()=>{
+        S.pool.push({id:uid(),img,lbl:title,anilistId:m.id,genres:m.genres||[],studio:m.studios?.nodes?.[0]?.name||'',year:m.startDate?.year||null,format:m.format||''});
+        existingImgs.add(img);
+        snap();renderPool();
+        card.classList.add('al-added');
+        card.innerHTML=`<img src="${esc(img)}" alt="${esc(title)}" loading="lazy" onerror="this.style.background='var(--bg4)'">\n<div class="al-search-card-info"><div class="al-search-card-title">${esc(title)}</div><div class="al-search-card-meta">${m.startDate?.year||'?'} · ${m.format||'?'}</div></div><div class="al-added-badge">✓ Adicionado</div>`;
+        toast(`✦ ${title} adicionado!`,'ok');
+      };
+    }
+    container.appendChild(card);
+  });
+}
+
+// ── STATS DASHBOARD ────────────────────────────────────
+let _sdashEnrichedData=null;
+let _sdashActiveTab='sdash-overview';
+
+function openStatsDashboard(){
+  renderStatsDashboard();
+  document.getElementById('stats-dashboard').classList.add('open');
+}
+function closeStatsDashboard(){
+  document.getElementById('stats-dashboard').classList.remove('open');
+}
+function switchSDash(btn,pageId){
+  document.querySelectorAll('.sdash-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  _sdashActiveTab=pageId;
+  renderStatsDashboard();
+}
+
+function renderStatsDashboard(){
+  const allInTier=S.tiers.flatMap(t=>t.items.map(item=>({...item,tierName:t.name,tierColor:t.color})));
+  const allItems=[...allInTier,...S.pool];
+  const total=allItems.length;
+  const inTier=allInTier.length;
+  const inPool=S.pool.length;
+  const scored=allItems.filter(x=>x.score!=null);
+  const scoredInTier=allInTier.filter(x=>x.score!=null);
+  const avgScore=scored.length?+(scored.reduce((s,x)=>s+x.score,0)/scored.length).toFixed(1):null;
+  const maxScore=scored.length?Math.max(...scored.map(x=>x.score)):null;
+  const minScore=scored.length?Math.min(...scored.map(x=>x.score)):null;
+  const medianScore=scored.length?(()=>{const s=[...scored].sort((a,b)=>a.score-b.score);const m=Math.floor(s.length/2);return s.length%2?s[m].score:Math.round((s[m-1].score+s[m].score)/2)})():null;
+  const topScored=[...allItems].filter(x=>x.score!=null).sort((a,b)=>b.score-a.score).slice(0,10);
+  const buckets=Array(10).fill(0);
+  scored.forEach(x=>{buckets[Math.min(9,Math.floor(x.score/10))]++;});
+  const grades={S:0,A:0,B:0,C:0,D:0};
+  scored.forEach(x=>{const g=scoreClass(x.score).replace('sc-','').toUpperCase();if(grades[g]!==undefined)grades[g]++;});
+  const tierStats=S.tiers.map(t=>{const sc=t.items.filter(x=>x.score!=null);return{name:t.name,color:t.color,count:t.items.length,scored:sc.length,avg:sc.length?+(sc.reduce((s,x)=>s+x.score,0)/sc.length).toFixed(1):null}});
+  const maxTierCount=Math.max(...S.tiers.map(t=>t.items.length),1);
+  const withNotes=allItems.filter(x=>x.note).length;
+  const withBlur=allItems.filter(x=>x.blur).length;
+  const noLabel=allItems.filter(x=>!x.lbl||!x.lbl.trim()).length;
+  const pctPlaced=total?Math.round((inTier/total)*100):0;
+  // AniList metadata (from search-added items)
+  const enriched=allItems.filter(x=>x.anilistId);
+  const genreMap={},studioMap={},yearMap={},fmtMap={};
+  enriched.forEach(x=>{
+    (x.genres||[]).forEach(g=>{genreMap[g]=(genreMap[g]||0)+1});
+    if(x.studio)studioMap[x.studio]=(studioMap[x.studio]||0)+1;
+    if(x.year){const d=Math.floor(x.year/10)*10;yearMap[d]=(yearMap[d]||0)+1}
+    if(x.format)fmtMap[x.format]=(fmtMap[x.format]||0)+1;
+  });
+  const topGenres=Object.entries(genreMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const topStudios=Object.entries(studioMap).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const topDecades=Object.entries(yearMap).sort((a,b)=>+a[0]-+b[0]);
+  const topFormats=Object.entries(fmtMap).sort((a,b)=>b[1]-a[1]);
+  const enrichedPct=total?Math.round((enriched.length/total)*100):0;
+
+  const gradeColors={S:'#00e5ff',A:'#00e676',B:'#ffd600',C:'#ff9100',D:'#ff5252'};
+  const mk=html=>`${html}`;
+
+  // helpers
+  function barRow(label,val,max,color,suffix=''){
+    const pct=max?Math.round((val/max)*100):0;
+    return `<div class="sdash-bar-row"><div class="sdash-bar-label" title="${esc(label)}">${esc(label)}</div><div class="sdash-bar-track"><div class="sdash-bar-fill" style="width:${pct}%;background:${color}"></div></div><div class="sdash-bar-val" style="color:${color}">${val}${suffix}</div></div>`;
+  }
+  function histBar(count,max,label,color){
+    const h=max?Math.round((count/max)*100):0;
+    return `<div class="sdash-hist-bar" style="height:${h}%;background:${color};min-height:${count?4:0}px" data-tip="${label}: ${count}"></div>`;
+  }
+
+  let html='';
+  const tab=_sdashActiveTab||'sdash-overview';
+
+  if(tab==='sdash-overview'){
+    // Overview KPIs
+    html+=`<div class="sdash-card">
+      <div class="sdash-card-title"><span>✦</span> Coleção Total</div>
+      <div class="sdash-big-num">${total}</div>
+      <div class="sdash-big-label">animes no sistema</div>
+      <div style="margin-top:12px" class="sdash-kpi-grid">
+        <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--cyan)">${inTier}</div><div class="sdash-kpi-lbl">Em Tiers</div></div>
+        <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--purple)">${inPool}</div><div class="sdash-kpi-lbl">No Pool</div></div>
+        <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--green)">${pctPlaced}%</div><div class="sdash-kpi-lbl">Rankeados</div></div>
+      </div>
+    </div>`;
+
+    // Progress ring
+    html+=`<div class="sdash-card">
+      <div class="sdash-card-title"><span>📈</span> Progresso</div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <svg viewBox="0 0 80 80" class="sdash-donut" style="width:90px;height:90px;flex-shrink:0">
+          <circle cx="40" cy="40" r="30" fill="none" stroke="var(--bg4)" stroke-width="10"/>
+          <circle cx="40" cy="40" r="30" fill="none" stroke="var(--cyan)" stroke-width="10"
+            stroke-dasharray="${Math.round(188.4*pctPlaced/100)} 188.4"
+            stroke-linecap="round" transform="rotate(-90 40 40)"/>
+          <text x="40" y="44" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="18" font-weight="700" fill="var(--cyan)">${pctPlaced}%</text>
+        </svg>
+        <div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:6px">${inTier} de ${total} animes rankeados</div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:3px">📦 Pool restante: <b style="color:var(--pink)">${inPool}</b></div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:3px">🎯 Tiers ativas: <b style="color:var(--cyan)">${S.tiers.length}</b></div>
+          <div style="font-size:11px;color:var(--text2)">📝 Com notas: <b style="color:var(--yellow)">${withNotes}</b></div>
+        </div>
+      </div>
+    </div>`;
+
+    // Score overview
+    if(scored.length){
+      html+=`<div class="sdash-card">
+        <div class="sdash-card-title"><span>⭐</span> Score Geral</div>
+        <div class="sdash-kpi-grid" style="grid-template-columns:1fr 1fr;margin-bottom:10px">
+          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--cyan)">${avgScore}</div><div class="sdash-kpi-lbl">Média</div></div>
+          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--pink)">${medianScore}</div><div class="sdash-kpi-lbl">Mediana</div></div>
+          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--green)">${maxScore}</div><div class="sdash-kpi-lbl">Máx</div></div>
+          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--orange)">${minScore}</div><div class="sdash-kpi-lbl">Mín</div></div>
+        </div>
+        <div style="font-size:10px;color:var(--text2)">${scored.length} de ${total} itens com score (${total?Math.round(scored.length/total*100):0}%)</div>
+      </div>`;
+    }else{
+      html+=`<div class="sdash-card"><div class="sdash-card-title"><span>⭐</span> Scores</div><div class="sdash-enriched-note">Nenhum item com score ainda. Clique com botão direito em um item para definir score!</div></div>`;
+    }
+
+    // Top tier (biggest)
+    const bigTier=S.tiers.reduce((a,t)=>t.items.length>a.items.length?t:a,{items:[],name:'',color:'#666'});
+    html+=`<div class="sdash-card">
+      <div class="sdash-card-title"><span>🏆</span> Destaques</div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="font-size:11px;display:flex;justify-content:space-between;padding:6px 10px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)">
+          <span style="color:var(--text2)">Tier mais cheia</span>
+          <b style="color:${bigTier.color||'var(--cyan)'}">${bigTier.name||'—'} (${bigTier.items?.length||0})</b>
+        </div>
+        <div style="font-size:11px;display:flex;justify-content:space-between;padding:6px 10px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)">
+          <span style="color:var(--text2)">Tier mais vazia</span>
+          <b style="color:var(--pink)">${(()=>{const t=[...S.tiers].sort((a,b)=>a.items.length-b.items.length)[0];return t?`${t.name} (${t.items.length})`:'—'})()}</b>
+        </div>
+        ${topScored.length?`<div style="font-size:11px;display:flex;justify-content:space-between;padding:6px 10px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)">
+          <span style="color:var(--text2)">🥇 Top scored</span>
+          <b style="color:var(--yellow)">${esc(topScored[0]?.lbl||'?')} [${topScored[0]?.score}]</b>
+        </div>`:''}
+        <div style="font-size:11px;display:flex;justify-content:space-between;padding:6px 10px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)">
+          <span style="color:var(--text2)">Com blur/spoiler</span>
+          <b style="color:var(--purple)">${withBlur}</b>
+        </div>
+        <div style="font-size:11px;display:flex;justify-content:space-between;padding:6px 10px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)">
+          <span style="color:var(--text2)">Sem nome</span>
+          <b style="color:var(--text3)">${noLabel}</b>
+        </div>
+      </div>
+    </div>`;
+
+    // Tier distribution compact
+    html+=`<div class="sdash-card sdash-card-wide">
+      <div class="sdash-card-title"><span>📊</span> Distribuição por Tier</div>
+      ${tierStats.map(t=>barRow(t.name,t.count,maxTierCount,t.color)).join('')}
+    </div>`;
+
+  }else if(tab==='sdash-scores'){
+    if(!scored.length){
+      html+=`<div class="sdash-card sdash-card-wide"><div class="sdash-enriched-note" style="padding:30px">Nenhum item com score. Adicione scores clicando com o botão direito nos itens!</div></div>`;
+    }else{
+      // Score histogram
+      const maxBucket=Math.max(...buckets,1);
+      const hColors=['#ff5252','#ff5252','#ff5252','#ff5252','#ff9100','#ffd600','#ffd600','#00e676','#00e5ff','#00e5ff'];
+      html+=`<div class="sdash-card sdash-card-wide">
+        <div class="sdash-card-title"><span>📊</span> Histograma de Scores</div>
+        <div class="sdash-hist-row">
+          ${buckets.map((c,i)=>histBar(c,maxBucket,`${i*10}–${i*10+9}`,hColors[i])).join('')}
+        </div>
+        <div class="sdash-hist-labels">
+          ${['0–9','10–19','20–29','30–39','40–49','50–59','60–69','70–79','80–89','90–100'].map(l=>`<span>${l}</span>`).join('')}
+        </div>
+      </div>`;
+
+      // Grade breakdown
+      const totalGrades=Object.values(grades).reduce((s,v)=>s+v,0);
+      html+=`<div class="sdash-card">
+        <div class="sdash-card-title"><span>🎖</span> Distribuição por Nota</div>
+        <div class="sdash-grade-row">
+          ${Object.entries(grades).map(([g,c])=>`<div class="sdash-grade">
+            <div class="sdash-grade-letter" style="color:${gradeColors[g]}">${g}</div>
+            <div class="sdash-grade-count">${c}</div>
+            <div class="sdash-grade-pct">${totalGrades?Math.round(c/totalGrades*100):0}%</div>
+          </div>`).join('')}
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--text2);text-align:center">S≥85 · A≥75 · B≥65 · C≥40 · D&lt;40</div>
+      </div>`;
+
+      // Score KPIs
+      const variance=scored.length>1?(()=>{const m=scored.reduce((s,x)=>s+x.score,0)/scored.length;return Math.sqrt(scored.reduce((s,x)=>s+(x.score-m)**2,0)/scored.length).toFixed(1)})():0;
+      const sortedSc=[...scored].sort((a,b)=>a.score-b.score);
+      const p25=sortedSc[Math.floor(sortedSc.length*.25)]?.score??0;
+      const p75=sortedSc[Math.floor(sortedSc.length*.75)]?.score??0;
+      html+=`<div class="sdash-card">
+        <div class="sdash-card-title"><span>📐</span> Estatísticas Detalhadas</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          ${[['Média',avgScore,'var(--cyan)'],['Mediana',medianScore,'var(--pink)'],['Máximo',maxScore,'var(--green)'],['Mínimo',minScore,'var(--orange)'],['Desvio padrão',variance,'var(--purple)'],['P25',p25,'var(--text2)'],['P75',p75,'var(--text2)'],['% com score',`${total?Math.round(scored.length/total*100):0}%`,'var(--yellow)']].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;padding:4px 8px;background:var(--bg3);border-radius:5px;font-size:11px"><span style="color:var(--text2)">${l}</span><b style="color:${c}">${v}</b></div>`).join('')}
+        </div>
+      </div>`;
+
+      // Top 10 scored
+      html+=`<div class="sdash-card">
+        <div class="sdash-card-title"><span>🥇</span> Top 10 Animes</div>
+        ${topScored.map((item,i)=>{const scoreC=scoreColor(item.score);return`<div class="sdash-top-row">
+          <div class="sdash-top-rank" style="color:${i<3?['#ffd600','#b0b0b0','#cd7f32'][i]:'var(--text3)'}">${i+1}</div>
+          <img class="sdash-top-img" src="${esc(item.img||'')}" alt="" onerror="this.style.background='var(--bg4)'">
+          <div class="sdash-top-info">
+            <div class="sdash-top-name">${esc(item.lbl||'?')}</div>
+            <div class="sdash-top-meta">${item.tierName?`Tier: ${esc(item.tierName)}`:'Pool'}</div>
+          </div>
+          <div class="sdash-top-score" style="color:${scoreC}">${item.score}</div>
+        </div>`}).join('')}
+      </div>`;
+
+      // Score por tier
+      html+=`<div class="sdash-card">
+        <div class="sdash-card-title"><span>🎯</span> Score Médio por Tier</div>
+        ${tierStats.filter(t=>t.avg!==null).sort((a,b)=>b.avg-a.avg).map(t=>barRow(`${t.name} (${t.scored})`,t.avg,100,t.color,'/100')).join('')||'<div style="color:var(--text3);font-size:11px">Nenhuma tier com scores.</div>'}
+      </div>`;
+    }
+
+  }else if(tab==='sdash-tiers'){
+    // Tier stats table
+    html+=`<div class="sdash-card sdash-card-wide">
+      <div class="sdash-card-title"><span>🏗</span> Tiers Detalhadas</div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:11px">
+          <thead><tr style="color:var(--text2);font-size:9px;text-transform:uppercase;letter-spacing:.5px">
+            <th style="text-align:left;padding:5px 8px">Tier</th>
+            <th style="text-align:right;padding:5px 8px">Itens</th>
+            <th style="text-align:right;padding:5px 8px">%</th>
+            <th style="text-align:right;padding:5px 8px">Com Score</th>
+            <th style="text-align:right;padding:5px 8px">Score Médio</th>
+            <th style="text-align:right;padding:5px 8px">Status</th>
+          </tr></thead>
+          <tbody>
+            ${S.tiers.map(t=>{const sc=t.items.filter(x=>x.score!=null);const avg=sc.length?Math.round(sc.reduce((s,x)=>s+x.score,0)/sc.length):null;const pctT=inTier?Math.round(t.items.length/inTier*100):0;return`<tr style="border-top:1px solid var(--border)">
+              <td style="padding:6px 8px"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${t.color};margin-right:6px;vertical-align:middle"></span><b style="color:${t.color}">${esc(t.name)}</b></td>
+              <td style="text-align:right;padding:6px 8px;font-weight:700">${t.items.length}</td>
+              <td style="text-align:right;padding:6px 8px;color:var(--text2)">${pctT}%</td>
+              <td style="text-align:right;padding:6px 8px;color:var(--text2)">${sc.length}</td>
+              <td style="text-align:right;padding:6px 8px;color:${avg!=null?scoreColor(avg):'var(--text3)'};font-weight:700">${avg!=null?avg:'—'}</td>
+              <td style="text-align:right;padding:6px 8px;font-size:10px">${t.locked?'🔒':''}${t.collapsed?'🔽':''}</td>
+            </tr>`}).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+
+    // Tier bar chart
+    html+=`<div class="sdash-card sdash-card-wide">
+      <div class="sdash-card-title"><span>📊</span> Itens por Tier</div>
+      ${[...tierStats].sort((a,b)=>b.count-a.count).map(t=>barRow(t.name,t.count,maxTierCount,t.color,` itens`)).join('')}
+    </div>`;
+
+    // Avg score ranking
+    const tiersWithScore=tierStats.filter(t=>t.avg!==null).sort((a,b)=>b.avg-a.avg);
+    if(tiersWithScore.length){
+      html+=`<div class="sdash-card sdash-card-wide">
+        <div class="sdash-card-title"><span>⭐</span> Ranking de Qualidade (Score Médio)</div>
+        ${tiersWithScore.map((t,i)=>`<div class="sdash-bar-row">
+          <div class="sdash-bar-label"><b style="color:${t.color}">${i+1}. ${esc(t.name)}</b></div>
+          <div class="sdash-bar-track"><div class="sdash-bar-fill" style="width:${t.avg}%;background:${scoreColor(+t.avg)}"></div></div>
+          <div class="sdash-bar-val" style="color:${scoreColor(+t.avg)}">${t.avg}</div>
+        </div>`).join('')}
+      </div>`;
+    }
+
+  }else if(tab==='sdash-content'){
+    // General content stats
+    html+=`<div class="sdash-card">
+      <div class="sdash-card-title"><span>📦</span> Conteúdo</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        ${[['Total de animes',total,'var(--cyan)'],['Em tiers',inTier,'var(--green)'],['No pool',inPool,'var(--purple)'],['Com notas 📝',withNotes,'var(--yellow)'],['Com blur 🙈',withBlur,'var(--orange)'],['Sem nome',noLabel,'var(--text3)'],['Com score ⭐',scored.length,'var(--pink)'],['Sem score',total-scored.length,'var(--text2)']].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 10px;background:var(--bg3);border-radius:6px;font-size:11px"><span style="color:var(--text2)">${l}</span><b style="color:${c};font-size:14px">${v}</b></div>`).join('')}
+      </div>
+    </div>`;
+
+    // Pool analytics
+    const poolScored=S.pool.filter(x=>x.score!=null);
+    const poolAvg=poolScored.length?Math.round(poolScored.reduce((s,x)=>s+x.score,0)/poolScored.length):null;
+    html+=`<div class="sdash-card">
+      <div class="sdash-card-title"><span>🏊</span> Pool Analytics</div>
+      <div class="sdash-kpi-grid">
+        <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--purple)">${inPool}</div><div class="sdash-kpi-lbl">Total</div></div>
+        <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--cyan)">${poolScored.length}</div><div class="sdash-kpi-lbl">Com Score</div></div>
+        <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:${poolAvg!=null?scoreColor(poolAvg):'var(--text3)'}">${poolAvg??'—'}</div><div class="sdash-kpi-lbl">Média</div></div>
+      </div>
+      ${inPool?`<div style="margin-top:10px;font-size:10px;color:var(--text2)">Pool representa <b style="color:var(--purple)">${total?Math.round(inPool/total*100):0}%</b> de todos os itens</div>`:''}
+    </div>`;
+
+    // Items per tier visual
+    const tierColors=S.tiers.map(t=>t.color);
+    const tierCounts=S.tiers.map(t=>t.items.length);
+    const totalForPie=tierCounts.reduce((s,v)=>s+v,0)||1;
+    let pie='',startAngle=0;
+    S.tiers.forEach((t,i)=>{
+      if(!t.items.length)return;
+      const angle=(t.items.length/totalForPie)*360;
+      const endAngle=startAngle+angle;
+      const large=angle>180?1:0;
+      const s2a=a=>[Math.cos((a-90)*Math.PI/180)*38+40,Math.sin((a-90)*Math.PI/180)*38+40];
+      const[sx,sy]=s2a(startAngle);const[ex,ey]=s2a(endAngle-0.01);
+      pie+=`<path d="M40,40 L${sx.toFixed(2)},${sy.toFixed(2)} A38,38,0,${large},1,${ex.toFixed(2)},${ey.toFixed(2)}Z" fill="${t.color}" opacity=".85"/>`;
+      startAngle=endAngle;
+    });
+    html+=`<div class="sdash-card">
+      <div class="sdash-card-title"><span>🥧</span> Composição das Tiers</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <svg viewBox="0 0 80 80" style="width:80px;height:80px;flex-shrink:0">${pie}<circle cx="40" cy="40" r="18" fill="var(--bg2)"/></svg>
+        <div style="flex:1">
+          ${S.tiers.filter(t=>t.items.length).map(t=>`<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:10px"><span style="width:10px;height:10px;border-radius:2px;background:${t.color};display:inline-block;flex-shrink:0"></span><span style="color:var(--text2);flex:1">${esc(t.name)}</span><b style="color:${t.color}">${Math.round(t.items.length/totalForPie*100)}%</b></div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+
+    // Score distribution by placement
+    const poolToTierRatio=inPool&&inTier?Math.round(inPool/inTier*100)/100:null;
+    html+=`<div class="sdash-card">
+      <div class="sdash-card-title"><span>📐</span> Índices</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Taxa de classificação</span><b style="color:var(--cyan)">${pctPlaced}%</b></div>
+        ${poolToTierRatio!==null?`<div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Pool/Tier ratio</span><b style="color:var(--purple)">${poolToTierRatio}×</b></div>`:''}
+        <div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Tiers com lock</span><b style="color:var(--yellow)">${S.tiers.filter(t=>t.locked).length}</b></div>
+        <div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Tiers recolhidas</span><b style="color:var(--text2)">${S.tiers.filter(t=>t.collapsed).length}</b></div>
+        <div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Enriquecidos AniList</span><b style="color:var(--green)">${enriched.length} (${enrichedPct}%)</b></div>
+      </div>
+    </div>`;
+
+  }else if(tab==='sdash-anilist'){
+    // AniList enriched data
+    if(!enriched.length){
+      html+=`<div class="sdash-card sdash-card-wide">
+        <div class="sdash-card-title"><span>🌐</span> Dados AniList</div>
+        <div class="sdash-enriched-note" style="padding:30px">
+          <div style="font-size:32px;margin-bottom:10px">🌐</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px">Dados AniList não disponíveis</div>
+          <div style="font-size:11px;line-height:1.6">Use o botão <b style="color:var(--cyan)">🔍 AniList</b> no Pool para buscar e adicionar animes via AniList. Os animes adicionados assim incluem metadados de gênero, estúdio e ano, que alimentam as estatísticas desta aba.</div>
+        </div>
+      </div>`;
+    }else{
+      // Genre chart
+      if(topGenres.length){
+        const maxG=topGenres[0][1];
+        const genreColors=['var(--cyan)','var(--pink)','var(--purple)','var(--green)','var(--orange)','var(--yellow)','#ff71ce','#05ffa1'];
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>🎭</span> Gêneros Favoritos</div>
+          ${topGenres.map(([g,c],i)=>barRow(g,c,maxG,genreColors[i%genreColors.length])).join('')}
+        </div>`;
+      }
+
+      // Studio chart
+      if(topStudios.length){
+        const maxS=topStudios[0][1];
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>🏢</span> Estúdios Favoritos</div>
+          ${topStudios.map(([s,c])=>barRow(s,c,maxS,'var(--cyan)')).join('')}
+        </div>`;
+      }
+
+      // Decade chart
+      if(topDecades.length){
+        const maxD=Math.max(...topDecades.map(x=>x[1]),1);
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>📅</span> Por Década</div>
+          <div class="sdash-hist-row" style="height:100px">
+            ${topDecades.map(([d,c])=>histBar(c,maxD,`${d}s`,`hsl(${(+d-1960)*4+180},80%,60%)`)).join('')}
+          </div>
+          <div class="sdash-hist-labels">
+            ${topDecades.map(([d])=>`<span>${d}s</span>`).join('')}
+          </div>
+        </div>`;
+      }
+
+      // Format breakdown
+      if(topFormats.length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>📺</span> Formatos</div>
+          <div class="sdash-pill-wrap">
+            ${topFormats.map(([f,c])=>`<div class="sdash-pill">${esc(f)}<span class="sdash-pill-count">${c}</span></div>`).join('')}
+          </div>
+        </div>`;
+      }
+
+      // All genres pills
+      html+=`<div class="sdash-card sdash-card-wide">
+        <div class="sdash-card-title"><span>🏷</span> Todos os Gêneros</div>
+        <div class="sdash-pill-wrap">
+          ${Object.entries(genreMap).sort((a,b)=>b[1]-a[1]).map(([g,c])=>`<div class="sdash-pill">${esc(g)}<span class="sdash-pill-count">${c}</span></div>`).join('')}
+        </div>
+      </div>`;
+
+      // Enrichment stats
+      html+=`<div class="sdash-card">
+        <div class="sdash-card-title"><span>✦</span> Cobertura AniList</div>
+        <div style="text-align:center">
+          <div class="sdash-big-num" style="color:var(--green)">${enrichedPct}%</div>
+          <div class="sdash-big-label">${enriched.length} de ${total} com metadados</div>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--text2);text-align:center">Use 🔍 AniList no Pool para adicionar mais animes com metadados completos</div>
+      </div>`;
+    }
+  }
+
+  document.getElementById('sdash-body').innerHTML=html||'<div class="sdash-card sdash-card-wide"><div class="sdash-enriched-note">Carregando...</div></div>';
+}
+
+
+document.addEventListener('DOMContentLoaded',async()=>{
+  await openIDB().catch(()=>{});
+  try{const saved=await idbGet('anitier');if(saved)S=JSON.parse(saved)}catch(e){console.warn('Load error:',e)}
   setupPoolDrop();buildColorGrid();buildStatusChips();setupStickyToolbar();
   snap();render();syncUI();updateScorePreview(75);updateScoreSelPreview(75);
-  setTimeout(()=>toast('✦ AnimeTier v4 — ? para atalhos','ok'),900);
+  setTimeout(()=>toast('✦ AnimeTier v5 — ? para atalhos','ok'),900);
 });
 </script>
 </body>
