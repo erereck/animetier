@@ -290,54 +290,90 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
 #stats-dashboard.open{display:flex}
 .sdash-header{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
 .sdash-title{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px}
-.sdash-body{flex:1;overflow-y:auto;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-content:start}
-.sdash-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;position:relative;overflow:hidden}
-.sdash-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.02),transparent);pointer-events:none}
-.sdash-card-wide{grid-column:1/-1}
-.sdash-card-title{font-size:10px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.sdash-card-title span{font-size:14px}
-.sdash-big-num{font-family:'Rajdhani',sans-serif;font-size:48px;font-weight:900;color:var(--cyan);line-height:1}
-.sdash-big-label{font-size:11px;color:var(--text2);margin-top:2px}
-.sdash-kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.sdash-kpi{background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--border)}
-.sdash-kpi-val{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;line-height:1}
-.sdash-kpi-lbl{font-size:9px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:1px}
-.sdash-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px}
-.sdash-bar-label{min-width:80px;text-align:right;color:var(--text2);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sdash-bar-track{flex:1;height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;position:relative}
-.sdash-bar-fill{height:100%;border-radius:4px;transition:width .5s cubic-bezier(.34,1.56,.64,1)}
-.sdash-bar-val{min-width:28px;font-weight:800;font-size:10px;text-align:right}
-.sdash-hist-row{display:flex;align-items:flex-end;gap:3px;height:80px;padding:0 2px}
-.sdash-hist-bar{flex:1;border-radius:3px 3px 0 0;min-width:8px;transition:height .4s;position:relative;cursor:default}
-.sdash-hist-bar:hover::after{content:attr(data-tip);position:absolute;top:-24px;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:2px 6px;font-size:9px;white-space:nowrap;color:var(--text);z-index:2}
-.sdash-hist-labels{display:flex;font-size:8px;color:var(--text3);padding:0 2px;margin-top:3px}
+.sdash-body{flex:1;overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column;gap:20px}
+.sdash-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:22px 24px;position:relative}
+.sdash-card::before{content:'';position:absolute;inset:0;border-radius:14px;background:linear-gradient(135deg,rgba(0,229,255,.025),transparent);pointer-events:none}
+.sdash-card-wide{}
+.sdash-card-2col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sdash-card-title{font-size:12px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sdash-card-title span{font-size:17px}
+.sdash-big-num{font-family:'Rajdhani',sans-serif;font-size:60px;font-weight:900;color:var(--cyan);line-height:1}
+.sdash-big-label{font-size:13px;color:var(--text2);margin-top:5px}
+.sdash-kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sdash-kpi{background:var(--bg3);border-radius:10px;padding:16px 12px;text-align:center;border:1px solid var(--border)}
+.sdash-kpi-val{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;line-height:1}
+.sdash-kpi-lbl{font-size:10px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:4px}
+.sdash-bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.sdash-bar-label{width:160px;flex-shrink:0;text-align:right;color:var(--text2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sdash-bar-track{flex:1;height:12px;background:var(--bg4);border-radius:6px;overflow:hidden}
+.sdash-bar-fill{height:100%;border-radius:6px;transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+.sdash-bar-val{width:48px;flex-shrink:0;font-weight:800;font-size:12px;text-align:right}
+.sdash-hist-row{display:flex;align-items:flex-end;gap:5px;height:130px;padding:0 2px}
+.sdash-hist-bar{flex:1;border-radius:4px 4px 0 0;min-width:12px;transition:height .4s;position:relative;cursor:default}
+.sdash-hist-bar:hover::after{content:attr(data-tip);position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--border2);border-radius:5px;padding:3px 9px;font-size:10px;white-space:nowrap;color:var(--text);z-index:2}
+.sdash-hist-labels{display:flex;font-size:10px;color:var(--text3);padding:0 2px;margin-top:6px}
 .sdash-hist-labels span{flex:1;text-align:center}
-.sdash-top-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)}
-.sdash-top-row:last-child{border:none}
-.sdash-top-rank{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:var(--text3);min-width:22px;text-align:center}
-.sdash-top-img{width:30px;height:44px;border-radius:4px;object-fit:cover;background:var(--bg4);flex-shrink:0}
+.sdash-top-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.sdash-top-row:last-child{border:none;padding-bottom:0}
+.sdash-top-rank{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--text3);min-width:30px;text-align:center}
+.sdash-top-img{width:40px;height:58px;border-radius:6px;object-fit:cover;background:var(--bg4);flex-shrink:0}
 .sdash-top-info{flex:1;min-width:0}
-.sdash-top-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sdash-top-meta{font-size:9px;color:var(--text2)}
-.sdash-top-score{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:900;flex-shrink:0}
-.sdash-pill-wrap{display:flex;flex-wrap:wrap;gap:5px}
-.sdash-pill{padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;border:1px solid var(--border);background:var(--bg3);display:flex;align-items:center;gap:5px;cursor:default}
-.sdash-pill-count{background:var(--bg4);border-radius:8px;padding:1px 5px;font-size:9px;color:var(--cyan)}
-.sdash-score-ring{display:flex;justify-content:center;margin-bottom:10px}
-.sdash-donut{width:120px;height:120px}
-.sdash-grade-row{display:flex;justify-content:space-around;gap:4px}
-.sdash-grade{text-align:center;background:var(--bg3);border-radius:8px;padding:8px 6px;flex:1;border:1px solid var(--border)}
-.sdash-grade-letter{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:900}
-.sdash-grade-count{font-size:11px;font-weight:700;color:var(--cyan)}
-.sdash-grade-pct{font-size:9px;color:var(--text2)}
-.sdash-enriched-note{font-size:10px;color:var(--text3);text-align:center;padding:14px;background:var(--bg3);border-radius:8px;border:1px dashed var(--border)}
-.sdash-tabs{display:flex;gap:4px;padding:0 16px 0;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}
-.sdash-tab{padding:9px 14px;border:none;background:none;color:var(--text2);font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .14s}
+.sdash-top-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sdash-top-meta{font-size:11px;color:var(--text2);margin-top:3px}
+.sdash-top-score{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:900;flex-shrink:0}
+.sdash-pill-wrap{display:flex;flex-wrap:wrap;gap:7px}
+.sdash-pill{padding:6px 14px;border-radius:16px;font-size:12px;font-weight:700;border:1px solid var(--border);background:var(--bg3);display:flex;align-items:center;gap:7px;cursor:default}
+.sdash-pill-count{background:var(--bg4);border-radius:10px;padding:2px 7px;font-size:11px;color:var(--cyan);font-weight:800}
+.sdash-grade-row{display:flex;justify-content:space-around;gap:10px}
+.sdash-grade{text-align:center;background:var(--bg3);border-radius:12px;padding:16px 10px;flex:1;border:1px solid var(--border)}
+.sdash-grade-letter{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:900}
+.sdash-grade-count{font-size:16px;font-weight:700;color:var(--cyan)}
+.sdash-grade-pct{font-size:11px;color:var(--text2);margin-top:3px}
+.sdash-enriched-note{font-size:13px;color:var(--text3);text-align:center;padding:30px 20px;background:var(--bg3);border-radius:10px;border:1px dashed var(--border);line-height:1.7}
+.sdash-tabs{display:flex;gap:0;padding:0 20px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0;scrollbar-width:none}
+.sdash-tabs::-webkit-scrollbar{display:none}
+.sdash-tab{padding:11px 18px;border:none;background:none;color:var(--text2);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .14s;flex-shrink:0}
 .sdash-tab.active{color:var(--cyan);border-bottom-color:var(--cyan)}
 .sdash-tab:hover{color:var(--cyan)}
-.sdash-page{display:none}
-.sdash-page.active{display:contents}
-.sdash-enrich-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);border-radius:8px;margin-bottom:10px;grid-column:1/-1}
+.sdash-enrich-bar{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.18);border-radius:12px;flex-wrap:wrap}
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .sdash-body{padding:14px}
+  .sdash-card{padding:16px}
+  .sdash-card-2col{grid-template-columns:1fr}
+  .sdash-big-num{font-size:48px}
+  .sdash-kpi-val{font-size:26px}
+  .sdash-bar-label{width:90px;font-size:10px}
+  .sdash-bar-val{width:36px;font-size:10px}
+  .sdash-tab{padding:9px 12px;font-size:11px}
+  .sdash-grade-letter{font-size:26px}
+  .sdash-top-name{font-size:12px}
+}
+/* ── ENRICH NOTIFICATION BANNER ── */
+#enrich-banner{display:none;align-items:center;gap:8px;padding:6px 12px;background:linear-gradient(90deg,rgba(139,92,246,.12),rgba(0,229,255,.08));border-bottom:1px solid rgba(139,92,246,.3);font-size:11px;flex-wrap:wrap}
+#enrich-banner.vis{display:flex}
+.enrich-banner-txt{flex:1;color:var(--text2)}
+.enrich-banner-txt b{color:var(--purple)}
+/* ── GENRE FILTER BAR ── */
+#genre-filter-bar{display:none;align-items:center;gap:5px;padding:5px 12px;background:var(--bg2);border-bottom:1px solid var(--border);flex-wrap:wrap;font-size:10px}
+#genre-filter-bar.vis{display:flex}
+.genre-chip{padding:2px 9px;border-radius:10px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:10px;font-weight:700;transition:all .12s;white-space:nowrap}
+.genre-chip:hover{border-color:var(--cyan);color:var(--cyan)}
+.genre-chip.active{background:var(--cyan);color:#000;border-color:var(--cyan)}
+.genre-chip.clear-chip{border-color:var(--pink);color:var(--pink)}
+/* ── SEASON BADGE ── */
+.item-season-badge{position:absolute;bottom:0;left:0;right:0;font-size:7px;font-weight:800;text-align:center;padding:2px 0;letter-spacing:.3px;pointer-events:none;line-height:1;z-index:3;opacity:.9;backdrop-filter:blur(2px)}
+/* ── AL INFO MODAL ── */
+.al-info-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.al-info-meta-row{padding:7px 10px;background:var(--bg3);border-radius:7px;font-size:11px;display:flex;flex-direction:column;gap:2px}
+.al-info-meta-label{color:var(--text2);font-size:9px;text-transform:uppercase;letter-spacing:.4px;font-weight:800}
+.al-info-meta-val{color:var(--text);font-weight:700;font-size:12px}
+.al-info-genres{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.al-info-genre{padding:3px 9px;border-radius:9px;font-size:10px;font-weight:700;background:var(--bg3);border:1px solid var(--border2);color:var(--text2)}
+/* ── COMPARE STATS ── */
+.compare-col{flex:1;min-width:200px;background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border)}
+.compare-col-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;text-align:center}
+
 @media(max-width:640px){
   .tier-row{flex-direction:column}
   .tier-label-area{width:100%;min-width:unset;flex-direction:row;padding:5px 8px;border-radius:calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;min-height:auto;gap:6px;justify-content:flex-start}
@@ -400,6 +436,13 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
   </div>
 </header>
 
+<div id="enrich-banner">
+  <span style="font-size:16px">🌐</span>
+  <span class="enrich-banner-txt"><b id="enrich-banner-count">0</b> animes sem metadados AniList — gêneros, estúdios, temporada e muito mais ficam disponíveis para as estatísticas avançadas</span>
+  <button class="btn btn-sm" style="border-color:var(--purple);color:var(--purple)" onclick="openStatsDashboard();switchSDash(document.querySelector('[onclick*=sdash-anilist]'),\'sdash-anilist\')">📊 Ver Stats</button>
+  <button class="btn btn-sm" onclick="document.getElementById('enrich-banner').classList.remove('vis')">✕</button>
+</div>
+
 <div class="toolbar" id="toolbar">
   <input type="search" class="srch" id="srch" placeholder="🔍 Filtrar pool..." oninput="filterPool()">
   <span class="pool-sel-all" id="pool-sel-all" onclick="selectAllFiltered()">Sel. todos</span>
@@ -411,6 +454,11 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
       <option value="alpha-desc">Z→A</option>
       <option value="score-desc">Score ↓</option>
       <option value="score-asc">Score ↑</option>
+      <option value="alscore-desc">AL Score ↓</option>
+      <option value="year-desc">Ano ↓</option>
+      <option value="year-asc">Ano ↑</option>
+      <option value="season">Temporada</option>
+      <option value="format">Formato</option>
       <option value="recent">Recente</option>
     </select>
   </div>
@@ -426,6 +474,7 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
   <label class="toggle-wrap"><span class="tlabel">Stats</span><label class="toggle"><input type="checkbox" id="t-stats" onchange="toggleStats(this.checked)"><span class="tslider"></span></label></label>
   <label class="toggle-wrap"><span class="tlabel">Preview</span><label class="toggle"><input type="checkbox" id="t-preview" onchange="togglePreview(this.checked)"><span class="tslider"></span></label></label>
   <label class="toggle-wrap"><span class="tlabel">G-Search</span><label class="toggle"><input type="checkbox" id="t-gsearch" onchange="toggleGlobalSearch(this.checked)"><span class="tslider"></span></label></label>
+  <label class="toggle-wrap"><span class="tlabel">Temporada</span><label class="toggle"><input type="checkbox" id="t-season" onchange="toggleSeasonBadge(this.checked)"><span class="tslider"></span></label></label>
   <div class="grp" style="margin-left:auto">
     <button class="btn btn-sm" onclick="randomHighlight()" title="Destaque aleatório">🎯</button>
     <button class="btn btn-sm" onclick="autoSortAllTiers()" title="A→Z em tudo">⇅</button>
@@ -444,6 +493,7 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
     <b id="st-pct" style="font-size:10px;color:var(--cyan)">0%</b>
   </div>
   <div class="stat-chip">Score médio:<b id="st-avgscore">—</b></div>
+  <div class="stat-chip" id="st-meta-chip" style="display:none">Meta:<b id="st-meta" style="color:var(--green)">0</b></div>
 </div>
 <div id="sel-bar">
   <span class="sel-count" id="sel-count">0 sel.</span>
@@ -479,15 +529,19 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
         <button class="btn btn-sm" onclick="autoTierByScore()" title="Distribuir itens do pool por score">⭐ Score</button>
         <button class="btn btn-sm" onclick="openCleanPoolModal()" title="Remover sequências/continuações da pool">🧹 Seqs</button>
         <button class="btn btn-sm btn-primary" onclick="openAniListSearch()" title="Buscar anime no AniList e adicionar">🔍 AniList</button>
+        <button class="btn btn-sm" onclick="autoTierByStatus()" title="Mover itens para tiers pelo status AniList (Completed/Dropped/etc)">📋 Status</button>
+        <button class="btn btn-sm" onclick="toggleGenreFilter()" title="Filtrar pool por gênero">🎭 Gênero</button>
         <button class="btn btn-sm btn-danger" onclick="deleteAllPool()">🗑</button>
       </div>
     </div>
+    <div id="genre-filter-bar"></div>
     <div id="pool-items"></div>
   </div>
 </div>
 
 <div id="ctx-menu">
   <div class="ctx-hdr" id="ctx-title">Item</div>
+  <div class="ctx-item" id="ctx-al-info-btn" onclick="ctxALInfo()" style="display:none">🌐 Info AniList</div>
   <div class="ctx-item" onclick="ctxEdit()">✏️ Editar nome</div>
   <div class="ctx-item" onclick="ctxScore()">⭐ Definir score</div>
   <div class="ctx-item" onclick="ctxNote()">📝 Nota</div>
@@ -647,6 +701,9 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
     <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('filmes')">🎬 Filmes</button>
     <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('traumas')">💔 Traumas</button>
     <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('comfort')">🛋 Comfort Anime</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('formato')">📺 Por Formato (TV/Movie/OVA...)</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('status')">📋 Por Status AniList</button>
+    <button class="btn" style="width:100%;margin-bottom:4px" onclick="loadPreset('decada')">📅 Por Década</button>
   </div>
   <div class="mtab-pane" id="stab-data">
     <button class="btn" style="width:100%;margin-bottom:5px" onclick="openModal('saves-modal')">💾 Gerenciar Saves</button>
@@ -654,6 +711,8 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
     <button class="btn" style="width:100%;margin-bottom:5px" onclick="document.getElementById('import-json').click()">⬆ Importar JSON</button>
     <button class="btn btn-primary" style="width:100%;margin-bottom:5px" onclick="openExportModal()">📷 Exportar PNG</button>
     <button class="btn" style="width:100%;margin-bottom:5px" onclick="copyAsText()">📄 Copiar como texto</button>
+    <button class="btn" style="width:100%;margin-bottom:5px" onclick="copyAsMarkdown()">📝 Exportar Markdown</button>
+    <button class="btn" style="width:100%;margin-bottom:5px" onclick="exportAsCSV()">📊 Exportar CSV</button>
     <div class="sort-sep" style="margin:8px 0"></div>
     <button class="btn btn-danger" style="width:100%" onclick="resetAll()">⚠ Resetar tudo</button>
   </div>
@@ -702,6 +761,25 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
   </select>
   <div id="reload-preview" style="font-size:11px;padding:8px 10px;background:var(--bg2);border-radius:7px;border:1px solid var(--border);color:var(--text2);min-height:30px;margin-bottom:10px;display:none"></div>
   <div class="mact"><button class="btn" onclick="closeModal('reload-img-modal')">Cancelar</button><button class="btn btn-primary" onclick="reloadImagesFromAniList()">🔄 Recarregar</button></div>
+</div></div>
+
+<!-- ── AL INFO MODAL ── -->
+<div class="modal-ov" id="al-info-modal"><div class="modal" style="max-width:420px">
+  <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px">
+    <img id="al-info-cover" src="" alt="" style="width:70px;height:100px;object-fit:cover;border-radius:7px;background:var(--bg4);flex-shrink:0">
+    <div style="flex:1;min-width:0">
+      <h3 id="al-info-title" style="font-size:14px;margin-bottom:4px;line-height:1.3"></h3>
+      <div id="al-info-native" style="font-size:10px;color:var(--text2);margin-bottom:6px"></div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap" id="al-info-badges"></div>
+    </div>
+  </div>
+  <div class="al-info-meta-grid" id="al-info-grid"></div>
+  <div id="al-info-genres" class="al-info-genres"></div>
+  <div id="al-info-tags" class="al-info-genres" style="margin-top:5px"></div>
+  <div class="mact" style="margin-top:12px">
+    <a id="al-info-link" href="#" target="_blank" class="btn" style="text-decoration:none">🌐 Ver no AniList</a>
+    <button class="btn btn-primary" onclick="closeModal('al-info-modal')">Fechar</button>
+  </div>
 </div></div>
 
 <!-- ── ANALYTICS MODAL ── -->
@@ -776,6 +854,7 @@ body.preview-hide-labels .tier-item:hover .item-label{opacity:0!important}
       <button class="sdash-tab" onclick="switchSDash(this,'sdash-tiers')">Tiers</button>
       <button class="sdash-tab" onclick="switchSDash(this,'sdash-content')">Conteúdo</button>
       <button class="sdash-tab" onclick="switchSDash(this,'sdash-anilist')">AniList+</button>
+      <button class="sdash-tab" onclick="switchSDash(this,'sdash-compare')">⚖ Comparar</button>
     </div>
     <button class="btn btn-sm btn-danger" onclick="closeStatsDashboard()" style="margin-left:auto;flex-shrink:0">✕ Fechar</button>
   </div>
@@ -960,10 +1039,11 @@ function mkItemEl(item,src,rank){
   el.className='tier-item'+(item.note?' has-note':'')+(selectedIds.has(item.id)?' multi-selected':'')+(item.blur?' item-blurred':'');
   el.dataset.id=item.id;el.dataset.src=src;el.draggable=true;
   const sc=item.score!=null?`<div class="item-score ${scoreClass(item.score)}">${item.score}</div>`:'';
+  const seasonBadge=typeof getSeasonBadgeHTML==='function'?getSeasonBadgeHTML(item):'';
   el.innerHTML=`<img src="${esc(item.img)}" alt="${esc(item.lbl||'')}" loading="lazy" onerror="this.style.background='var(--bg4)'">
     <div class="item-rank">#${rank}</div>
     <div class="item-label">${esc(item.lbl||'')}</div>
-    <div class="item-note-dot"></div>${sc}`;
+    <div class="item-note-dot"></div>${sc}${seasonBadge}`;
   el.addEventListener('dragstart',e=>onDragStart(e,item.id,src));
   el.addEventListener('dragend',onDragEnd);
   el.addEventListener('contextmenu',e=>openCtx(e,item.id,src));
@@ -979,10 +1059,15 @@ function mkItemEl(item,src,rank){
 // ── HOVER TOOLTIP ──────────────────────────────────────
 function showHovTip(e,item){
   const tip=document.getElementById('hov-tip'),prev=document.getElementById('img-preview'),pimg=document.getElementById('img-preview-img');
-  let txt='';
-  if(!S.cfg.preview&&item.lbl)txt=item.lbl+'\n';
-  if(item.score!=null)txt+=`Score: ${item.score}/100\n`;
-  if(item.note)txt+=item.note;
+  let lines=[];
+  if(!S.cfg.preview&&item.lbl)lines.push(item.lbl);
+  if(item.score!=null)lines.push(`⭐ ${item.score}/100${item.alScore?` · AL: ${item.alScore}`:''}`)
+  if(item.studio)lines.push(`🏢 ${item.studio}`);
+  if(item.genres?.length)lines.push(`🎭 ${item.genres.slice(0,3).join(', ')}`);
+  if(item.season&&item.year)lines.push(`${_sEmoji?.[item.season]||''} ${item.season} ${item.seasonYear||item.year}`);
+  if(item.format)lines.push(`📺 ${item.format}${item.episodes?' · '+item.episodes+'ep':''}`)
+  if(item.note)lines.push(item.note);
+  const txt=lines.join('\n');
   if(txt.trim()){tip.textContent=txt.trim();tip.style.display='block'}else{tip.style.display='none'}
   if(S.cfg.preview&&item.img&&!item.img.startsWith('[localfile]')){pimg.src=item.img;prev.style.display='block'}
   moveHovTip(e);
@@ -999,7 +1084,7 @@ function moveHovTip(e){
 let _poolFilter='';
 function renderPool(){
   const c=document.getElementById('pool-items');
-  _poolFilter=(document.getElementById('srch').value||'').toLowerCase();
+  _poolFilter=(document.getElementById('srch').value||document.getElementById('pool-srch')?.value||'').toLowerCase();
   let items=[...S.pool];
   if(S.cfg.poolSort==='alpha')items.sort((a,b)=>(a.lbl||'').localeCompare(b.lbl||''));
   else if(S.cfg.poolSort==='alpha-desc')items.sort((a,b)=>(b.lbl||'').localeCompare(a.lbl||''));
@@ -1007,11 +1092,13 @@ function renderPool(){
   else if(S.cfg.poolSort==='score-asc')items.sort((a,b)=>(a.score??101)-(b.score??101));
   else if(S.cfg.poolSort==='recent')items=[...items].reverse();
   if(_poolFilter)items=items.filter(i=>(i.lbl||'').toLowerCase().includes(_poolFilter));
-  document.getElementById('pool-count').textContent=S.pool.length;
-  document.getElementById('pool-sel-all').classList.toggle('vis',!!_poolFilter&&items.length>0);
+  if(_activeGenreFilter)items=items.filter(i=>(i.genres||[]).includes(_activeGenreFilter));
+  const badge=document.getElementById('pool-count');
+  badge.textContent=(_poolFilter||_activeGenreFilter)?`${items.length}/${S.pool.length}`:S.pool.length;
+  document.getElementById('pool-sel-all').classList.toggle('vis',!!(_poolFilter||_activeGenreFilter)&&items.length>0);
   c.innerHTML='';
   if(S.cfg.listView)c.classList.add('list-view');else c.classList.remove('list-view');
-  if(!items.length){c.innerHTML=`<div class="pool-empty">${S.pool.length?'Sem resultados para "'+esc(_poolFilter)+'"':'Pool vazio ✦ — Importe via AniList, arquivo ou URL'}</div>`;return}
+  if(!items.length){c.innerHTML=`<div class="pool-empty">${S.pool.length?`Sem resultados${_activeGenreFilter?` para gênero "${_activeGenreFilter}"`:''}`:'Pool vazio ✦ — Importe via AniList, arquivo ou URL'}</div>`;return}
   items.forEach(item=>c.appendChild(mkItemEl(item,'pool',0)));
 }
 function applyPoolSort(){S.cfg.poolSort=document.getElementById('pool-sort').value;renderPool()}
@@ -1030,6 +1117,7 @@ function updateStats(){
   document.getElementById('st-pct').textContent=pct+'%';
   const scored=[...S.pool,...S.tiers.flatMap(t=>t.items)].filter(x=>x.score!=null);
   document.getElementById('st-avgscore').textContent=scored.length?Math.round(scored.reduce((s,x)=>s+x.score,0)/scored.length)+'':'—';
+  _updateMetaChip?.();
 }
 
 // ── GLOBAL SEARCH ──────────────────────────────────────
@@ -1338,7 +1426,7 @@ function openScoreSelectedModal(){document.getElementById('score-sel-range').val
 function confirmScoreSelected(){const v=+document.getElementById('score-sel-range').value;selectedIds.forEach(id=>{const item=findItem(id);if(item)item.score=v});snap();render();closeModal('score-sel-modal');toast(`Score ${v} → ${selectedIds.size} itens!`,'ok')}
 
 // ── CTX MENU ───────────────────────────────────────────
-let ctxId=null,ctxSrc=null;
+let ctxId=null,ctxSrc=null,_ctxItem=null;
 document.addEventListener('click',()=>document.getElementById('ctx-menu').classList.remove('open'));
 document.addEventListener('contextmenu',e=>{if(!e.target.closest('.tier-item'))document.getElementById('ctx-menu').classList.remove('open')});
 function ctxEdit(){const item=findItem(ctxId);if(!item)return;document.getElementById('edit-inp').value=item.lbl||'';openModal('edit-modal');setTimeout(()=>{const i=document.getElementById('edit-inp');i.focus();i.select()},50)}
@@ -1369,15 +1457,46 @@ function buildStatusChips(){
     wrap.appendChild(chip);
   });
 }
+// Full metadata query helper
+const _AL_FULL_QUERY=`query($u:String){MediaListCollection(userName:$u,type:ANIME){lists{entries{status score(format:POINT_100) progress startedAt{year month}completedAt{year month}media{id title{romaji english native}coverImage{large}startDate{year month}endDate{year}season seasonYear format episodes duration averageScore popularity favourites genres tags{name rank isGeneralSpoiler}studios(isMain:true){nodes{name}}source countryOfOrigin isAdult}}}}}`
+
+function _buildItemMeta(e){
+  const m=e.media;
+  return{
+    anilistId:m.id,
+    genres:m.genres||[],
+    tags:(m.tags||[]).filter(t=>!t.isGeneralSpoiler).map(t=>({name:t.name,rank:t.rank})),
+    studio:m.studios?.nodes?.[0]?.name||'',
+    year:m.startDate?.year||null,
+    month:m.startDate?.month||null,
+    endYear:m.endDate?.year||null,
+    season:m.season||null,
+    seasonYear:m.seasonYear||null,
+    format:m.format||null,
+    episodes:m.episodes||null,
+    duration:m.duration||null,
+    alScore:m.averageScore||null,
+    popularity:m.popularity||null,
+    favourites:m.favourites||null,
+    source:m.source||null,
+    country:m.countryOfOrigin||null,
+    isAdult:m.isAdult||false,
+    alStatus:e.status||null,
+    userAlScore:e.score||null,
+    progress:e.progress||null,
+    startedAt:e.startedAt?.year||null,
+    completedAt:e.completedAt?.year||null,
+  };
+}
+
 async function importAniList(){
   const user=document.getElementById('anilist-user').value.trim();
   const yearRaw=document.getElementById('anilist-year').value.trim();
   const year=yearRaw?parseInt(yearRaw):null;
   if(!user){toast('⚠ Digite o usuário!','warn');return}
-  showLoad('Buscando AniList...',year?`Ano: ${year}`:`Todos os anos`);
+  showLoad('Buscando AniList...',year?`Ano: ${year}`:'Todos os anos');
   try{
-    const q=`query($u:String){MediaListCollection(userName:$u,type:ANIME){lists{entries{status media{id title{romaji english}coverImage{large}startDate{year}}}}}}`;
-    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q,variables:{u:user}})});
+    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:_AL_FULL_QUERY,variables:{u:user}})});
     const d=await r.json();
     if(d.errors){hideLoad();toast('Erro: '+d.errors[0].message,'err');return}
     if(!d.data?.MediaListCollection){hideLoad();toast('Usuário não encontrado','err');return}
@@ -1387,9 +1506,80 @@ async function importAniList(){
     if(!entries.length){hideLoad();toast('Nenhum anime com esses filtros!','warn');return}
     const existingImgs=new Set([...S.pool.map(x=>x.img),...S.tiers.flatMap(t=>t.items.map(x=>x.img))]);
     let added=0;
-    entries.forEach(e=>{const img=e.media.coverImage.large;if(img&&!existingImgs.has(img)){S.pool.push({id:uid(),img,lbl:e.media.title.english||e.media.title.romaji||''});existingImgs.add(img);added++}});
-    hideLoad();snap();render();toast(`✦ ${added} animes adicionados!${year?` (${year})`:''}${added<entries.length?' ('+(entries.length-added)+' já existiam)':''}`, 'ok');
+    entries.forEach(e=>{
+      const img=e.media.coverImage.large;
+      if(img&&!existingImgs.has(img)){
+        S.pool.push({id:uid(),img,lbl:e.media.title.english||e.media.title.romaji||'',..._buildItemMeta(e)});
+        existingImgs.add(img);added++;
+      }
+    });
+    hideLoad();snap();render();
+    checkEnrichBanner();
+    toast(`✦ ${added} animes adicionados com metadados completos!${year?` (${year})`:''}${added<entries.length?' ('+(entries.length-added)+' já existiam)':''}`, 'ok');
   }catch(err){hideLoad();toast('Erro: '+err.message,'err')}
+}
+
+// ── ENRICH METADATA ─────────────────────────────────────
+// Adds metadata to existing items without anilistId — never moves or removes anything
+async function enrichAllMetadata(user){
+  if(!user){toast('⚠ Digite o usuário AniList!','warn');return}
+  showLoad('Enriquecendo metadados...','Buscando sua lista AniList...');
+  try{
+    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:_AL_FULL_QUERY,variables:{u:user}})});
+    const d=await r.json();
+    if(d.errors){hideLoad();toast('Erro: '+d.errors[0].message,'err');return}
+    if(!d.data?.MediaListCollection){hideLoad();toast('Usuário não encontrado','err');return}
+    const entries=d.data.MediaListCollection.lists.flatMap(l=>l.entries);
+    // Build lookup maps
+    const byId=new Map(),byImg=new Map(),byTitle=new Map();
+    entries.forEach(e=>{
+      byId.set(e.media.id,e);
+      const img=e.media.coverImage?.large;
+      if(img)byImg.set(img.split('?')[0],e);
+      [e.media.title.romaji,e.media.title.english,e.media.title.native].forEach(t=>{
+        if(t)byTitle.set(t.toLowerCase().trim(),e);
+      });
+    });
+    const allItems=[...S.pool,...S.tiers.flatMap(t=>t.items)];
+    let enriched=0,alreadyHad=0;
+    allItems.forEach(item=>{
+      if(item.anilistId&&byId.has(item.anilistId)){
+        // re-enrich even if already has ID (to update data)
+        Object.assign(item,_buildItemMeta(byId.get(item.anilistId)));
+        alreadyHad++;enriched++;return;
+      }
+      // try img match
+      const cleanImg=(item.img||'').split('?')[0];
+      if(cleanImg&&byImg.has(cleanImg)){
+        Object.assign(item,_buildItemMeta(byImg.get(cleanImg)));
+        enriched++;return;
+      }
+      // try title match
+      const key=(item.lbl||'').toLowerCase().trim();
+      if(key&&byTitle.has(key)){Object.assign(item,_buildItemMeta(byTitle.get(key)));enriched++;return}
+      // fuzzy
+      for(const[t,e] of byTitle){
+        if(key.length>3&&(t.startsWith(key)||key.startsWith(t))){Object.assign(item,_buildItemMeta(e));enriched++;break}
+      }
+    });
+    hideLoad();snap();checkEnrichBanner();
+    const missing=allItems.filter(x=>!x.anilistId).length;
+    toast(`✦ ${enriched} animes enriquecidos!${missing?` · ${missing} sem match`:''}`, 'ok');
+    if(document.getElementById('stats-dashboard').classList.contains('open'))renderStatsDashboard();
+  }catch(err){hideLoad();toast('Erro: '+err.message,'err')}
+}
+
+function checkEnrichBanner(){
+  const allItems=[...S.pool,...S.tiers.flatMap(t=>t.items)];
+  const missing=allItems.filter(x=>!x.anilistId).length;
+  const banner=document.getElementById('enrich-banner');
+  const countEl=document.getElementById('enrich-banner-count');
+  if(missing>0&&allItems.length>0){
+    if(countEl)countEl.textContent=missing;
+    banner.classList.add('vis');
+  }else{
+    banner.classList.remove('vis');
+  }
 }
 
 // ── RELOAD IMAGES ──────────────────────────────────────
@@ -1636,11 +1826,13 @@ function ctxToggleBlur(){
 }
 function openCtx(e,id,src){
   e.preventDefault();e.stopPropagation();ctxId=id;ctxSrc=src;
-  const item=findItem(id);
+  const item=findItem(id);_ctxItem=item;
   document.getElementById('ctx-title').textContent=(item?.lbl||'(sem nome)')+(item?.score!=null?` [${item.score}]`:'');
   document.getElementById('ctx-to-pool-btn').style.display=src==='pool'?'none':'flex';
   const blurBtn=document.getElementById('ctx-blur-btn');
   if(blurBtn)blurBtn.textContent=item?.blur?'👁 Revelar spoiler':'🙈 Blur spoiler';
+  const alBtn=document.getElementById('ctx-al-info-btn');
+  if(alBtn)alBtn.style.display=item?.anilistId||item?.genres?.length?'flex':'none';
   const m=document.getElementById('ctx-menu');
   m.style.left=Math.min(e.clientX,window.innerWidth-188)+'px';m.style.top=Math.min(e.clientY,window.innerHeight-280)+'px';
   m.classList.add('open');
@@ -1940,41 +2132,42 @@ function renderStatsDashboard(){
       </div>
     </div>`;
 
-    // Progress ring
+    // Progress + score KPIs side by side
+    html+=`<div class="sdash-card-2col">`;
     html+=`<div class="sdash-card">
       <div class="sdash-card-title"><span>📈</span> Progresso</div>
-      <div style="display:flex;align-items:center;gap:16px">
-        <svg viewBox="0 0 80 80" class="sdash-donut" style="width:90px;height:90px;flex-shrink:0">
+      <div style="display:flex;align-items:center;gap:20px">
+        <svg viewBox="0 0 80 80" style="width:100px;height:100px;flex-shrink:0">
           <circle cx="40" cy="40" r="30" fill="none" stroke="var(--bg4)" stroke-width="10"/>
           <circle cx="40" cy="40" r="30" fill="none" stroke="var(--cyan)" stroke-width="10"
             stroke-dasharray="${Math.round(188.4*pctPlaced/100)} 188.4"
             stroke-linecap="round" transform="rotate(-90 40 40)"/>
-          <text x="40" y="44" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="18" font-weight="700" fill="var(--cyan)">${pctPlaced}%</text>
+          <text x="40" y="45" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="18" font-weight="700" fill="var(--cyan)">${pctPlaced}%</text>
         </svg>
-        <div>
-          <div style="font-size:11px;color:var(--text2);margin-bottom:6px">${inTier} de ${total} animes rankeados</div>
-          <div style="font-size:11px;color:var(--text2);margin-bottom:3px">📦 Pool restante: <b style="color:var(--pink)">${inPool}</b></div>
-          <div style="font-size:11px;color:var(--text2);margin-bottom:3px">🎯 Tiers ativas: <b style="color:var(--cyan)">${S.tiers.length}</b></div>
-          <div style="font-size:11px;color:var(--text2)">📝 Com notas: <b style="color:var(--yellow)">${withNotes}</b></div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:13px;color:var(--text2)">${inTier} de ${total} rankeados</div>
+          <div style="font-size:13px;color:var(--text2)">📦 Pool: <b style="color:var(--pink)">${inPool}</b></div>
+          <div style="font-size:13px;color:var(--text2)">🎯 Tiers: <b style="color:var(--cyan)">${S.tiers.length}</b></div>
+          <div style="font-size:13px;color:var(--text2)">📝 Com notas: <b style="color:var(--yellow)">${withNotes}</b></div>
         </div>
       </div>
     </div>`;
 
-    // Score overview
     if(scored.length){
       html+=`<div class="sdash-card">
         <div class="sdash-card-title"><span>⭐</span> Score Geral</div>
-        <div class="sdash-kpi-grid" style="grid-template-columns:1fr 1fr;margin-bottom:10px">
+        <div class="sdash-kpi-grid" style="grid-template-columns:1fr 1fr;margin-bottom:14px">
           <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--cyan)">${avgScore}</div><div class="sdash-kpi-lbl">Média</div></div>
           <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--pink)">${medianScore}</div><div class="sdash-kpi-lbl">Mediana</div></div>
           <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--green)">${maxScore}</div><div class="sdash-kpi-lbl">Máx</div></div>
           <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--orange)">${minScore}</div><div class="sdash-kpi-lbl">Mín</div></div>
         </div>
-        <div style="font-size:10px;color:var(--text2)">${scored.length} de ${total} itens com score (${total?Math.round(scored.length/total*100):0}%)</div>
+        <div style="font-size:12px;color:var(--text2)">${scored.length} de ${total} itens com score (${total?Math.round(scored.length/total*100):0}%)</div>
       </div>`;
     }else{
       html+=`<div class="sdash-card"><div class="sdash-card-title"><span>⭐</span> Scores</div><div class="sdash-enriched-note">Nenhum item com score ainda. Clique com botão direito em um item para definir score!</div></div>`;
     }
+    html+=`</div>`; // close 2col
 
     // Top tier (biggest)
     const bigTier=S.tiers.reduce((a,t)=>t.items.length>a.items.length?t:a,{items:[],name:'',color:'#666'});
@@ -2147,6 +2340,7 @@ function renderStatsDashboard(){
     const tierColors=S.tiers.map(t=>t.color);
     const tierCounts=S.tiers.map(t=>t.items.length);
     const totalForPie=tierCounts.reduce((s,v)=>s+v,0)||1;
+    const poolToTierRatio=inPool&&inTier?Math.round(inPool/inTier*100)/100:null;
     let pie='',startAngle=0;
     S.tiers.forEach((t,i)=>{
       if(!t.items.length)return;
@@ -2158,114 +2352,538 @@ function renderStatsDashboard(){
       pie+=`<path d="M40,40 L${sx.toFixed(2)},${sy.toFixed(2)} A38,38,0,${large},1,${ex.toFixed(2)},${ey.toFixed(2)}Z" fill="${t.color}" opacity=".85"/>`;
       startAngle=endAngle;
     });
+    html+=`<div class="sdash-card-2col">`;
     html+=`<div class="sdash-card">
       <div class="sdash-card-title"><span>🥧</span> Composição das Tiers</div>
-      <div style="display:flex;align-items:center;gap:12px">
-        <svg viewBox="0 0 80 80" style="width:80px;height:80px;flex-shrink:0">${pie}<circle cx="40" cy="40" r="18" fill="var(--bg2)"/></svg>
+      <div style="display:flex;align-items:center;gap:16px">
+        <svg viewBox="0 0 80 80" style="width:90px;height:90px;flex-shrink:0">${pie}<circle cx="40" cy="40" r="18" fill="var(--bg2)"/></svg>
         <div style="flex:1">
-          ${S.tiers.filter(t=>t.items.length).map(t=>`<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:10px"><span style="width:10px;height:10px;border-radius:2px;background:${t.color};display:inline-block;flex-shrink:0"></span><span style="color:var(--text2);flex:1">${esc(t.name)}</span><b style="color:${t.color}">${Math.round(t.items.length/totalForPie*100)}%</b></div>`).join('')}
+          ${S.tiers.filter(t=>t.items.length).map(t=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px"><span style="width:12px;height:12px;border-radius:3px;background:${t.color};display:inline-block;flex-shrink:0"></span><span style="color:var(--text2);flex:1">${esc(t.name)}</span><b style="color:${t.color}">${Math.round(t.items.length/totalForPie*100)}%</b></div>`).join('')}
         </div>
       </div>
     </div>`;
-
-    // Score distribution by placement
-    const poolToTierRatio=inPool&&inTier?Math.round(inPool/inTier*100)/100:null;
     html+=`<div class="sdash-card">
       <div class="sdash-card-title"><span>📐</span> Índices</div>
-      <div style="display:flex;flex-direction:column;gap:5px">
-        <div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Taxa de classificação</span><b style="color:var(--cyan)">${pctPlaced}%</b></div>
-        ${poolToTierRatio!==null?`<div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Pool/Tier ratio</span><b style="color:var(--purple)">${poolToTierRatio}×</b></div>`:''}
-        <div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Tiers com lock</span><b style="color:var(--yellow)">${S.tiers.filter(t=>t.locked).length}</b></div>
-        <div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Tiers recolhidas</span><b style="color:var(--text2)">${S.tiers.filter(t=>t.collapsed).length}</b></div>
-        <div style="padding:6px 10px;background:var(--bg3);border-radius:6px;font-size:11px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Enriquecidos AniList</span><b style="color:var(--green)">${enriched.length} (${enrichedPct}%)</b></div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:13px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Taxa de classificação</span><b style="color:var(--cyan)">${pctPlaced}%</b></div>
+        ${poolToTierRatio!==null?`<div style="padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:13px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Pool/Tier ratio</span><b style="color:var(--purple)">${poolToTierRatio}×</b></div>`:''}
+        <div style="padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:13px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Tiers com lock</span><b style="color:var(--yellow)">${S.tiers.filter(t=>t.locked).length}</b></div>
+        <div style="padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:13px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Tiers recolhidas</span><b style="color:var(--text2)">${S.tiers.filter(t=>t.collapsed).length}</b></div>
+        <div style="padding:8px 12px;background:var(--bg3);border-radius:8px;font-size:13px;display:flex;justify-content:space-between"><span style="color:var(--text2)">Enriquecidos AniList</span><b style="color:var(--green)">${enriched.length} (${enrichedPct}%)</b></div>
       </div>
     </div>`;
+    html+=`</div>`;
 
   }else if(tab==='sdash-anilist'){
     // AniList enriched data
+    const seasonColors={WINTER:'#00e5ff',SPRING:'#00e676',SUMMER:'#ffd600',FALL:'#ff9100'};
+    const seasonEmoji={WINTER:'❄️',SPRING:'🌸',SUMMER:'☀️',FALL:'🍂'};
+    const sourceLabel={MANGA:'Mangá',ORIGINAL:'Original',LIGHT_NOVEL:'Light Novel',VISUAL_NOVEL:'Visual Novel',VIDEO_GAME:'Jogo',NOVEL:'Romance',OTHER:'Outro',DOUJINSHI:'Doujinshi',ANIME:'Anime',WEB_MANGA:'Web Mangá',BOOK:'Livro',CARD_GAME:'Card Game',MUSIC:'Música'};
+    const countryLabel={'JP':'🇯🇵 Japão','CN':'🇨🇳 China','KR':'🇰🇷 Coreia','TW':'🇹🇼 Taiwan'};
+
+    // Compute season map
+    const seasonMap={};
+    enriched.forEach(x=>{if(x.season)seasonMap[x.season]=(seasonMap[x.season]||0)+1});
+    // Year map (yearly, not decade)
+    const yearlyMap={};
+    enriched.forEach(x=>{if(x.year)yearlyMap[x.year]=(yearlyMap[x.year]||0)+1});
+    const sortedYears=Object.entries(yearlyMap).sort((a,b)=>+a[0]-+b[0]);
+    // Source map
+    const sourceMap={};
+    enriched.forEach(x=>{if(x.source)sourceMap[x.source]=(sourceMap[x.source]||0)+1});
+    // Country map
+    const countryMap={};
+    enriched.forEach(x=>{if(x.country)countryMap[x.country]=(countryMap[x.country]||0)+1});
+    // Tags map
+    const tagsMap={};
+    enriched.forEach(x=>(x.tags||[]).forEach(t=>{tagsMap[t.name]=(tagsMap[t.name]||0)+1}));
+    const topTags=Object.entries(tagsMap).sort((a,b)=>b[1]-a[1]).slice(0,15);
+    // AL Status (user's list status)
+    const alStatusMap={};
+    enriched.forEach(x=>{if(x.alStatus)alStatusMap[x.alStatus]=(alStatusMap[x.alStatus]||0)+1});
+    // Episodes & time
+    const withEp=enriched.filter(x=>x.episodes&&x.progress);
+    const totalEpWatched=withEp.reduce((s,x)=>s+(x.progress||0),0);
+    const totalEpAll=enriched.filter(x=>x.episodes).reduce((s,x)=>s+(x.episodes||0),0);
+    const withDur=enriched.filter(x=>x.duration&&x.progress);
+    const totalMinutes=withDur.reduce((s,x)=>s+(x.duration||0)*(x.progress||0),0);
+    const totalHours=Math.round(totalMinutes/60);
+    const totalDays=(totalMinutes/60/24).toFixed(1);
+    // AniList score vs personal score
+    const bothScores=enriched.filter(x=>x.alScore&&x.score!=null);
+    const avgAlScore=enriched.filter(x=>x.alScore).length?Math.round(enriched.filter(x=>x.alScore).reduce((s,x)=>s+x.alScore,0)/enriched.filter(x=>x.alScore).length):null;
+    const avgDiff=bothScores.length?+(bothScores.reduce((s,x)=>s+(x.score-x.alScore),0)/bothScores.length).toFixed(1):null;
+    // Genre × score (which genres you score highest)
+    const genreScoreMap={};
+    enriched.filter(x=>x.score!=null).forEach(x=>(x.genres||[]).forEach(g=>{if(!genreScoreMap[g])genreScoreMap[g]={sum:0,count:0};genreScoreMap[g].sum+=x.score;genreScoreMap[g].count++}));
+    const genreAvgScore=Object.entries(genreScoreMap).filter(([,v])=>v.count>=2).map(([g,v])=>([g,+(v.sum/v.count).toFixed(1),v.count])).sort((a,b)=>b[1]-a[1]).slice(0,8);
+    // Most popular (by alScore desc)
+    const topAlScored=[...enriched].filter(x=>x.alScore).sort((a,b)=>b.alScore-a.alScore).slice(0,8);
+    // Dropped %
+    const droppedCount=alStatusMap['DROPPED']||0;
+    const completedCount=alStatusMap['COMPLETED']||0;
+    const droppedPct=enriched.length?Math.round(droppedCount/enriched.length*100):0;
+    const completedPct=enriched.length?Math.round(completedCount/enriched.length*100):0;
+    // Hidden gems: your score > AL score by a lot
+    const hiddenGems=[...enriched].filter(x=>x.score!=null&&x.alScore&&(x.score-x.alScore)>=15).sort((a,b)=>(b.score-b.alScore)-(a.score-a.alScore)).slice(0,5);
+    // Overrated (AL score >> your score)
+    const overrated=[...enriched].filter(x=>x.score!=null&&x.alScore&&(x.alScore-x.score)>=15).sort((a,b)=>(b.alScore-b.score)-(a.alScore-a.score)).slice(0,5);
+    // Studio × score
+    const studioScoreMap={};
+    enriched.filter(x=>x.score!=null&&x.studio).forEach(x=>{if(!studioScoreMap[x.studio])studioScoreMap[x.studio]={sum:0,count:0};studioScoreMap[x.studio].sum+=x.score;studioScoreMap[x.studio].count++});
+    const studioAvgScore=Object.entries(studioScoreMap).filter(([,v])=>v.count>=2).map(([s,v])=>([s,+(v.sum/v.count).toFixed(1),v.count])).sort((a,b)=>b[1]-a[1]).slice(0,6);
+    // Series with most episodes watched
+    const bigWatches=[...enriched].filter(x=>x.progress&&x.progress>1).sort((a,b)=>(b.progress||0)-(a.progress||0)).slice(0,5);
+
+    // Enrich bar (always shown at top)
+    html+=`<div class="sdash-enrich-bar">
+      <span style="font-size:16px;flex-shrink:0">🌐</span>
+      <div style="flex:1;min-width:200px">
+        <div style="font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:3px">Enriquecer com AniList</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.5">Adiciona gêneros, estúdios, temporadas e muito mais a todos os animes. Não move nem remove nada.</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex-shrink:0">
+        <input class="minput" id="enrich-user-inp" placeholder="Usuário AniList" style="margin:0;width:160px;font-size:11px" onkeydown="if(event.key==='Enter')enrichAllMetadata(this.value.trim())">
+        <button class="btn btn-primary" onclick="enrichAllMetadata(document.getElementById('enrich-user-inp').value.trim())">✦ Enriquecer Tudo</button>
+        <div style="font-size:11px;color:var(--text2);white-space:nowrap"><b style="color:${enriched.length?'var(--green)':'var(--orange)'}">${enriched.length}</b> / ${total} com dados</div>
+      </div>
+    </div>`;
+
     if(!enriched.length){
       html+=`<div class="sdash-card sdash-card-wide">
-        <div class="sdash-card-title"><span>🌐</span> Dados AniList</div>
-        <div class="sdash-enriched-note" style="padding:30px">
-          <div style="font-size:32px;margin-bottom:10px">🌐</div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px">Dados AniList não disponíveis</div>
-          <div style="font-size:11px;line-height:1.6">Use o botão <b style="color:var(--cyan)">🔍 AniList</b> no Pool para buscar e adicionar animes via AniList. Os animes adicionados assim incluem metadados de gênero, estúdio e ano, que alimentam as estatísticas desta aba.</div>
+        <div class="sdash-enriched-note" style="padding:40px">
+          <div style="font-size:48px;margin-bottom:12px">🌐</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px">Nenhum metadado AniList ainda</div>
+          <div style="font-size:12px;line-height:1.7;color:var(--text2)">Digite seu usuário AniList acima e clique em <b style="color:var(--cyan)">✦ Enriquecer Tudo</b> para puxar gêneros, estúdios, temporadas, tempo assistido e muito mais para todos os seus animes.<br><br>Ou use o botão <b style="color:var(--cyan)">🌐 AniList</b> no cabeçalho para importar com metadados completos, ou <b style="color:var(--cyan)">🔍 AniList</b> no Pool para buscar individualmente.</div>
         </div>
       </div>`;
     }else{
-      // Genre chart
-      if(topGenres.length){
-        const maxG=topGenres[0][1];
-        const genreColors=['var(--cyan)','var(--pink)','var(--purple)','var(--green)','var(--orange)','var(--yellow)','#ff71ce','#05ffa1'];
+      // ── ROW 1: KPIs de cobertura ──
+      html+=`<div class="sdash-card">
+        <div class="sdash-card-title"><span>✦</span> Cobertura AniList</div>
+        <div class="sdash-kpi-grid">
+          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--green)">${enriched.length}</div><div class="sdash-kpi-lbl">Com dados</div></div>
+          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--orange)">${total-enriched.length}</div><div class="sdash-kpi-lbl">Sem dados</div></div>
+          <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--cyan)">${enrichedPct}%</div><div class="sdash-kpi-lbl">Cobertura</div></div>
+        </div>
+      </div>`;
+
+      // ── Tempo total ──
+      if(totalHours>0){
         html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🎭</span> Gêneros Favoritos</div>
-          ${topGenres.map(([g,c],i)=>barRow(g,c,maxG,genreColors[i%genreColors.length])).join('')}
+          <div class="sdash-card-title"><span>⏱</span> Tempo Assistido</div>
+          <div style="text-align:center;margin-bottom:8px">
+            <div class="sdash-big-num" style="color:var(--cyan)">${totalHours}<span style="font-size:20px;color:var(--text2)">h</span></div>
+            <div class="sdash-big-label">${totalDays} dias de anime</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="display:flex;justify-content:space-between;font-size:10px;padding:4px 8px;background:var(--bg3);border-radius:5px"><span style="color:var(--text2)">Episódios assistidos</span><b style="color:var(--cyan)">${totalEpWatched.toLocaleString()}</b></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;padding:4px 8px;background:var(--bg3);border-radius:5px"><span style="color:var(--text2)">Ep disponíveis (total)</span><b style="color:var(--text2)">${totalEpAll.toLocaleString()}</b></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;padding:4px 8px;background:var(--bg3);border-radius:5px"><span style="color:var(--text2)">Média ep por série</span><b style="color:var(--purple)">${enriched.filter(x=>x.episodes).length?Math.round(totalEpAll/enriched.filter(x=>x.episodes).length):0}</b></div>
+          </div>
         </div>`;
       }
 
-      // Studio chart
+      // ── Status na lista ──
+      const statusLabels={COMPLETED:'✅ Completo',CURRENT:'▶ Assistindo',DROPPED:'💀 Dropped',PAUSED:'⏸ Pausado',PLANNING:'📌 Planejo',REPEATING:'🔁 Revendo'};
+      const statusColors={COMPLETED:'var(--green)',CURRENT:'var(--cyan)',DROPPED:'var(--pink)',PAUSED:'var(--orange)',PLANNING:'var(--text2)',REPEATING:'var(--purple)'};
+      const maxAlSt=Math.max(...Object.values(alStatusMap),1);
+      if(Object.keys(alStatusMap).length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>📋</span> Status na Lista AniList</div>
+          ${Object.entries(alStatusMap).sort((a,b)=>b[1]-a[1]).map(([s,c])=>barRow(statusLabels[s]||s,c,maxAlSt,statusColors[s]||'var(--cyan)')).join('')}
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+            <div class="sdash-kpi" style="flex:1"><div class="sdash-kpi-val" style="color:var(--green)">${completedPct}%</div><div class="sdash-kpi-lbl">Concluídos</div></div>
+            <div class="sdash-kpi" style="flex:1"><div class="sdash-kpi-val" style="color:var(--pink)">${droppedPct}%</div><div class="sdash-kpi-lbl">Dropped</div></div>
+          </div>
+        </div>`;
+      }
+
+      // ── Gêneros favoritos ──
+      if(topGenres.length){
+        const maxG=topGenres[0][1];
+        const genreColors2=['var(--cyan)','var(--pink)','var(--purple)','var(--green)','var(--orange)','var(--yellow)','#ff71ce','#05ffa1','#00b8d9','#b967ff'];
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>🎭</span> Gêneros Favoritos (por qtd.)</div>
+          ${topGenres.map(([g,c],i)=>barRow(g,c,maxG,genreColors2[i%genreColors2.length])).join('')}
+        </div>`;
+      }
+
+      // ── Gênero × score médio ──
+      if(genreAvgScore.length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>🧠</span> Gêneros que Você Mais Gosta (score médio)</div>
+          ${genreAvgScore.map(([g,avg,cnt])=>`<div class="sdash-bar-row"><div class="sdash-bar-label" title="${esc(g)}">${esc(g)} <span style="color:var(--text3);font-size:9px">(${cnt})</span></div><div class="sdash-bar-track"><div class="sdash-bar-fill" style="width:${avg}%;background:${scoreColor(avg)}"></div></div><div class="sdash-bar-val" style="color:${scoreColor(avg)}">${avg}</div></div>`).join('')}
+        </div>`;
+      }
+
+      // ── Estúdios ──
       if(topStudios.length){
         const maxS=topStudios[0][1];
         html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>🏢</span> Estúdios Favoritos</div>
+          <div class="sdash-card-title"><span>🏢</span> Estúdios Favoritos (por qtd.)</div>
           ${topStudios.map(([s,c])=>barRow(s,c,maxS,'var(--cyan)')).join('')}
         </div>`;
       }
 
-      // Decade chart
-      if(topDecades.length){
-        const maxD=Math.max(...topDecades.map(x=>x[1]),1);
+      // ── Studio × score ──
+      if(studioAvgScore.length){
         html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>📅</span> Por Década</div>
-          <div class="sdash-hist-row" style="height:100px">
-            ${topDecades.map(([d,c])=>histBar(c,maxD,`${d}s`,`hsl(${(+d-1960)*4+180},80%,60%)`)).join('')}
-          </div>
-          <div class="sdash-hist-labels">
-            ${topDecades.map(([d])=>`<span>${d}s</span>`).join('')}
+          <div class="sdash-card-title"><span>🏆</span> Estúdios com Maior Score Médio</div>
+          ${studioAvgScore.map(([s,avg,cnt])=>`<div class="sdash-bar-row"><div class="sdash-bar-label" title="${esc(s)}">${esc(s)} <span style="color:var(--text3);font-size:9px">(${cnt})</span></div><div class="sdash-bar-track"><div class="sdash-bar-fill" style="width:${avg}%;background:${scoreColor(avg)}"></div></div><div class="sdash-bar-val" style="color:${scoreColor(avg)}">${avg}</div></div>`).join('')}
+        </div>`;
+      }
+
+      // ── Temporadas ──
+      if(Object.keys(seasonMap).length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>🌸</span> Por Temporada</div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px">
+            ${['SPRING','SUMMER','FALL','WINTER'].map(s=>{const c=seasonMap[s]||0;const pct=enriched.length?Math.round(c/enriched.length*100):0;return`<div class="sdash-kpi" style="border-color:${seasonColors[s]}33"><div class="sdash-kpi-val" style="color:${seasonColors[s]}">${seasonEmoji[s]} ${c}</div><div class="sdash-kpi-lbl">${s} (${pct}%)</div></div>`}).join('')}
           </div>
         </div>`;
       }
 
-      // Format breakdown
+      // ── Por ano (timeline) ──
+      if(sortedYears.length){
+        const maxY=Math.max(...sortedYears.map(x=>x[1]),1);
+        html+=`<div class="sdash-card sdash-card-wide">
+          <div class="sdash-card-title"><span>📅</span> Timeline por Ano</div>
+          <div style="overflow-x:auto">
+            <div style="display:flex;align-items:flex-end;gap:3px;height:90px;min-width:${sortedYears.length*28}px;padding:0 2px">
+              ${sortedYears.map(([y,c])=>{const h=maxY?Math.round((c/maxY)*100):0;const col=`hsl(${(+y-1970)*3+180},75%,58%)`;return`<div style="flex:1;min-width:22px;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="width:100%;height:${h}%;background:${col};border-radius:3px 3px 0 0;min-height:${c?3:0}px;cursor:default;position:relative" title="${y}: ${c} animes"></div></div>`}).join('')}
+            </div>
+            <div style="display:flex;gap:3px;min-width:${sortedYears.length*28}px;margin-top:3px">
+              ${sortedYears.map(([y])=>`<div style="flex:1;min-width:22px;text-align:center;font-size:8px;color:var(--text3);transform:rotate(-45deg);transform-origin:top center;white-space:nowrap">${y}</div>`).join('')}
+            </div>
+          </div>
+        </div>`;
+      }
+
+      // ── Por fonte ──
+      if(Object.keys(sourceMap).length){
+        const maxSrc=Math.max(...Object.values(sourceMap),1);
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>📚</span> Origem / Fonte</div>
+          ${Object.entries(sourceMap).sort((a,b)=>b[1]-a[1]).map(([s,c])=>barRow(sourceLabel[s]||s,c,maxSrc,'var(--purple)')).join('')}
+        </div>`;
+      }
+
+      // ── Por formato ──
       if(topFormats.length){
+        const maxFmt=topFormats[0][1];
+        const fmtColors={TV:'var(--cyan)',MOVIE:'var(--pink)',OVA:'var(--purple)',ONA:'var(--green)',SPECIAL:'var(--yellow)',MUSIC:'var(--orange)'};
         html+=`<div class="sdash-card">
-          <div class="sdash-card-title"><span>📺</span> Formatos</div>
+          <div class="sdash-card-title"><span>📺</span> Formato</div>
+          ${topFormats.map(([f,c])=>barRow(f,c,maxFmt,fmtColors[f]||'var(--text2)')).join('')}
+        </div>`;
+      }
+
+      // ── Por país ──
+      if(Object.keys(countryMap).length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>🌍</span> País de Origem</div>
           <div class="sdash-pill-wrap">
-            ${topFormats.map(([f,c])=>`<div class="sdash-pill">${esc(f)}<span class="sdash-pill-count">${c}</span></div>`).join('')}
+            ${Object.entries(countryMap).sort((a,b)=>b[1]-a[1]).map(([c,n])=>`<div class="sdash-pill">${countryLabel[c]||c}<span class="sdash-pill-count">${n}</span></div>`).join('')}
           </div>
         </div>`;
       }
 
-      // All genres pills
-      html+=`<div class="sdash-card sdash-card-wide">
-        <div class="sdash-card-title"><span>🏷</span> Todos os Gêneros</div>
+      // ── Score pessoal vs AniList ──
+      if(bothScores.length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>⚖️</span> Seu Score vs AniList</div>
+          <div class="sdash-kpi-grid" style="margin-bottom:10px">
+            <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--cyan)">${avgScore??'—'}</div><div class="sdash-kpi-lbl">Seu avg</div></div>
+            <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:var(--purple)">${avgAlScore??'—'}</div><div class="sdash-kpi-lbl">AL avg</div></div>
+            <div class="sdash-kpi"><div class="sdash-kpi-val" style="color:${avgDiff>=0?'var(--green)':'var(--pink)'}">${avgDiff>=0?'+':''}${avgDiff??'—'}</div><div class="sdash-kpi-lbl">Diferença</div></div>
+          </div>
+          <div style="font-size:10px;color:var(--text2);text-align:center">${bothScores.length} animes com ambos os scores · ${avgDiff>0?'Você é mais generoso que a média':'Você é mais criterioso que a média'}</div>
+        </div>`;
+      }
+
+      // ── Joias escondidas ──
+      if(hiddenGems.length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>💎</span> Joias Escondidas (você ama, mundo ignora)</div>
+          ${hiddenGems.map(x=>`<div class="sdash-top-row">
+            <img class="sdash-top-img" src="${esc(x.img||'')}" alt="" onerror="this.style.background='var(--bg4)'">
+            <div class="sdash-top-info"><div class="sdash-top-name">${esc(x.lbl||'?')}</div><div class="sdash-top-meta">Seu: ${x.score} · AL: ${x.alScore} · <span style="color:var(--green)">+${x.score-x.alScore}</span></div></div>
+          </div>`).join('')}
+        </div>`;
+      }
+
+      // ── Overrated (na sua opinião) ──
+      if(overrated.length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>📉</span> Superestimados (na sua opinião)</div>
+          ${overrated.map(x=>`<div class="sdash-top-row">
+            <img class="sdash-top-img" src="${esc(x.img||'')}" alt="" onerror="this.style.background='var(--bg4)'">
+            <div class="sdash-top-info"><div class="sdash-top-name">${esc(x.lbl||'?')}</div><div class="sdash-top-meta">Seu: ${x.score} · AL: ${x.alScore} · <span style="color:var(--pink)">-${x.alScore-x.score}</span></div></div>
+          </div>`).join('')}
+        </div>`;
+      }
+
+      // ── Top tags ──
+      if(topTags.length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>🏷</span> Top Tags</div>
+          <div class="sdash-pill-wrap">
+            ${topTags.map(([t,c])=>`<div class="sdash-pill" style="border-color:rgba(139,92,246,.4)">${esc(t)}<span class="sdash-pill-count">${c}</span></div>`).join('')}
+          </div>
+        </div>`;
+      }
+
+      // ── Todos os gêneros ──
+      html+=`<div class="sdash-card">
+        <div class="sdash-card-title"><span>🎭</span> Todos os Gêneros</div>
         <div class="sdash-pill-wrap">
           ${Object.entries(genreMap).sort((a,b)=>b[1]-a[1]).map(([g,c])=>`<div class="sdash-pill">${esc(g)}<span class="sdash-pill-count">${c}</span></div>`).join('')}
         </div>
       </div>`;
 
-      // Enrichment stats
-      html+=`<div class="sdash-card">
-        <div class="sdash-card-title"><span>✦</span> Cobertura AniList</div>
-        <div style="text-align:center">
-          <div class="sdash-big-num" style="color:var(--green)">${enrichedPct}%</div>
-          <div class="sdash-big-label">${enriched.length} de ${total} com metadados</div>
+      // ── Top score AniList (animes mais cotados pela comunidade na SUA lista) ──
+      if(topAlScored.length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>🌐</span> Mais Amados pela Comunidade (na sua lista)</div>
+          ${topAlScored.map((x,i)=>`<div class="sdash-top-row">
+            <div class="sdash-top-rank" style="color:${i<3?['#ffd600','#b0b0b0','#cd7f32'][i]:'var(--text3)'}">${i+1}</div>
+            <img class="sdash-top-img" src="${esc(x.img||'')}" alt="" onerror="this.style.background='var(--bg4)'">
+            <div class="sdash-top-info"><div class="sdash-top-name">${esc(x.lbl||'?')}</div><div class="sdash-top-meta">${x.genres?.[0]||''} · ${x.format||''}</div></div>
+            <div class="sdash-top-score" style="color:${scoreColor(x.alScore)}">${x.alScore}</div>
+          </div>`).join('')}
+        </div>`;
+      }
+
+      // ── Maratonas (animes com mais episódios assistidos) ──
+      if(bigWatches.length){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>📺</span> Maratonas (mais eps. assistidos)</div>
+          ${bigWatches.map((x,i)=>`<div class="sdash-top-row">
+            <div class="sdash-top-rank">${i+1}</div>
+            <img class="sdash-top-img" src="${esc(x.img||'')}" alt="" onerror="this.style.background='var(--bg4)'">
+            <div class="sdash-top-info"><div class="sdash-top-name">${esc(x.lbl||'?')}</div><div class="sdash-top-meta">${x.progress} / ${x.episodes||'?'} eps · ${x.duration?Math.round(x.duration*x.progress/60)+'h':'?'}</div></div>
+          </div>`).join('')}
+        </div>`;
+      }
+
+      // ── Adultos na lista ──
+      const adultCount=enriched.filter(x=>x.isAdult).length;
+      if(adultCount>0){
+        html+=`<div class="sdash-card">
+          <div class="sdash-card-title"><span>🔞</span> Conteúdo Adulto</div>
+          <div style="text-align:center">
+            <div class="sdash-big-num" style="color:var(--pink)">${adultCount}</div>
+            <div class="sdash-big-label">${enriched.length?Math.round(adultCount/enriched.length*100):0}% da lista</div>
+          </div>
+        </div>`;
+      }
+
+      // ── Resumo geral enriched ──
+      html+=`<div class="sdash-card sdash-card-wide">
+        <div class="sdash-card-title"><span>📊</span> Resumo Completo</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px">
+          ${[
+            ['Total com dados',enriched.length,'var(--green)'],
+            ['Gêneros únicos',Object.keys(genreMap).length,'var(--cyan)'],
+            ['Estúdios únicos',Object.keys(studioMap).length,'var(--purple)'],
+            ['Tags únicas',Object.keys(tagsMap).length,'var(--orange)'],
+            ['Anos de estreia',Object.keys(yearlyMap).length,'var(--yellow)'],
+            ['% Completos',completedPct+'%','var(--green)'],
+            ['% Dropped',droppedPct+'%','var(--pink)'],
+            totalHours>0?['Total assistido',totalHours+'h','var(--cyan)']:null,
+            avgAlScore?['Score médio AL',avgAlScore,'var(--purple)']:null,
+            avgDiff!==null?['Seu bias',`${avgDiff>=0?'+':''}${avgDiff}`,'var(--text2)']:null,
+          ].filter(Boolean).map(([l,v,c])=>`<div class="sdash-kpi"><div class="sdash-kpi-val" style="color:${c}">${v}</div><div class="sdash-kpi-lbl">${l}</div></div>`).join('')}
         </div>
-        <div style="margin-top:10px;font-size:10px;color:var(--text2);text-align:center">Use 🔍 AniList no Pool para adicionar mais animes com metadados completos</div>
       </div>`;
     }
+
+  }else if(tab==='sdash-compare'){
+    html+=_renderCompareTab();
   }
 
   document.getElementById('sdash-body').innerHTML=html||'<div class="sdash-card sdash-card-wide"><div class="sdash-enriched-note">Carregando...</div></div>';
 }
 
 
+
+// ── GENRE FILTER ──────────────────────────────────────
+let _activeGenreFilter=null;
+let _showSeasonBadge=false;
+
+function toggleGenreFilter(){
+  const bar=document.getElementById('genre-filter-bar');
+  if(bar.classList.contains('vis')){bar.classList.remove('vis');_activeGenreFilter=null;renderPool();return;}
+  buildGenreFilterBar();bar.classList.add('vis');
+}
+function buildGenreFilterBar(){
+  const bar=document.getElementById('genre-filter-bar');
+  const gc={};
+  S.pool.forEach(x=>(x.genres||[]).forEach(g=>{gc[g]=(gc[g]||0)+1}));
+  const sorted=Object.entries(gc).sort((a,b)=>b[1]-a[1]).slice(0,22);
+  if(!sorted.length){bar.innerHTML='<span style="color:var(--text3);font-size:10px">Nenhum gênero no pool. Use 🔍 AniList ou ✦ Enriquecer.</span>';return;}
+  bar.innerHTML=`<span style="color:var(--text2);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;flex-shrink:0">🎭 Filtrar:</span>
+    <span class="genre-chip clear-chip${!_activeGenreFilter?' active':''}" onclick="setGenreFilter(null)">Todos</span>
+    ${sorted.map(([g,c])=>`<span class="genre-chip${_activeGenreFilter===g?' active':''}" onclick="setGenreFilter('${g.replace(/'/g,"\\'")}')">${esc(g)} <span style="opacity:.6;font-size:8px">${c}</span></span>`).join('')}`;
+}
+function setGenreFilter(genre){
+  _activeGenreFilter=genre;buildGenreFilterBar();renderPool();
+}
+
+// ── SEASON BADGE ──────────────────────────────────────
+function toggleSeasonBadge(val){
+  _showSeasonBadge=val;S.cfg.showSeasonBadge=val;renderAll?.()??render();
+}
+const _sBadgeColors={WINTER:['#00e5ff','rgba(0,50,80,.85)'],SPRING:['#00e676','rgba(0,50,20,.85)'],SUMMER:['#ffd600','rgba(50,40,0,.85)'],FALL:['#ff9100','rgba(50,25,0,.85)']};
+const _sEmoji={WINTER:'❄',SPRING:'🌸',SUMMER:'☀',FALL:'🍂'};
+function getSeasonBadgeHTML(item){
+  if(!_showSeasonBadge||!item.season||!item.year)return'';
+  const[fg,bg]=_sBadgeColors[item.season]||['var(--text2)','var(--bg4)'];
+  return`<div class="item-season-badge" style="background:${bg};color:${fg}">${_sEmoji[item.season]||''} ${item.seasonYear||item.year}</div>`;
+}
+
+// ── CONTEXT MENU: ANILIST INFO ─────────────────────────
+function ctxALInfo(){
+  const item=_ctxItem;if(!item)return;closeCtx();
+  document.getElementById('al-info-cover').src=item.img||'';
+  document.getElementById('al-info-title').textContent=item.lbl||'?';
+  const badges=[[item.format,'var(--cyan)'],[item.alStatus&&{COMPLETED:'✅ Completo',CURRENT:'▶ Atual',DROPPED:'💀 Dropped',PAUSED:'⏸ Pausado',PLANNING:'📌 Planejo',REPEATING:'🔁 Revendo'}[item.alStatus]||item.alStatus,'var(--text2)'],[item.isAdult&&'🔞 18+','var(--pink)']].filter(([v])=>v).map(([v,c])=>`<span style="padding:2px 7px;border-radius:6px;font-size:9px;font-weight:800;background:var(--bg4);border:1px solid var(--border2);color:${c}">${esc(String(v))}</span>`).join('');
+  document.getElementById('al-info-badges').innerHTML=badges;
+  const seasonStr=item.season?`${_sEmoji[item.season]||''} ${item.season} ${item.seasonYear||item.year||''}`:null;
+  const rows=[['Estúdio',item.studio],['Ano',item.year],['Temporada',seasonStr],['Formato',item.format],['Episódios',item.episodes],['Duração',item.duration?item.duration+'min/ep':null],['Progresso',item.progress&&item.episodes?`${item.progress}/${item.episodes}ep`:item.progress?item.progress+'ep':null],['Tempo',item.progress&&item.duration?Math.round(item.progress*item.duration/60)+'h':null],['Score Pessoal',item.score!=null?item.score+'/100':null],['Score AniList',item.alScore?item.alScore+'/100':null],['Popularidade',item.popularity?'#'+item.popularity.toLocaleString():null],['Fonte',item.source],['País',item.country]].filter(([,v])=>v!=null);
+  document.getElementById('al-info-grid').innerHTML=rows.map(([l,v])=>`<div class="al-info-meta-row"><div class="al-info-meta-label">${l}</div><div class="al-info-meta-val">${esc(String(v))}</div></div>`).join('');
+  document.getElementById('al-info-genres').innerHTML=(item.genres||[]).map(g=>`<span class="al-info-genre" style="color:var(--cyan)">${esc(g)}</span>`).join('');
+  document.getElementById('al-info-tags').innerHTML=(item.tags||[]).slice(0,12).map(t=>`<span class="al-info-genre">${esc(t.name||t)}</span>`).join('');
+  const link=item.anilistId?`https://anilist.co/anime/${item.anilistId}`:`https://anilist.co/search/anime?search=${encodeURIComponent(item.lbl||'')}`;
+  document.getElementById('al-info-link').href=link;
+  openModal('al-info-modal');
+}
+
+// ── AUTO-TIER BY ANILIST STATUS ────────────────────────
+function autoTierByStatus(){
+  const all=[...S.pool,...S.tiers.flatMap(t=>t.items)];
+  const withStatus=all.filter(x=>x.alStatus);
+  if(!withStatus.length){toast('⚠ Nenhum item com status AniList. Use ✦ Enriquecer primeiro!','warn');return}
+  const cfg={COMPLETED:{name:'Completed ✅',color:'#00e676'},CURRENT:{name:'Assistindo ▶',color:'#00e5ff'},PAUSED:{name:'Pausado ⏸',color:'#ff9100'},DROPPED:{name:'Dropped 💀',color:'#ff006e'},PLANNING:{name:'Planejo 📌',color:'#8b5cf6'},REPEATING:{name:'Revendo 🔁',color:'#ffd600'}};
+  const groups={};
+  withStatus.forEach(x=>{(groups[x.alStatus]=groups[x.alStatus]||[]).push(x)});
+  Object.entries(groups).forEach(([status,items])=>{
+    const tc=cfg[status]||{name:status,color:'#888'};
+    let tier=S.tiers.find(t=>t.name===tc.name);
+    if(!tier){tier={id:uid(),name:tc.name,color:tc.color,items:[],collapsed:false,locked:false};S.tiers.unshift(tier)}
+    items.forEach(item=>{
+      const pi=S.pool.findIndex(x=>x.id===item.id);if(pi!==-1)S.pool.splice(pi,1);
+      S.tiers.forEach(t=>{if(t!==tier){const i=t.items.findIndex(x=>x.id===item.id);if(i!==-1)t.items.splice(i,1)}});
+      if(!tier.items.find(x=>x.id===item.id))tier.items.push(item);
+    });
+  });
+  snap();render();toast(`✦ ${withStatus.length} animes distribuídos por status AniList!`,'ok');
+}
+
+// ── POOL SORT: extended ────────────────────────────────
+const _origApplyPoolSort=typeof applyPoolSort==='function'?applyPoolSort:null;
+function applyPoolSort(){
+  const v=document.getElementById('pool-sort')?.value||'manual';
+  const seasonOrd={WINTER:0,SPRING:1,SUMMER:2,FALL:3};
+  const fmtOrd={TV:0,MOVIE:1,OVA:2,ONA:3,SPECIAL:4,MUSIC:5};
+  if(v==='alscore-desc')S.pool.sort((a,b)=>(b.alScore||0)-(a.alScore||0));
+  else if(v==='year-desc')S.pool.sort((a,b)=>(b.year||0)-(a.year||0));
+  else if(v==='year-asc')S.pool.sort((a,b)=>(a.year||9999)-(b.year||9999));
+  else if(v==='season')S.pool.sort((a,b)=>{const dy=(b.seasonYear||b.year||0)-(a.seasonYear||a.year||0);return dy||((seasonOrd[a.season]??4)-(seasonOrd[b.season]??4))});
+  else if(v==='format')S.pool.sort((a,b)=>(fmtOrd[a.format]??9)-(fmtOrd[b.format]??9));
+  else if(v==='alpha')S.pool.sort((a,b)=>(a.lbl||'').localeCompare(b.lbl||''));
+  else if(v==='alpha-desc')S.pool.sort((a,b)=>(b.lbl||'').localeCompare(a.lbl||''));
+  else if(v==='score-desc')S.pool.sort((a,b)=>(b.score??-1)-(a.score??-1));
+  else if(v==='score-asc')S.pool.sort((a,b)=>(a.score??101)-(b.score??101));
+  else if(v==='recent')S.pool.reverse();
+  snap();renderPool();
+}
+
+// ── MARKDOWN EXPORT ────────────────────────────────────
+function copyAsMarkdown(){
+  const lines=[`# ${S.title||'Minha Tier List'}\n`];
+  S.tiers.forEach(t=>{
+    if(!t.items.length)return;
+    lines.push(`## ${t.name}`);
+    t.items.forEach((x,i)=>lines.push(`${i+1}. ${x.lbl||'(sem nome)'}${x.score!=null?' — '+x.score+'/100':''}`));
+    lines.push('');
+  });
+  if(S.pool.length){lines.push(`## 📦 Pool (${S.pool.length})`);S.pool.forEach(x=>lines.push(`- ${x.lbl||'(sem nome)'}`))}
+  navigator.clipboard.writeText(lines.join('\n')).then(()=>toast('✦ Markdown copiado!','ok')).catch(()=>toast('Erro ao copiar','err'));
+}
+
+// ── CSV EXPORT ─────────────────────────────────────────
+function exportAsCSV(){
+  const rows=[['Nome','Tier','Score','Score AL','Gêneros','Estúdio','Ano','Temporada','Formato','Status AL','Episódios','Progresso','Nota']];
+  const addRows=(items,tierName)=>items.forEach(x=>rows.push([x.lbl||'',tierName,x.score??'',x.alScore??'',(x.genres||[]).join(';'),x.studio||'',x.year||'',x.season?`${x.season} ${x.seasonYear||x.year||''}`:'',x.format||'',x.alStatus||'',x.episodes||'',x.progress||'',(x.note||'').replace(/\n/g,' ')]));
+  S.tiers.forEach(t=>addRows(t.items,t.name));
+  addRows(S.pool,'Pool');
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download=`${(S.title||'AnimeTier').replace(/\s/g,'_')}.csv`;a.click();
+  toast('✦ CSV exportado!','ok');
+}
+
+// ── META CHIP UPDATE ───────────────────────────────────
+function _updateMetaChip(){
+  const all=[...S.pool,...S.tiers.flatMap(t=>t.items)];
+  const meta=all.filter(x=>x.anilistId).length;
+  const chip=document.getElementById('st-meta-chip');
+  const el=document.getElementById('st-meta');
+  if(chip&&el&&all.length){el.textContent=`${meta}/${all.length}`;chip.style.display=meta?'':'none';}
+}
+
+// ── NEW PRESETS ────────────────────────────────────────
+const _origLoadPreset=typeof loadPreset==='function'?loadPreset:null;
+function loadPreset(name){
+  const extra={
+    formato:[{name:'TV 📺',color:'#00e5ff'},{name:'Movie 🎬',color:'#ff006e'},{name:'OVA 💿',color:'#8b5cf6'},{name:'ONA 🌐',color:'#00e676'},{name:'Special ⭐',color:'#ffd600'}],
+    status:[{name:'Completed ✅',color:'#00e676'},{name:'Assistindo ▶',color:'#00e5ff'},{name:'Pausado ⏸',color:'#ff9100'},{name:'Dropped 💀',color:'#ff006e'},{name:'Planejo 📌',color:'#8b5cf6'},{name:'Revendo 🔁',color:'#ffd600'}],
+    decada:[{name:'2020s 🔥',color:'#00e5ff'},{name:'2010s ⭐',color:'#8b5cf6'},{name:'2000s 💎',color:'#ff9100'},{name:'90s 🕹',color:'#ffd600'},{name:'80s 🎮',color:'#ff006e'},{name:'Clássico 🏛',color:'#888'}],
+  };
+  if(extra[name]){
+    if(!confirm('Isso vai substituir as tiers atuais. Continuar?'))return;
+    S.tiers=extra[name].map(t=>({id:uid(),name:t.name,color:t.color,items:[],collapsed:false,locked:false}));
+    closeModal('settings-modal');snap();render();toast(`✦ Preset "${name}" carregado!`,'ok');return;
+  }
+  if(_origLoadPreset)_origLoadPreset(name);
+}
+
+// ── COMPARE TAB ────────────────────────────────────────
+function _renderCompareTab(){
+  let html='';
+  const tiersW=S.tiers.filter(t=>t.items.length);
+  if(tiersW.length<2)return`<div class="sdash-card sdash-card-wide"><div class="sdash-enriched-note" style="padding:30px">Adicione pelo menos 2 tiers com itens para comparar!</div></div>`;
+  const half=Math.ceil(tiersW.length/2);
+  const top=tiersW.slice(0,half),bot=tiersW.slice(half);
+  function summ(tiers){const its=tiers.flatMap(t=>t.items);const sc=its.filter(x=>x.score!=null);const avg=sc.length?+(sc.reduce((s,x)=>s+x.score,0)/sc.length).toFixed(1):null;const gm={};its.forEach(x=>(x.genres||[]).forEach(g=>gm[g]=(gm[g]||0)+1));const topG=Object.entries(gm).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([g])=>g);return{its,sc,avg,topG}}
+  const ts=summ(top),bs=summ(bot);
+  const scoreColor2=v=>v>=85?'var(--cyan)':v>=75?'var(--green)':v>=65?'var(--yellow)':v>=40?'var(--orange)':'var(--pink)';
+  html+=`<div class="sdash-card sdash-card-wide"><div class="sdash-card-title"><span>⚖️</span> Tiers Superiores vs Inferiores</div>
+    <div class="sdash-card-2col" style="gap:12px">
+      <div class="compare-col"><div class="compare-col-title" style="color:var(--cyan)">🏆 Top (${top.map(t=>t.name).join(', ')})</div>
+        ${[['Animes',ts.its.length,'var(--cyan)'],['Score médio',ts.avg??'—',ts.avg?scoreColor2(ts.avg):'var(--text3)'],['Com score',ts.sc.length,'var(--text2)'],['Top gênero',ts.topG[0]||'—','var(--purple)']].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">${l}</span><b style="color:${c}">${v}</b></div>`).join('')}
+      </div>
+      <div class="compare-col"><div class="compare-col-title" style="color:var(--pink)">📉 Resto (${bot.map(t=>t.name).join(', ')})</div>
+        ${[['Animes',bs.its.length,'var(--pink)'],['Score médio',bs.avg??'—',bs.avg?scoreColor2(bs.avg):'var(--text3)'],['Com score',bs.sc.length,'var(--text2)'],['Top gênero',bs.topG[0]||'—','var(--purple)']].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">${l}</span><b style="color:${c}">${v}</b></div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+  const tierAvgs=tiersW.filter(t=>t.items.filter(x=>x.score!=null).length>=2).map(t=>{const sc=t.items.filter(x=>x.score!=null);return{name:t.name,color:t.color,avg:sc.reduce((s,x)=>s+x.score,0)/sc.length}}).sort((a,b)=>b.avg-a.avg);
+  if(tierAvgs.length>=2){const mx=tierAvgs[0].avg;html+=`<div class="sdash-card sdash-card-wide"><div class="sdash-card-title"><span>📊</span> Ranking de Qualidade por Tier</div>${tierAvgs.map((t,i)=>`<div class="sdash-bar-row"><div class="sdash-bar-label"><b style="color:${t.color}">${i+1}. ${esc(t.name)}</b></div><div class="sdash-bar-track"><div class="sdash-bar-fill" style="width:${Math.round(t.avg/mx*100)}%;background:${scoreColor2(t.avg)}"></div></div><div class="sdash-bar-val" style="color:${scoreColor2(t.avg)}">${t.avg.toFixed(1)}</div></div>`).join('')}</div>`;}
+  html+=`<div class="sdash-card sdash-card-wide"><div class="sdash-card-title"><span>📋</span> Tabela Comparativa</div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><thead><tr style="color:var(--text2);font-size:9px;text-transform:uppercase"><th style="text-align:left;padding:5px 8px">Tier</th><th style="text-align:right;padding:5px 8px">Qtd</th><th style="text-align:right;padding:5px 8px">Avg</th><th style="text-align:right;padding:5px 8px">AL Avg</th><th style="text-align:right;padding:5px 8px">Top Gênero</th><th style="text-align:right;padding:5px 8px">Ep Total</th></tr></thead><tbody>${tiersW.map(t=>{const sc=t.items.filter(x=>x.score!=null);const alSc=t.items.filter(x=>x.alScore);const avg=sc.length?Math.round(sc.reduce((s,x)=>s+x.score,0)/sc.length):null;const alAvg=alSc.length?Math.round(alSc.reduce((s,x)=>s+x.alScore,0)/alSc.length):null;const gm={};t.items.forEach(x=>(x.genres||[]).forEach(g=>gm[g]=(gm[g]||0)+1));const topG=Object.entries(gm).sort((a,b)=>b[1]-a[1])[0]?.[0]||'—';const ep=t.items.reduce((s,x)=>s+(x.progress||x.episodes||0),0);return`<tr style="border-top:1px solid var(--border)"><td style="padding:6px 8px"><span style="width:10px;height:10px;border-radius:2px;background:${t.color};display:inline-block;margin-right:6px;vertical-align:middle"></span><b style="color:${t.color}">${esc(t.name)}</b></td><td style="text-align:right;padding:6px 8px;font-weight:700">${t.items.length}</td><td style="text-align:right;padding:6px 8px;color:${avg!=null?scoreColor2(avg):'var(--text3)'};font-weight:700">${avg??'—'}</td><td style="text-align:right;padding:6px 8px;color:var(--purple)">${alAvg??'—'}</td><td style="text-align:right;padding:6px 8px;color:var(--text2);font-size:10px">${esc(topG)}</td><td style="text-align:right;padding:6px 8px;color:var(--text2)">${ep||'—'}</td></tr>`}).join('')}</tbody></table></div></div>`;
+  const tg=tiersW.map(t=>{const gm={};t.items.forEach(x=>(x.genres||[]).forEach(g=>gm[g]=(gm[g]||0)+1));return{name:t.name,color:t.color,top:Object.entries(gm).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([g])=>g)}});
+  if(tg.some(t=>t.top.length))html+=`<div class="sdash-card sdash-card-wide"><div class="sdash-card-title"><span>🎭</span> Gêneros Dominantes por Tier</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px">${tg.filter(t=>t.top.length).map(t=>`<div style="background:var(--bg3);border-radius:8px;padding:8px;border:1px solid ${t.color}44"><div style="font-size:10px;font-weight:800;color:${t.color};margin-bottom:6px">${esc(t.name)}</div>${t.top.map(g=>`<div style="font-size:10px;color:var(--text2);padding:2px 0;border-bottom:1px solid var(--border)">${esc(g)}</div>`).join('')}</div>`).join('')}</div></div>`;
+  return html;
+}
+
 document.addEventListener('DOMContentLoaded',async()=>{
   await openIDB().catch(()=>{});
   try{const saved=await idbGet('anitier');if(saved)S=JSON.parse(saved)}catch(e){console.warn('Load error:',e)}
   setupPoolDrop();buildColorGrid();buildStatusChips();setupStickyToolbar();
   snap();render();syncUI();updateScorePreview(75);updateScoreSelPreview(75);
-  setTimeout(()=>toast('✦ AnimeTier v5 — ? para atalhos','ok'),900);
+  setTimeout(()=>{toast('✦ AnimeTier v5 — ? para atalhos','ok');checkEnrichBanner()},900);
 });
 </script>
 </body>
