@@ -1,0 +1,256 @@
+/* ─────────────────────────────────────────────────────────
+   Theme tokens. Tier colors are user data and stay outside.
+   ───────────────────────────────────────────────────────── */
+:root {
+  --font-ui: 'Manrope Variable', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Unbounded Variable', 'Unbounded', var(--font-ui);
+  --display-weight: 800;
+  --display-tracking: -0.01em;
+  --display-case: none;
+ 
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --item-w: var(--item-w-user, 84px);
+  --item-h: calc(var(--item-w) * 1.5);
+  --label-w: clamp(92px, calc(var(--item-w) * 1.6), 170px);
+  --card-r: clamp(6px, calc(var(--item-w) * 0.09), 12px);
+  --pool-w: 380px;
+  --topbar-h: 60px;
+
+  color-scheme: dark;
+}
+
+/* Meia-noite — default */
+:root,
+[data-theme='noite'] {
+  --bg: #0a0a10;
+  --bg-deco:
+    radial-gradient(1200px 600px at 0% -10%, rgba(139, 123, 255, 0.13), transparent 60%),
+    radial-gradient(900px 500px at 100% -20%, rgba(255, 107, 154, 0.09), transparent 60%);
+  --panel: #111119;
+  --panel-2: #191924;
+  --panel-3: #22222f;
+  --glass: rgba(14, 14, 22, 0.72);
+  --line: rgba(255, 255, 255, 0.07);
+  --line-2: rgba(255, 255, 255, 0.13);
+  --text: #f2f1f7;
+  --text-2: #a5a3b8;
+  --text-3: #6b6982;
+  --accent: #8b7bff;
+  --accent-2: #ff6b9a;
+  --accent-ink: #ffffff;
+  --ok: #4ade80;
+  --warn: #fbbf24;
+  --danger: #fb5376;
+  --scrim: rgba(5, 5, 10, 0.66);
+  --shadow-lg: 0 30px 80px -20px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-md: 0 12px 32px -12px rgba(0, 0, 0, 0.7);
+  --row: rgba(255, 255, 255, 0.025);
+  --card-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.75);
+}
+
+[data-theme='sakura'] {
+  color-scheme: light;
+  --bg: #f6f2ef;
+  --bg-deco:
+    radial-gradient(1000px 520px at 0% -10%, rgba(224, 69, 123, 0.1), transparent 60%),
+    radial-gradient(900px 500px at 100% -20%, rgba(139, 92, 246, 0.08), transparent 60%);
+  --panel: #fffdfc;
+  --panel-2: #f3ecea;
+  --panel-3: #eae1de;
+  --glass: rgba(255, 252, 250, 0.78);
+  --line: rgba(60, 25, 40, 0.08);
+  --line-2: rgba(60, 25, 40, 0.15);
+  --text: #221822;
+  --text-2: #6c5e69;
+  --text-3: #a1939c;
+  --accent: #e0457b;
+  --accent-2: #8b5cf6;
+  --accent-ink: #ffffff;
+  --ok: #16a34a;
+  --warn: #d97706;
+  --danger: #e11d48;
+  --scrim: rgba(60, 35, 45, 0.32);
+  --shadow-lg: 0 30px 70px -24px rgba(80, 30, 50, 0.35), 0 0 0 1px rgba(60, 25, 40, 0.08);
+  --shadow-md: 0 12px 30px -14px rgba(80, 30, 50, 0.35);
+  --row: rgba(255, 255, 255, 0.6);
+  --card-shadow: 0 6px 14px -8px rgba(60, 20, 40, 0.45);
+}
+
+[data-theme='neon'] {
+  --bg: #05060a;
+  --bg-deco:
+    linear-gradient(rgba(34, 232, 255, 0.045) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, rgba(34, 232, 255, 0.045) 1px, transparent 1px) 0 0 / 44px 44px,
+    radial-gradient(900px 500px at 100% 0%, rgba(247, 225, 75, 0.08), transparent 60%);
+  --panel: #0b0d13;
+  --panel-2: #121722;
+  --panel-3: #1a2131;
+  --glass: rgba(8, 10, 16, 0.78);
+  --line: rgba(34, 232, 255, 0.1);
+  --line-2: rgba(34, 232, 255, 0.22);
+  --text: #eaf7ff;
+  --text-2: #8aa3b8;
+  --text-3: #55697c;
+  --accent: #f7e14b;
+  --accent-2: #22e8ff;
+  --accent-ink: #0a0a0a;
+  --ok: #3cffa0;
+  --warn: #f7e14b;
+  --danger: #ff3b6b;
+  --scrim: rgba(0, 4, 10, 0.72);
+  --shadow-lg: 0 0 0 1px rgba(34, 232, 255, 0.18), 0 30px 80px -20px rgba(0, 0, 0, 0.9), 0 0 40px -10px rgba(34, 232, 255, 0.18);
+  --shadow-md: 0 12px 32px -12px rgba(0, 0, 0, 0.8);
+  --row: rgba(34, 232, 255, 0.02);
+  --card-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme='persona'] {
+  --bg: #0c0304;
+  --bg-deco:
+    repeating-linear-gradient(-58deg, rgba(255, 31, 68, 0.05) 0 2px, transparent 2px 22px),
+    radial-gradient(900px 600px at 100% 0%, rgba(255, 31, 68, 0.16), transparent 60%);
+  --panel: #140608;
+  --panel-2: #1f0a0d;
+  --panel-3: #2b0f13;
+  --glass: rgba(16, 4, 6, 0.8);
+  --line: rgba(255, 60, 80, 0.12);
+  --line-2: rgba(255, 60, 80, 0.26);
+  --text: #fff5f5;
+  --text-2: #d59aa1;
+  --text-3: #8a5a60;
+  --accent: #ff1f44;
+  --accent-2: #ffffff;
+  --accent-ink: #ffffff;
+  --ok: #4ade80;
+  --warn: #ffd23f;
+  --danger: #ff1f44;
+  --scrim: rgba(10, 0, 2, 0.74);
+  --shadow-lg: 0 30px 80px -20px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 31, 68, 0.2);
+  --shadow-md: 0 12px 32px -12px rgba(0, 0, 0, 0.8);
+  --row: rgba(255, 255, 255, 0.02);
+  --card-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.9);
+  --display-case: uppercase;
+}
+
+[data-theme='vapor'] {
+  --bg: #120a26;
+  --bg-deco:
+    radial-gradient(1200px 500px at 50% 120%, rgba(255, 113, 206, 0.22), transparent 60%),
+    radial-gradient(900px 500px at 0% 0%, rgba(1, 205, 254, 0.12), transparent 60%);
+  --panel: #190f34;
+  --panel-2: #23173f;
+  --panel-3: #2e1f50;
+  --glass: rgba(22, 12, 46, 0.78);
+  --line: rgba(255, 113, 206, 0.12);
+  --line-2: rgba(255, 113, 206, 0.24);
+  --text: #fcf0ff;
+  --text-2: #bba6d8;
+  --text-3: #7d6a9e;
+  --accent: #ff71ce;
+  --accent-2: #01cdfe;
+  --accent-ink: #1a0b2e;
+  --ok: #05ffa1;
+  --warn: #fffb96;
+  --danger: #ff5c8a;
+  --scrim: rgba(10, 4, 24, 0.7);
+  --shadow-lg: 0 30px 80px -20px rgba(5, 0, 20, 0.85), 0 0 0 1px rgba(255, 113, 206, 0.18);
+  --shadow-md: 0 12px 32px -12px rgba(5, 0, 20, 0.8);
+  --row: rgba(255, 255, 255, 0.025);
+  --card-shadow: 0 6px 16px -8px rgba(5, 0, 20, 0.9);
+}
+
+[data-theme='mono'] {
+  --bg: #0b0b0b;
+  --bg-deco: radial-gradient(1000px 600px at 50% -20%, rgba(255, 255, 255, 0.06), transparent 60%);
+  --panel: #131313;
+  --panel-2: #1b1b1b;
+  --panel-3: #252525;
+  --glass: rgba(14, 14, 14, 0.8);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.16);
+  --text: #f5f5f5;
+  --text-2: #a3a3a3;
+  --text-3: #6b6b6b;
+  --accent: #f5f5f5;
+  --accent-2: #a3a3a3;
+  --accent-ink: #0b0b0b;
+  --ok: #d4d4d4;
+  --warn: #d4d4d4;
+  --danger: #ff6b6b;
+  --scrim: rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 30px 80px -20px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-md: 0 12px 32px -12px rgba(0, 0, 0, 0.8);
+  --row: rgba(255, 255, 255, 0.02);
+  --card-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme='retro'] {
+  --bg: #1b120c;
+  --bg-deco:
+    radial-gradient(rgba(255, 159, 67, 0.07) 1.2px, transparent 1.4px) 0 0 / 14px 14px,
+    radial-gradient(1000px 600px at 0% 0%, rgba(255, 209, 102, 0.1), transparent 60%);
+  --panel: #23170e;
+  --panel-2: #2e1f13;
+  --panel-3: #3a2919;
+  --glass: rgba(30, 20, 12, 0.82);
+  --line: rgba(255, 190, 120, 0.1);
+  --line-2: rgba(255, 190, 120, 0.22);
+  --text: #fff1df;
+  --text-2: #c9a888;
+  --text-3: #8a6d55;
+  --accent: #ff9f43;
+  --accent-2: #ffd166;
+  --accent-ink: #1b120c;
+  --ok: #06d6a0;
+  --warn: #ffd166;
+  --danger: #ef476f;
+  --scrim: rgba(15, 8, 3, 0.7);
+  --shadow-lg: 0 30px 80px -20px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 190, 120, 0.14);
+  --shadow-md: 0 12px 32px -12px rgba(0, 0, 0, 0.8);
+  --row: rgba(255, 220, 180, 0.025);
+  --card-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme='matcha'] {
+  color-scheme: light;
+  --bg: #edf1e8;
+  --bg-deco:
+    radial-gradient(1000px 520px at 0% -10%, rgba(63, 143, 91, 0.12), transparent 60%),
+    radial-gradient(900px 500px at 100% -20%, rgba(192, 138, 62, 0.1), transparent 60%);
+  --panel: #fbfcf8;
+  --panel-2: #eef2e8;
+  --panel-3: #e2e8db;
+  --glass: rgba(250, 252, 246, 0.8);
+  --line: rgba(30, 50, 30, 0.08);
+  --line-2: rgba(30, 50, 30, 0.16);
+  --text: #1c2a1f;
+  --text-2: #5b6b5d;
+  --text-3: #93a295;
+  --accent: #3f8f5b;
+  --accent-2: #c08a3e;
+  --accent-ink: #ffffff;
+  --ok: #3f8f5b;
+  --warn: #c08a3e;
+  --danger: #d1495b;
+  --scrim: rgba(30, 45, 30, 0.3);
+  --shadow-lg: 0 30px 70px -24px rgba(30, 60, 30, 0.3), 0 0 0 1px rgba(30, 50, 30, 0.08);
+  --shadow-md: 0 12px 30px -14px rgba(30, 60, 30, 0.3);
+  --row: rgba(255, 255, 255, 0.55);
+  --card-shadow: 0 6px 14px -8px rgba(20, 40, 20, 0.4);
+}
+
+/* Display fonts (loaded on demand, see lib/fonts.ts) */
+[data-font='bebas'] { --font-display: 'Bebas Neue', var(--font-ui); --display-weight: 400; --display-tracking: 0.02em; }
+[data-font='bangers'] { --font-display: 'Bangers', var(--font-ui); --display-weight: 400; --display-tracking: 0.04em; }
+[data-font='rajdhani'] { --font-display: 'Rajdhani', var(--font-ui); --display-weight: 700; --display-tracking: 0.02em; }
+[data-font='orbitron'] { --font-display: 'Orbitron', var(--font-ui); --display-weight: 800; --display-tracking: 0.02em; }
+[data-font='pixel'] { --font-display: 'Press Start 2P', var(--font-ui); --display-weight: 400; --display-tracking: 0; }
+[data-font='rounded'] { --font-display: 'M PLUS Rounded 1c', var(--font-ui); --display-weight: 800; --display-tracking: 0; }
+[data-font='serif'] { --font-display: 'Fraunces', Georgia, serif; --display-weight: 800; --display-tracking: -0.02em; }
