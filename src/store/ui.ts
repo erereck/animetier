@@ -19,9 +19,10 @@ export interface PoolFilters {
   statuses: string[];
   decades: number[];
   hideSequels: boolean;
+  onlyIsekai: boolean;
 }
 
-export const EMPTY_FILTERS: PoolFilters = { genres: [], formats: [], statuses: [], decades: [], hideSequels: false };
+export const EMPTY_FILTERS: PoolFilters = { genres: [], formats: [], statuses: [], decades: [], hideSequels: false, onlyIsekai: false };
 
 interface UIStore {
   selected: Set<string>;
