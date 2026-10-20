@@ -141,6 +141,7 @@ function PoolTools() {
       {nf > 0 && (
         <div className="pool-filters">
           {filters.hideSequels && <FilterChip label="Sem continuações" onClear={() => useUI.getState().setFilters({ hideSequels: false })} />}
+          {filters.onlyIsekai && <FilterChip label="Só isekai" onClear={() => useUI.getState().setFilters({ onlyIsekai: false })} />}
           {filters.genres.map((g) => (
             <FilterChip key={g} label={g} onClear={() => useUI.getState().setFilters({ genres: filters.genres.filter((x) => x !== g) })} />
           ))}
@@ -244,6 +245,11 @@ function FilterPanel() {
       <label className="switch">
         Esconder continuações
         <input type="checkbox" checked={f.hideSequels} onChange={(e) => useUI.getState().setFilters({ hideSequels: e.target.checked })} />
+        <span className="track" />
+      </label>
+      <label className="switch">
+        Só isekai
+        <input type="checkbox" checked={f.onlyIsekai} onChange={(e) => useUI.getState().setFilters({ onlyIsekai: e.target.checked })} />
         <span className="track" />
       </label>
       {empty && <p className="hint">Itens do AniList trazem gênero, formato e ano — dá pra filtrar por eles aqui.</p>}

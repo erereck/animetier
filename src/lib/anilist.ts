@@ -132,7 +132,7 @@ export function mediaToItem(m: AniMedia, entry?: Omit<ListEntry, 'media'>): Item
     titleEnglish: n(t.english),
     titleNative: n(t.native),
     genres: m.genres || [],
-    tags: (m.tags || []).filter((x) => !x.isGeneralSpoiler && !x.isMediaSpoiler).slice(0, 12).map((x) => ({ name: x.name, rank: x.rank })),
+    tags: (m.tags || []).filter((x) => !x.isGeneralSpoiler && !x.isMediaSpoiler).map((x) => ({ name: x.name, rank: x.rank })),
     studio: n(m.studios?.nodes?.[0]?.name),
     year: n(m.startDate?.year),
     month: n(m.startDate?.month),

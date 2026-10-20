@@ -14,11 +14,12 @@ export function matches(item: Item, q: string): boolean {
 }
 
 export function activeFilterCount(f: PoolFilters) {
-  return f.genres.length + f.formats.length + f.statuses.length + f.decades.length + (f.hideSequels ? 1 : 0);
+  return f.genres.length + f.formats.length + f.statuses.length + f.decades.length + (f.hideSequels ? 1 : 0) + (f.onlyIsekai ? 1 : 0);
 }
 
 export function passesFilters(i: Item, f: PoolFilters): boolean {
   if (f.hideSequels && isSequel(i)) return false;
+  if (f.onlyIsekai && !i.tags?.some((t) => t.name === 'Isekai')) return false;
   if (f.genres.length && !f.genres.some((g) => i.genres?.includes(g))) return false;
   if (f.formats.length && !(i.format && f.formats.includes(i.format))) return false;
   if (f.statuses.length && !(i.listStatus && f.statuses.includes(i.listStatus))) return false;
